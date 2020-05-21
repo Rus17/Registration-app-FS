@@ -1,0 +1,10 @@
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  width: 80%;
+  background-color: antiquewhite;
+  margin: 0 auto;
+  height: 95vh;
+}

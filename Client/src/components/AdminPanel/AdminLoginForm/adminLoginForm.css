@@ -1,0 +1,28 @@
+.adminLoginForm{
+  background-color: lightcoral;
+  padding: 20px;
+  width: 250px;
+/*  margin: 0 auto;*/
+}
+
+.titleForm{
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.adminLoginForm .label{
+  margin-top: 10px;
+}
+
+.adminLoginForm .field{
+  width: 93%;
+}
+
+.buttonAdmForm{
+  margin-top: 10px;
+  width: 100px;
+  margin-left: 150px;
+}
+
+
