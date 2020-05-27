@@ -6,12 +6,14 @@ import Page2 from "./Page2"
 const Page2Container = (props) => {
   
   const listOfCountries = useSelector(state => state.participantsPage.listOfCountries)
+  const currentPageForm = useSelector(state => state.participantsPage.currentPageForm)
+  
   
   return <>    
     <Page2 
           prevPageHandler={props.prevPageHandler}
-          pageNumber={props.pageNumber}
-          listOfCountries={listOfCountries}            
+          currentPageForm={currentPageForm}
+          listOfCountries={listOfCountries}        
     />
   </>
 }

@@ -1,10 +1,12 @@
 const express = require('express')
 const router = express.Router()
 const bodyParser = require('body-parser')
- const urlencodedParser = bodyParser.urlencoded({extended: true});
-//const urlJSONParser = bodyParser.json()
+const urlencodedParser = bodyParser.urlencoded({extended: true});
+const urlJSONParser = bodyParser.json()
 
 const settParticipant = require('./conference_registration').settParticipant
+const sendMail = require('./sendMail')
+const validateParticipant = require("./validateParticipant")
 
 // router.options('*', (req, res) => {
 //   res.set('Access-Control-Allow-Origin', '*');
@@ -23,11 +25,7 @@ const settParticipant = require('./conference_registration').settParticipant
 // })
 
 //=============================== Registration  ===============================
-router.post('/conf_registration', urlJSONParser, settParticipant, (req, res) => {
-  console.log("router_worked")
-  res.sendStatus(200)
-  // res.status(200).send(res.locals.added_participant)       
-})
+router.post('/conf_registration', urlJSONParser, validateParticipant, settParticipant) //sendMail
 
 
 

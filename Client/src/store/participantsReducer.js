@@ -5,10 +5,13 @@ const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
 const GET_LIST_OF_COUNTRUES = "GET_LIST_OF_COUNTRUES"
 const GET_LIST_OF_COUNTRUES_SAGA = "GET_LIST_OF_COUNTRUES_SAGA"
 const SET_PARTICIPANT_SAGA = "SET_PARTICIPANT_SAGA"
+const SERVER_CHECK_ERROR = "SERVER_CHECK_ERROR"
+
 
 let initialState = {
   listOfCountries: [],
-  currentPageForm: 1
+  currentPageForm: 1,
+  serverCheckError: {}
 }
 
 const participantsReducer = (state = initialState, action) => {
@@ -28,6 +31,16 @@ const participantsReducer = (state = initialState, action) => {
       currentPageForm: action.payload
     }
   }
+  
+    case SERVER_CHECK_ERROR: {
+    return {
+      ...state,
+      serverCheckError: action.payload
+    }
+  }
+      
+      
+      
     default: return state
   }
 }
@@ -45,6 +58,13 @@ const getListOfCountriesAC = (payload) => {
   return ({
     type: GET_LIST_OF_COUNTRUES,
     payload 
+  })
+}
+
+const serverCheckErrorAC = (payload) => {
+  return ({
+    type: SERVER_CHECK_ERROR,
+    payload
   })
 }
 
@@ -79,10 +99,14 @@ export function* watchGetProductListSaga() {
 function* setParticipantSaga(dataAction) {
   try {
     const response = yield call(() => {return setParticipantAPI(dataAction.payload)})
-    console.log("resp", response.data)
+//    console.log("resp", response.data)
     yield put(setCurrentPageFormAC(3))
    }
-  catch(e){console.log(e, "failure")}
+  catch(error){
+//    console.log("resp catch", error.response.data)
+    yield put(serverCheckErrorAC(error.response.data))
+    yield put(setCurrentPageFormAC(3))
+  }
 }
 
 export function* watchSetParticipantSaga() {

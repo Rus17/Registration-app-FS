@@ -16,7 +16,7 @@ app.use("/", require("./routes/index"))
 //   res.send('ok');
 // });
 
-const connection = mariadb.createPool({
+const connection = mariadb.createConnection({   //const connection = mariadb.createConnection()
   host: 'localhost',
   user: 'Ruslan',
   password: 'testpasswd',

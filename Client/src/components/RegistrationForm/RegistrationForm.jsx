@@ -10,20 +10,18 @@ const RegistrationForm = (props) => {
     <>
       <form action="" onSubmit={props.handleSubmit} className="registrationForm"> 
         
-        {props.pageNumber === 1 && 
+        {props.currentPageForm === 1 && 
           <Page1Container 
             nextPageHandler={props.nextPageHandler}
-            pageNumber={props.pageNumber}
           />}
           
-          {props.pageNumber === 2 && 
+          {props.currentPageForm === 2 && 
           <Page2Container 
             prevPageHandler={props.prevPageHandler}
-            pageNumber={props.pageNumber}
           />}
-          {props.pageNumber === 2 && <button type="submit" className="buttonForm">Finish</button>}
+          {props.currentPageForm === 2 && <button type="submit" className="buttonForm">Finish</button>}
           
-          {props.pageNumber === 3 && <Page3Container />}
+          {props.currentPageForm === 3 && <Page3Container />}
           
       </form>
     </>

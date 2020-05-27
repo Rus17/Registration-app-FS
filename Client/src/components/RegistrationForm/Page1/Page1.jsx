@@ -4,7 +4,7 @@ import {Field} from 'redux-form'
 const Page1 = (props) => {
   return (
     <>
-      <div className="titleForm">Step {props.pageNumber}</div>
+      <div className="titleForm">Step {props.currentPageForm}</div>
       <label>First Name</label>
       <Field name="fName" required placeholder="First Name" component="input" type="text"/>
       <label>Last Name</label>

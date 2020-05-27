@@ -5,7 +5,7 @@ import {setParticipant_SAGA, getListOfCountries_SAGA, setCurrentPageFormAC} from
 
 const RegistrationFormContainer = (props) => {
   
-  const dispatch = useDispatch()
+  const dispatch = useDispatch()  
   const currentPageForm = useSelector(state => state.participantsPage.currentPageForm)
   
   const nextPageHandler = () => {
@@ -27,8 +27,8 @@ const RegistrationFormContainer = (props) => {
       <RegistrationForm 
         onSubmit={onSubmit}
         nextPageHandler={nextPageHandler}
-        prevPageHandler={prevPageHandler}      
-        pageNumber={currentPageForm}
+        prevPageHandler={prevPageHandler}
+        currentPageForm={currentPageForm}
       />
     </>
   )

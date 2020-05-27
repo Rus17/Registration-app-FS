@@ -10,10 +10,10 @@ const Page2 = (props) => {
   
   return (
     <>
-      <div className="titleForm">Step {props.pageNumber}</div>
+      <div className="titleForm">Step {props.currentPageForm}</div>
       <label>Arrival date</label>
       <Field name="arrivalDate" type="date" placeholder="Arrival date" component="input"/>
-          
+        
       <label>Departure date</label>
       <Field name="departureDate" type="date" placeholder="Departure date" component="input"/>
       
