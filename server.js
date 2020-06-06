@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
 var mariadb = require('mariadb/callback')
@@ -17,13 +18,13 @@ app.use("/", require("./routes/index"))
 // });
 
 const connection = mariadb.createConnection({   //const connection = mariadb.createConnection()
-  host: 'localhost',
-  user: 'Ruslan',
-  password: 'testpasswd',
-  database: 'conference'
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PWD,
+  database: process.env.DB
 })
 
-app.listen(4000, () => console.log('Express server is runnig at port no: 4000'))
+app.listen(process.env.PORT, () => console.log('Express server is runnig at port no: 4000'))
 
 module.exports.connection = connection
 

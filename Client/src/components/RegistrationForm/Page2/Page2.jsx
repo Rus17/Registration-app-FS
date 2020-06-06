@@ -1,5 +1,7 @@
 import React from "react"
 import {Field} from 'redux-form'
+import {required, minInput, email, alphabetic} from '../../../validators/validators'
+import {Input, Email} from '../../formsControl/formsControl'
 
 const Page2 = (props) => {
   
@@ -18,10 +20,20 @@ const Page2 = (props) => {
       <Field name="departureDate" type="date" placeholder="Departure date" component="input"/>
       
       <label>Company name</label>
-      <Field name="company" placeholder="Company name" component="input"/>
+      <Field 
+        name="company" 
+        placeholder="Company name"
+        component={Input}
+        validate={[required, minInput, alphabetic]} 
+      />
       
       <label>Position in company</label>
-      <Field name="position" placeholder="Position in company" component="input"/>
+      <Field 
+        name="position" 
+        placeholder="Position in company" 
+        component={Input}
+        validate={[required, minInput, alphabetic]}        
+      />
       
       <label>Role</label>
       <div>
