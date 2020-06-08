@@ -1,15 +1,18 @@
 import React from "react"
 import {Redirect} from 'react-router-dom'
 import AdminLoginForm from "./AdminLoginForm"
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import {authorization_SAGA} from "../../../store/usersReducer"
+
 
 const AdminLoginFormContainer = (props) => {
   
   const sAdmin = useSelector(state => state.usersPage.sAdmin)
-  const isAuth = useSelector(state => state.usersPage.isAuth);
+  const isAuth = useSelector(state => state.usersPage.isAuth)
+  const dispatch = useDispatch()
   
   const onSubmit = (formData) => {
-  // dispatch(authAC(formData))
+    dispatch(authorization_SAGA(formData))
   }
   
   //Отправляем запрос на сервер с логином и паролем, когда приходит "ОК", 

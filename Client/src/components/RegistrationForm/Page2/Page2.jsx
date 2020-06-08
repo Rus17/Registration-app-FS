@@ -1,7 +1,7 @@
 import React from "react"
 import {Field} from 'redux-form'
-import {required, minInput, email, alphabetic} from '../../../validators/validators'
-import {Input, Email} from '../../formsControl/formsControl'
+import {required, minInput, alphabetic} from '../../../validators/validators'
+import {Input} from '../../formsControl/formsControl'
 
 const Page2 = (props) => {
   

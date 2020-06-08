@@ -1,56 +1,83 @@
-// import { takeEvery, put, call } from "redux-saga/effects"
-// import {getListOfCountriesAPI} from "../api/api"
+ import { takeEvery, put, call } from "redux-saga/effects"
+ import {authorizationAPI, getUsersListAPI} from "../api/api"
 
-const GET_PARTICIPANTS = "GET_PARTICIPANTS"
-// const SET_PARTICIPANT = "SET_PARTICIPANT"
-// const GET_LIST_OF_COUNTRUES = "GET_LIST_OF_COUNTRUES"
-// const GET_LIST_OF_COUNTRUES_SAGA = "GET_LIST_OF_COUNTRUES_SAGA"
+//const GET_PARTICIPANTS = "GET_PARTICIPANTS"
+const GET_USERS = "GET_USERS"
+const GET_USERS_SAGA = "GET_USERS_SAGA"
+const AUTHORIZATION_S_ADMIN = "AUTHORIZATION_S_ADMIN"
+const AUTHORIZATION_SAGA = "AUTHORIZATION_SAGA"
+const AUTHORIZATION_ADMIN = "AUTHORIZATION_ADMIN"
 
 let initialState = {
   participantsList: [],
   usersList: [],
-  isAuth: "true",
-  sAdmin: true
+  isAuth: "",
+  sAdmin: false
 }
 
 
 const usersReducer = (state = initialState, action) => {
   
   switch (action.type){
-    
-    case GET_PARTICIPANTS: {
+      
+    case AUTHORIZATION_S_ADMIN: {
       return {
         ...state,
-//        participantsList: [...action.participantsList]  
+        sAdmin: true
       }
     }
-//      
-//    case GET_LIST_OF_COUNTRUES: {
+      
+    case AUTHORIZATION_ADMIN: {
+      return {
+        ...state,
+        isAuth: action.payload
+      }
+    }      
+      
+//    case GET_PARTICIPANTS: {
 //      return {
 //        ...state,
-//        listOfCountries: [...action.payload]  
+////        participantsList: [...action.participantsList]  
 //      }
 //    }
-//      
-//    case SET_PARTICIPANT: {
-//    return {
-//      ...state,
-//      participantsList: [...state.participantsList, {...action.payload}]
-//    }
-//  }
-//
+    case GET_USERS: {
+      return {
+        ...state,
+        usersList: [...action.usersList]  
+      }
+    }
+      
     default: return state
   }
 }
 
 //======================= AC =======================
+//======================= Get sers list ==============
+const getUsersAC = (UsersList) => {
+  return ({
+    type: GET_USERS,
+    UsersList: UsersList    
+  })
+}
+//======================= auth super admin ===============
+const authorizationSadminAC = () => {
+  return ({
+    type: AUTHORIZATION_S_ADMIN
+  })
+}
 
-//export const getParticipantsAC = (participantsList) => {
-//  return ({
-//    type: GET_PARTICIPANTS,
-//    participantsList: participantsList    
-//  })
-//}
+//======================= auth admin ===============
+const authorizationAdminAC = (payload) => {
+  return ({
+    type: AUTHORIZATION_ADMIN,
+    payload
+  })
+}
+
+
+
+
+
 //
 //export const setParticipantAC = (payload) => {
 //  return ({
@@ -58,35 +85,60 @@ const usersReducer = (state = initialState, action) => {
 //    payload 
 //  })
 //}
-//
-//const getListOfCountriesAC = (payload) => {
-//  return ({
-//    type: GET_LIST_OF_COUNTRUES,
-//    payload 
-//  })
-//}
-//
-//export const getListOfCountries_SAGA = () => {
-//  return ({type: GET_LIST_OF_COUNTRUES_SAGA})
-//}
-//
-//
-//
-////============================== Sagas ==============================
-////======================= Get List Of Countries =======================
-//function* getListOfCountriesSaga() {
-//   try {
-//      const response = yield call(() => {return getListOfCountriesAPI()})
-//      yield put(getListOfCountriesAC(response.data))
-//    }
-//   catch(e){
-//     console.log(e, "failure")
-//   }
-//}
-//
-//export function* watchGetProductListSaga() {
-//   yield takeEvery(GET_LIST_OF_COUNTRUES_SAGA, getListOfCountriesSaga)
-//}
-//
-//
+
+export const getUsers_SAGA = () => {
+  return ({type: GET_USERS_SAGA})
+}
+
+export const authorization_SAGA = (payload) => {
+  console.log("authorization_SAGA", payload)
+  return ({
+    type: AUTHORIZATION_SAGA,
+    payload
+  })
+}
+
+
+
+//============================== Sagas ==============================
+//======================= Get Users List =======================
+function* getUsersListSaga() {
+  try {
+    const response = yield call(() => {return getUsersListAPI()})
+    yield put(getUsersAC(response.data))
+  }
+  catch(e){
+    console.log(e, "failure")
+  }
+}
+
+export function* watchGetUsersListSaga() {
+  yield takeEvery(GET_USERS_SAGA, getUsersListSaga)
+}
+
+//======================= Authorization =======================
+function* authorizationSaga(dataAction) {
+  try {
+    const response = yield call(() => {return authorizationAPI(dataAction.payload)})
+    console.log("response.data: ", response.data)
+    if(response.data.Role === "super_admin"){
+      yield put(authorizationSadminAC())
+    } else {
+      yield put(authorizationAdminAC(response.data.fName)) 
+    }
+  }
+  catch(e){
+    console.log(e, "failure")
+  }
+}
+
+export function* watchAuthorizationSaga() {
+  yield takeEvery(AUTHORIZATION_SAGA, authorizationSaga)
+}
+
+
+
+
+
+
 export default usersReducer

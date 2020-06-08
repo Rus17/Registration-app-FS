@@ -91,7 +91,7 @@ function* getListOfCountriesSaga() {
   catch(e){console.log(e, "failure")}
 }
 
-export function* watchGetProductListSaga() {
+export function* watchGetListOfCountriesSaga() {
   yield takeEvery(GET_LIST_OF_COUNTRUES_SAGA, getListOfCountriesSaga)
 }
 

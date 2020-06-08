@@ -10,15 +10,15 @@ const AdminLoginForm = (props) => {
         <label>Email</label>
       </div>
       <div>
-        <Field className="field" name="fName" placeholder=" " component="input" type="email"/>
+        <Field className="field" name="email" placeholder=" " component="input" type="email"/>
       </div>
       <div className="label">
         <label>Password</label>
       </div>
       <div>
-        <Field className="field" name="lName" placeholder=" " component="input" type="text"/>
+        <Field className="field" name="passwd" placeholder=" " component="input" type="text"/>
       </div>
-            
+      
       <button type="submit" className="buttonAdmForm">Login</button>
       </form>
   </>)

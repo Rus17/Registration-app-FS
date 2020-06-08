@@ -1,7 +1,7 @@
 import * as axios from "axios"
 
 //https://restcountries.eu/rest/v2/all
-const server = "http://localhost:4000/"
+//const server = "http://localhost:4000/"
 
 
 export const getListOfCountriesAPI = () => {
@@ -14,6 +14,20 @@ export const setParticipantAPI = (payload) => {
     headers: {'content-type': 'application/json'}
   })
 }
+
+export const authorizationAPI = (payload) => {
+  const payloadJSON = JSON.stringify(payload)
+  return axios.post(`http://localhost:4000/admin`, payloadJSON, {
+    headers: {'content-type': 'application/json'}
+  })
+}
+
+export const getUsersListAPI = () => {
+//  const payloadJSON = JSON.stringify(payload)
+  return axios.get(`http://localhost:4000/users`)
+}
+
+
 
 // export const authorizationAPI = (data, reg) => {
 //   let regUrl = reg ? "register" : "login"
