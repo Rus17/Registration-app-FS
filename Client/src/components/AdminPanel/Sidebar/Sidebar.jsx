@@ -2,16 +2,20 @@ import React from "react"
 import {NavLink} from "react-router-dom"
 import "./sidebar.css"
 
-const Sidebar = (props) => {
+const Sidebar = ({sAdmin, admin, logoutHandler}) => {
   return (<div className="sidebar">
+     
+    <div className="itemSideBar welcome">
+      Welcome {admin && admin}{sAdmin && "Super administrator"}! <br /> Have a nice day!
+    </div>
       
-    <NavLink to="/admin/participants" className="activeLink">Participants</NavLink>
+    <NavLink to="/admin/participants" className="itemSideBar">Participants</NavLink>
     
-    {props.sAdmin 
-    ? <NavLink to="/admin/users" className="activeLink">Users</NavLink>
-    : <div className="inactiveLink">Users</div>}
+    {sAdmin 
+    ? <NavLink to="/admin/users" className="itemSideBar">Users</NavLink>
+    : <div className="itemSideBar inactiveLink">Users</div>}
     
-    <div className="activeLink">Logout</div>
+    <div className="itemSideBar link" onClick={logoutHandler} >Logout</div>
     
   </div>)
 }

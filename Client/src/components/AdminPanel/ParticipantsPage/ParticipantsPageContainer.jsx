@@ -4,16 +4,17 @@ import { useSelector } from 'react-redux'
 import ParticipantsPage from "./ParticipantsPage"
 import SidebarContainer from "../Sidebar/SidebarContainer"
 
-const ParticipantsPageContainer = (props) => {
+const ParticipantsPageContainer = () => {
   
   const isAuth = useSelector(state => state.usersPage.isAuth)
+  const sAdmin = useSelector(state => state.usersPage.sAdmin)
   
   return (<>
     
     <SidebarContainer />
     
     {
-      isAuth 
+      isAuth || sAdmin
       ? <ParticipantsPage />
       : <Redirect to={"/admin"} />
     }    

@@ -7,12 +7,27 @@
   height: 100%;
 /*  padding: 20px;*/
 }
-.activeLink{
+
+.itemSideBar{
   margin-top: 20px;
   margin-left: 20px;
 }
 
+.welcome{
+  font-style: italic;
+  font-size: 1.1em;
+}
+
+.activeLink{
+
+}
+
 .inactiveLink{
   color: darkgrey;
-  margin-top: 20px;
+}
+
+.link{
+  text-decoration: underline;
+  color: blue;
+  cursor: pointer;
 }

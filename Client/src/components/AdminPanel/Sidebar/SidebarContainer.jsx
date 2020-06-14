@@ -1,13 +1,21 @@
 import React from "react"
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import Sidebar from "./Sidebar"
+import {logoutAC} from "../../../store/usersReducer"
 
 const SidebarContainer = (props) => {
   
-  const sAdmin = useSelector(state => state.usersPage.sAdmin);
+  const sAdmin = useSelector(state => state.usersPage.sAdmin)
+  const admin = useSelector(state => state.usersPage.isAuth)
+  const dispatch = useDispatch()
+  
+  const logoutHandler = () => {
+    dispatch(logoutAC())
+  }
+  
   
   return (<>
-    <Sidebar sAdmin={sAdmin}/>
+    <Sidebar sAdmin={sAdmin} admin={admin} logoutHandler={logoutHandler}/>
   </>)
 }
 

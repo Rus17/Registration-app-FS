@@ -9,6 +9,7 @@ const AdminLoginFormContainer = (props) => {
   
   const sAdmin = useSelector(state => state.usersPage.sAdmin)
   const isAuth = useSelector(state => state.usersPage.isAuth)
+  const authError = useSelector(state => state.usersPage.authError)
   const dispatch = useDispatch()
   
   const onSubmit = (formData) => {
@@ -21,7 +22,7 @@ const AdminLoginFormContainer = (props) => {
   return (<>
     {sAdmin && <Redirect to={"/admin/users"} />}
     {isAuth && <Redirect to={"/admin/participants"} />}
-    <AdminLoginForm onSubmit={onSubmit} />
+    <AdminLoginForm onSubmit={onSubmit} authError={authError}/>
   </>)
   
 }

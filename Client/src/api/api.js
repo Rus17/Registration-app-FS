@@ -22,10 +22,10 @@ export const authorizationAPI = (payload) => {
   })
 }
 
-export const getUsersListAPI = () => {
-//  const payloadJSON = JSON.stringify(payload)
-  return axios.get(`http://localhost:4000/users`)
-}
+//export const getUsersListAPI = () => {
+////  const payloadJSON = JSON.stringify(payload)
+//  return axios.get(`http://localhost:4000/users`)
+//}
 
 
 

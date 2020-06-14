@@ -5,7 +5,7 @@ const urlencodedParser = bodyParser.urlencoded({extended: true});
 const urlJSONParser = bodyParser.json()
 
 const settParticipant = require('./conference_registration').settParticipant
-const getUsers = require('./users_of_db').getUsers
+const getUsersAndParticipants = require('./users_of_db').getUsersAndParticipants
 const authUser = require('./users_of_db').authUser
 
 
@@ -27,20 +27,19 @@ const validateParticipant = require("./validateParticipant")
 //   res.send(req.params.id)
 //
 
-//================================ FOR PARTUCUPANTS ===========================
+//================================ FOR PARTICIPANTS ===========================
 //=============================== Registration  ===============================
 router.post('/conf_registration', urlJSONParser, validateParticipant, settParticipant) //sendMail
 
 
+
+
+//================================== FOR ADMIN ===========================
 //=============================== Authorization  ==============================
-router.post('/admin', urlJSONParser, authUser)
+router.post('/admin', urlJSONParser, authUser, getUsersAndParticipants)
 
-
-
-
-//================================== FOR SUPER ADMIN ===========================
 //=============================== Get users list  ==============================
-router.get('/users', getUsers)
+//router.get('/users', getUsers)
 
 
 

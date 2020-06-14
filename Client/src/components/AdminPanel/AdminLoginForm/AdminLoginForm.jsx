@@ -2,10 +2,13 @@ import React from "react"
 import {reduxForm, Field} from 'redux-form'
 import "./adminLoginForm.css"
 
-const AdminLoginForm = (props) => {
+const AdminLoginForm = ({handleSubmit, authError}) => {
+//  console.log("props", props)
   return(<>
-    <form action="" onSubmit={props.handleSubmit} className="adminLoginForm">        
+    <form action="" onSubmit={handleSubmit} className="adminLoginForm">        
       <div className="titleForm">Login to admin panel</div>
+      {authError && <div className="error"> {authError}</div>}
+      
       <div className="label">
         <label>Email</label>
       </div>

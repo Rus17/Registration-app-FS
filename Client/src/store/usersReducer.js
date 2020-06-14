@@ -1,18 +1,21 @@
  import { takeEvery, put, call } from "redux-saga/effects"
- import {authorizationAPI, getUsersListAPI} from "../api/api"
+ import {authorizationAPI} from "../api/api"
 
 //const GET_PARTICIPANTS = "GET_PARTICIPANTS"
 const GET_USERS = "GET_USERS"
-const GET_USERS_SAGA = "GET_USERS_SAGA"
+//const GET_USERS_SAGA = "GET_USERS_SAGA"
 const AUTHORIZATION_S_ADMIN = "AUTHORIZATION_S_ADMIN"
 const AUTHORIZATION_SAGA = "AUTHORIZATION_SAGA"
 const AUTHORIZATION_ADMIN = "AUTHORIZATION_ADMIN"
+const LOGOUT = "LOGOUT"
+const AUTH_ERROR = "AUTH_ERROR"
 
 let initialState = {
   participantsList: [],
-  usersList: [],
+  userList: [],
   isAuth: "",
-  sAdmin: false
+  sAdmin: false,
+  authError: ""
 }
 
 
@@ -43,7 +46,22 @@ const usersReducer = (state = initialState, action) => {
     case GET_USERS: {
       return {
         ...state,
-        usersList: [...action.usersList]  
+        userList: [...action.payload]  
+      }
+    }
+      
+    case LOGOUT: {
+      return {
+        ...state,
+        isAuth: "",
+        sAdmin: false
+      }
+    }
+      
+    case AUTH_ERROR: {
+      return {
+        ...state,
+        authError: action.payload
       }
     }
       
@@ -52,11 +70,12 @@ const usersReducer = (state = initialState, action) => {
 }
 
 //======================= AC =======================
-//======================= Get sers list ==============
-const getUsersAC = (UsersList) => {
+//======================= Get user list ==============
+const getUsersAC = (payload) => {
+  console.log("AC", payload)
   return ({
     type: GET_USERS,
-    UsersList: UsersList    
+    payload
   })
 }
 //======================= auth super admin ===============
@@ -74,9 +93,20 @@ const authorizationAdminAC = (payload) => {
   })
 }
 
+//======================= Logout ===============
+export const logoutAC = () => {
+  return ({
+    type: LOGOUT
+  })
+}
 
-
-
+//================ Authorisation Error ===============
+const authErrorAC = (payload) => {
+  return ({
+    type: AUTH_ERROR,
+    payload
+  })
+}
 
 //
 //export const setParticipantAC = (payload) => {
@@ -86,12 +116,11 @@ const authorizationAdminAC = (payload) => {
 //  })
 //}
 
-export const getUsers_SAGA = () => {
-  return ({type: GET_USERS_SAGA})
-}
+//export const getUsers_SAGA = () => {
+//  return ({type: GET_USERS_SAGA})
+//}
 
 export const authorization_SAGA = (payload) => {
-  console.log("authorization_SAGA", payload)
   return ({
     type: AUTHORIZATION_SAGA,
     payload
@@ -99,36 +128,37 @@ export const authorization_SAGA = (payload) => {
 }
 
 
-
 //============================== Sagas ==============================
 //======================= Get Users List =======================
-function* getUsersListSaga() {
-  try {
-    const response = yield call(() => {return getUsersListAPI()})
-    yield put(getUsersAC(response.data))
-  }
-  catch(e){
-    console.log(e, "failure")
-  }
-}
-
-export function* watchGetUsersListSaga() {
-  yield takeEvery(GET_USERS_SAGA, getUsersListSaga)
-}
+//function* getUsersListSaga() {
+//  try {
+//    const response = yield call(() => {return getUsersListAPI()})
+//    yield put(getUsersAC(response.data))
+//  }
+//  catch(e){
+//    console.log(e, "failure")
+//  }
+//}
+//
+//export function* watchGetUsersListSaga() {
+//  yield takeEvery(GET_USERS_SAGA, getUsersListSaga)
+//}
 
 //======================= Authorization =======================
 function* authorizationSaga(dataAction) {
   try {
     const response = yield call(() => {return authorizationAPI(dataAction.payload)})
-    console.log("response.data: ", response.data)
-    if(response.data.Role === "super_admin"){
+    console.log("Saga: ", response.data)
+    if(response.data.dataUser.role === "super_admin"){
       yield put(authorizationSadminAC())
+      yield put(getUsersAC(response.data.userList))
     } else {
-      yield put(authorizationAdminAC(response.data.fName)) 
+      yield put(authorizationAdminAC(response.data.dataUser.fName)) 
     }
+    
   }
-  catch(e){
-    console.log(e, "failure")
+  catch(error){
+    yield put(authErrorAC(error.response.data))
   }
 }
 
