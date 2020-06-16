@@ -8,6 +8,7 @@ const ParticipantsPageContainer = () => {
   
   const isAuth = useSelector(state => state.usersPage.isAuth)
   const sAdmin = useSelector(state => state.usersPage.sAdmin)
+  const participantList = useSelector(state => state.usersPage.participantList)
   
   return (<>
     
@@ -15,7 +16,7 @@ const ParticipantsPageContainer = () => {
     
     {
       isAuth || sAdmin
-      ? <ParticipantsPage />
+      ? <ParticipantsPage participantList={participantList} />
       : <Redirect to={"/admin"} />
     }    
     

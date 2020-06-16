@@ -16,9 +16,9 @@ const UsersPage = ({userList}) => {
   })
   
   return (
-    <div className="usersPage">    
+    <div className="usersPage">
+    <div className="titleTable">A list of users</div>
     <table>
-      <caption>UsersPage</caption>
       <thead>
         <tr>
           <th>First Name</th>

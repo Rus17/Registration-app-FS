@@ -40,12 +40,11 @@ module.exports.getUsersAndParticipants = (req, res, next) => {
     return
   }
   
-  console.log("res: ", res.locals.dataUser)
+  const dataUser = res.locals.dataUser
+  let participantList
   
-  let combinedResponse
-  
-  if(res.locals.dataUser.role === "super_admin"){
-    const sql = "SELECT * FROM Users"
+  if(dataUser.role === "super_admin" || dataUser.role === "admin"){
+    const sql = "SELECT * FROM Participants"
     db.connection.query(sql, (err, results, fields) => {
 
       if (err){
@@ -54,18 +53,34 @@ module.exports.getUsersAndParticipants = (req, res, next) => {
         return
       }    
 
-      console.log("res.locals.dataUser.First_Name: ", res.locals.dataUser.fName)
-      console.log("results: ", results)
+      participantList = results
+      
+        if(dataUser.role === "super_admin"){
+          const sql = "SELECT * FROM Users"
+          db.connection.query(sql, (err, results, fields) => {
 
-      combinedResponse = {
-        dataUser: res.locals.dataUser,
-        userList: results
-      }
+            if (err){
+              console.log("error1 :", err)
+              res.status(403).send('DB error')
+              return
+            }
+            
+            const combinedResponse = {
+              dataUser,
+              userList: results,
+              participantList
+            }
 
-      res.status(200).json(combinedResponse)
+            res.status(200).json(combinedResponse)
+          })
+        }
+      
+      
     })
   }
   
   
+  
+
 }
 

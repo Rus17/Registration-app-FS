@@ -1,7 +1,7 @@
  import { takeEvery, put, call } from "redux-saga/effects"
  import {authorizationAPI} from "../api/api"
 
-//const GET_PARTICIPANTS = "GET_PARTICIPANTS"
+const GET_PARTICIPANTS = "GET_PARTICIPANTS"
 const GET_USERS = "GET_USERS"
 //const GET_USERS_SAGA = "GET_USERS_SAGA"
 const AUTHORIZATION_S_ADMIN = "AUTHORIZATION_S_ADMIN"
@@ -11,7 +11,7 @@ const LOGOUT = "LOGOUT"
 const AUTH_ERROR = "AUTH_ERROR"
 
 let initialState = {
-  participantsList: [],
+  participantList: [],
   userList: [],
   isAuth: "",
   sAdmin: false,
@@ -37,12 +37,14 @@ const usersReducer = (state = initialState, action) => {
       }
     }      
       
-//    case GET_PARTICIPANTS: {
-//      return {
-//        ...state,
-////        participantsList: [...action.participantsList]  
-//      }
-//    }
+    case GET_PARTICIPANTS: {
+      console.log("reducer: ", action)
+      return {
+        ...state,
+        participantList: [...action.payload]  
+      }
+    }
+      
     case GET_USERS: {
       return {
         ...state,
@@ -72,9 +74,15 @@ const usersReducer = (state = initialState, action) => {
 //======================= AC =======================
 //======================= Get user list ==============
 const getUsersAC = (payload) => {
-  console.log("AC", payload)
   return ({
     type: GET_USERS,
+    payload
+  })
+}
+//======================= Get participants list ==============
+const getParticipantsAC = (payload) => {
+  return ({
+    type: GET_PARTICIPANTS,
     payload
   })
 }
@@ -108,13 +116,6 @@ const authErrorAC = (payload) => {
   })
 }
 
-//
-//export const setParticipantAC = (payload) => {
-//  return ({
-//    type: SET_PARTICIPANT,
-//    payload 
-//  })
-//}
 
 //export const getUsers_SAGA = () => {
 //  return ({type: GET_USERS_SAGA})
@@ -152,6 +153,7 @@ function* authorizationSaga(dataAction) {
     if(response.data.dataUser.role === "super_admin"){
       yield put(authorizationSadminAC())
       yield put(getUsersAC(response.data.userList))
+      yield put(getParticipantsAC(response.data.participantList))
     } else {
       yield put(authorizationAdminAC(response.data.dataUser.fName)) 
     }
