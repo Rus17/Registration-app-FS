@@ -3,7 +3,7 @@ import React from "react"
 
 const Page3 = ({registrationData, currentPageForm, serverCheckError}) => {
   
-  console.log("serverCheckError", serverCheckError)
+  // console.log("serverCheckError", serverCheckError)
   
   if(Object.keys(serverCheckError).length > 0){
     return(

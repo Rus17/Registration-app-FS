@@ -1,10 +1,5 @@
 const validator = require('validator')
 
-
-//validator.isEmail('foo@bar.com'); //=> true
-
-
-
 module.exports = validateParticipant = (req, res, next) => {
   console.log("req.body", req.body)
   const data = req.body
@@ -93,9 +88,7 @@ module.exports = validateParticipant = (req, res, next) => {
       errors.departureDate = 'Departure date must be in "YYYY-MM-DD" format'
     }    
   } else {errors.departureDate = 'Departure date field is required.'}
-  
-//  isISO8601(str)
-  
+    
   if(data.birthdate) {
     if(!validator.isLength(data.birthdate, {min: 10, max: 10})) {
       errors.birthdate = 'Birthdate must be 10 characters'
@@ -113,18 +106,11 @@ module.exports = validateParticipant = (req, res, next) => {
       errors.email = 'Email must be in "xxx@xxx.xx" format'
     }    
   } else {errors.email = 'Email field is required.'}
-  
- 
 
-//  return {
-//    errors, 
-//    isValid: (Object.keys(errors).length == 0 ? true : false)
-//  }
   
   if (Object.keys(errors).length > 0){
     console.log("Error Participant", errors)
     res.status(400).json(errors)
-//    next()
     return
   }
   
@@ -133,12 +119,3 @@ module.exports = validateParticipant = (req, res, next) => {
   next()
   
 }
-
-//isEmpty(str [, options])
-//isEmail(str [, options])
-//isLength(str [, options])
-//isDate(input, [, format])
-
-//Является-ли это строкой
-//Длинна больше 0
-//В пределах 2-10 символов

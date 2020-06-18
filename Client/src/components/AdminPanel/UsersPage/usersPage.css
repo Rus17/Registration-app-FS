@@ -1,7 +1,13 @@
+/* @font-face {
+  font-family: "Liber sans";
+  src: url(../../../../public/fonts/LiberationSans-Regular.ttf);
+ } */
+
 .usersPage{
   background-color: azure;
   width: 80%;
-  height: 100vh;  
+  height: 100vh;
+  /* font-family: "Liber sans"; */
 }
 
 .titleTable {

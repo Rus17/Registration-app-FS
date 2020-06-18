@@ -60,43 +60,5 @@ module.exports.settParticipant = (req, res, next) => {
     console.log("Done Participant added to DB")
     res.status(200).send("Data is valid")
     
-//    const sql = `SELECT * FROM Participants WHERE Email = ?`     
-//    db.connection.query(sql, req.body.email, (err, results, fields) => {
-//
-//      if (err){
-//        console.log("error2 :", err)
-//        res.status(403).send('DB error')      
-//        return
-//      }
-//
-//      // может быть преобразовать в json
-//      const added_participant = results
-//      // Отправить объект нового участника на фронт
-//      res.locals.added_participant = added_participant
-//      next()
-//    })  
   })
 }
-
-
-
-
-
-
-
-
-// module.exports.gettingCities = (req, res, next) => {
-//   //Get the list of user cities from the DB
-//   const sql = 'SELECT Cities FROM UserWether WHERE UserName = ?'
-//   let arrCities
-//   db.connection.query(sql, res.locals.userName, (err, results, fields) => {
-//     if (!err) {
-//       if(results[0].Cities){
-//         arrCities = results[0].Cities.split("|")
-//       }
-//       res.locals.arrCities = arrCities
-//       next()
-
-//     } else res.sendStatus(403)
-//   })   
-// }

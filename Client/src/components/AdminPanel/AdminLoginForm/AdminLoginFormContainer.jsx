@@ -2,7 +2,7 @@ import React from "react"
 import {Redirect} from 'react-router-dom'
 import AdminLoginForm from "./AdminLoginForm"
 import { useSelector, useDispatch } from 'react-redux'
-import {authorization_SAGA} from "../../../store/usersReducer"
+import {authorization_SAGA} from "../../../store/actionCreators/actionCreatorsUsers"
 
 
 const AdminLoginFormContainer = (props) => {

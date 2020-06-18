@@ -4,7 +4,6 @@ const app = express()
 var mariadb = require('mariadb/callback')
 // const bodyparser = require('body-parser')
 
-// app.use("/api", require("./api"))
 var cors = require('cors')
 // const gettingCities = require('./requestsSQL').gettingCities
 // const registrar = require('./authentication').registrar

@@ -2,12 +2,12 @@ import {combineReducers, createStore, applyMiddleware} from 'redux'
 import {reducer as formReducer} from 'redux-form'
 import createSagaMiddleware from 'redux-saga'
 
-import participantsReducer, { watchGetListOfCountriesSaga, watchSetParticipantSaga } from "./participantsReducer"
-import usersReducer, { watchAuthorizationSaga } from "./usersReducer"
+import participantsReducer from "./reducers/participantsReducer"
+import { watchGetListOfCountriesSaga, watchSetParticipantSaga 
+} from "./actionCreators/actionCreatorsParticipants"
 
-//import { watchGetListOfCountriesSaga, watchSetParticipantSaga } from './participantsReducer'
-//import { watchAuthorizationSaga } from './usersReducer'
-
+import usersReducer from "./reducers/usersReducer"
+import { watchAuthorizationSaga } from "./actionCreators/actionCreatorsUsers"
 
 
 let reducers = combineReducers({

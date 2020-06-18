@@ -1,7 +1,7 @@
 import React from "react"
 import { useSelector, useDispatch } from 'react-redux'
 import Sidebar from "./Sidebar"
-import {logoutAC} from "../../../store/usersReducer"
+import {logoutAC} from "../../../store/actionCreators/actionCreatorsUsers"
 
 const SidebarContainer = (props) => {
   

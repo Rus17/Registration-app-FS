@@ -8,30 +8,19 @@ const settParticipant = require('./conference_registration').settParticipant
 const getUsersAndParticipants = require('./users_of_db').getUsersAndParticipants
 const authUser = require('./users_of_db').authUser
 
-
 const sendMail = require('./sendMail')
 const validateParticipant = require("./validateParticipant")
 
-// router.options('*', (req, res) => {
-//   res.set('Access-Control-Allow-Origin', '*');
-//   res.set("Access-Control-Allow-Headers", "Content-Type");
-//   res.send('ok');
-// });
-
-
-//=============================== Root ===================================
-// router.post('/user', urlJSONParser, (req, res) => {
-//   console.log("req.params.id", req.params.id)
-//   console.log("request.query.id", req.query.id)
-//   console.log("request.query.id", req.body.id)
-//   res.send(req.params.id)
-//
 
 //================================ FOR PARTICIPANTS ===========================
 //=============================== Registration  ===============================
-router.post('/conf_registration', urlJSONParser, validateParticipant, settParticipant) //sendMail
-
-
+router.post(
+   '/conf_registration', 
+   urlJSONParser, 
+   validateParticipant, 
+   sendMail, 
+   settParticipant
+)
 
 
 //================================== FOR ADMIN ===========================

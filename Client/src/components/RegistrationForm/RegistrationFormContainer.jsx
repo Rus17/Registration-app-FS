@@ -1,7 +1,9 @@
 import React, {useEffect} from 'react'
 import RegistrationForm from "./RegistrationForm"
 import { useDispatch, useSelector } from 'react-redux'
-import {setParticipant_SAGA, getListOfCountries_SAGA, setCurrentPageFormAC} from "../../store/participantsReducer"
+import {
+  setParticipant_SAGA, getListOfCountries_SAGA, setCurrentPageFormAC
+} from "../../store/actionCreators/actionCreatorsParticipants"
 
 const RegistrationFormContainer = (props) => {
   
