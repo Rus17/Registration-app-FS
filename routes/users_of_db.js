@@ -24,6 +24,11 @@ module.exports.authUser = (req, res, next) => {
       return 
     }
     
+    if (results[0].Status === "blocked"){ //blocked || active
+      res.status(403).send('Your account has been deactivated. Contact your super administrator.')
+      return
+    } 
+    
     const dataUser = {role: results[0].Role, fName: results[0].First_Name}
     
     res.locals.dataUser = dataUser
@@ -42,11 +47,11 @@ module.exports.getUsersAndParticipants = (req, res, next) => {
   
   const dataUser = res.locals.dataUser
   let participantList
-  
+    
   if(dataUser.role === "super_admin" || dataUser.role === "admin"){
     const sql = "SELECT * FROM Participants"
     db.connection.query(sql, (err, results, fields) => {
-
+      console.log("Hi!")
       if (err){
         console.log("error1 :", err)
         res.status(403).send('DB error')
@@ -75,12 +80,15 @@ module.exports.getUsersAndParticipants = (req, res, next) => {
           })
         }
       
-      
+      if(dataUser.role === "admin"){
+        const combinedResponse = {
+              dataUser,
+              participantList
+            }
+
+        res.status(200).json(combinedResponse)
+      }      
     })
   }
-  
-  
-  
-
 }
 

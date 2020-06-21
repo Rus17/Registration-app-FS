@@ -22,6 +22,13 @@ export const authorizationAPI = (payload) => {
   })
 }
 
+export const updateUserAPI = (payload) => {
+  const payloadJSON = JSON.stringify(payload)
+  return axios.put(`http://localhost:4000/admin/update_user`, payloadJSON, {
+    headers: {'content-type': 'application/json'}
+  })
+}
+
 //export const getUsersListAPI = () => {
 ////  const payloadJSON = JSON.stringify(payload)
 //  return axios.get(`http://localhost:4000/users`)

@@ -1,7 +1,7 @@
 import React from "react"
 import "./usersPage.css"
 
-const UsersPage = ({userList}) => {
+const UsersPage = ({userList, userBlocker}) => {
   
   const userTable = userList.map((user, i, arr) => {
     return (
@@ -10,7 +10,9 @@ const UsersPage = ({userList}) => {
         <td>{user.Last_Name}</td>
         <td>{user.Email}</td>
         <td><button>Edit</button></td>
-        <td><button>Delete</button></td>    
+        {user.Status === "active" && <td><button onClick={userBlocker.bind(null, user.UserID)}>Block</button></td>}
+        {user.Status === "blocked" && <td><button>Activate</button><button>Delete</button></td>}
+          
       </tr>
     )
   })

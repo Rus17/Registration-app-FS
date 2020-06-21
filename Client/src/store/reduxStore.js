@@ -7,7 +7,8 @@ import { watchGetListOfCountriesSaga, watchSetParticipantSaga
 } from "./actionCreators/actionCreatorsParticipants"
 
 import usersReducer from "./reducers/usersReducer"
-import { watchAuthorizationSaga } from "./actionCreators/actionCreatorsUsers"
+import { watchAuthorizationSaga, watchUpdateUsersSaga 
+} from "./actionCreators/actionCreatorsUsers"
 
 
 let reducers = combineReducers({
@@ -22,6 +23,7 @@ let store = createStore(reducers, applyMiddleware(sagaMiddleware))
 sagaMiddleware.run(watchGetListOfCountriesSaga)
 sagaMiddleware.run(watchSetParticipantSaga)
 sagaMiddleware.run(watchAuthorizationSaga)
+sagaMiddleware.run(watchUpdateUsersSaga)
 
 window.store = store
 export default store

@@ -30,6 +30,9 @@ router.post('/admin', urlJSONParser, authUser, getUsersAndParticipants)
 //=============================== Get users list  ==============================
 //router.get('/users', getUsers)
 
+//=============================== Update user ===================================
+router.put('/admin/update_user', updateUser)
+
 
 
 
