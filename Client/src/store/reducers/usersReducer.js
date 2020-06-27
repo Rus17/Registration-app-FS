@@ -1,6 +1,6 @@
 import {
-  GET_PARTICIPANTS, GET_USERS, AUTHORIZATION_S_ADMIN, AUTHORIZATION_SAGA,
-  AUTHORIZATION_ADMIN, LOGOUT, AUTH_ERROR, UPDATE_USERS
+  GET_PARTICIPANTS, GET_USERS, AUTHORIZATION_S_ADMIN,
+  AUTHORIZATION_ADMIN, LOGOUT, AUTH_ERROR
 } from "../actionTypes/typesUsers"
 
 let initialState = {
@@ -37,13 +37,6 @@ const usersReducer = (state = initialState, action) => {
     }
       
     case GET_USERS: {
-      return {
-        ...state,
-        userList: [...action.payload]  
-      }
-    }
-    
-    case UPDATE_USERS: {
       return {
         ...state,
         userList: [...action.payload]  

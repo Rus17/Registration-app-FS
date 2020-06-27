@@ -7,7 +7,7 @@ import { watchGetListOfCountriesSaga, watchSetParticipantSaga
 } from "./actionCreators/actionCreatorsParticipants"
 
 import usersReducer from "./reducers/usersReducer"
-import { watchAuthorizationSaga, watchUpdateUsersSaga 
+import { watchAuthorizationSaga, watchUpdateUsersSaga, watchDelUserSaga
 } from "./actionCreators/actionCreatorsUsers"
 
 
@@ -24,6 +24,7 @@ sagaMiddleware.run(watchGetListOfCountriesSaga)
 sagaMiddleware.run(watchSetParticipantSaga)
 sagaMiddleware.run(watchAuthorizationSaga)
 sagaMiddleware.run(watchUpdateUsersSaga)
+sagaMiddleware.run(watchDelUserSaga)
 
 window.store = store
 export default store

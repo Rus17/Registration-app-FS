@@ -1,8 +1,8 @@
 import { takeEvery, put, call } from "redux-saga/effects"
-import {authorizationAPI, updateUserAPI} from "../../api/api"
+import {authorizationAPI, updateUserAPI, delUserAPI} from "../../api/api"
 import {
    GET_PARTICIPANTS, GET_USERS, AUTHORIZATION_S_ADMIN, AUTHORIZATION_SAGA,
-   AUTHORIZATION_ADMIN, LOGOUT, AUTH_ERROR, UPDATE_USERS, UPDATE_USER_SAGA
+   AUTHORIZATION_ADMIN, LOGOUT, AUTH_ERROR, UPDATE_USER_SAGA, DEL_USER_SAGA
  } from "../actionTypes/typesUsers"
 
 //======================= AC =======================
@@ -14,13 +14,6 @@ const getUsersAC = (payload) => {
    })
  }
 
-//======================= Update user list ==============
-const updateUsersAC = (payload) => {
-   return ({
-     type: UPDATE_USERS,
-     payload
-   })
- }
  //======================= Get participants list ==============
  const getParticipantsAC = (payload) => {
    return ({
@@ -72,6 +65,13 @@ export const updateUser_SAGA = (payload) => {
     payload
   })
 }
+
+export const delUser_SAGA = (payload) => {
+  return ({
+    type: DEL_USER_SAGA,
+    payload
+  })
+}
  
  
  //============================== Sagas ==============================
@@ -100,17 +100,18 @@ export function* watchAuthorizationSaga() {
 }
  
  
- //======================= Update Users =======================
+//======================= Update Users =======================
 function* updateUsersSaga(dataAction) {
   
-  try {
-    const updatedUser = dataAction.payload.newUserList.filter((user) => {
-      return user.UserID === dataAction.payload.id
+  try {    
+    const response = yield call(() => {
+      return updateUserAPI({
+        id: dataAction.payload.id, 
+        status: dataAction.payload.status
+      })
     })
-    
-    const response = yield call(() => {return updateUserAPI(updatedUser[0])})
-    if(response.data === "Ok"){
-      yield put(updateUsersAC(dataAction.payload.newUserList))
+    if(response.data === "OK"){
+      yield put(getUsersAC(dataAction.payload.newUserList))
     }     
   }
   catch(error){
@@ -120,6 +121,26 @@ function* updateUsersSaga(dataAction) {
  
 export function* watchUpdateUsersSaga() {
   yield takeEvery(UPDATE_USER_SAGA, updateUsersSaga)
+}
+
+//======================= Del User =======================
+function* delUserSaga(dataAction) {
+  
+  try {    
+    const response = yield call(() => {
+      return delUserAPI(dataAction.payload.id)
+    })
+    if(response.data === "OK"){
+      yield put(getUsersAC(dataAction.payload.newUserList))
+    }     
+  }
+  catch(error){
+    yield put(authErrorAC(error.response.data))
+  }
+}
+ 
+export function* watchDelUserSaga() {
+  yield takeEvery(DEL_USER_SAGA, delUserSaga)
 }
  
  

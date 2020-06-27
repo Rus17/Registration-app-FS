@@ -29,28 +29,6 @@ export const updateUserAPI = (payload) => {
   })
 }
 
-//export const getUsersListAPI = () => {
-////  const payloadJSON = JSON.stringify(payload)
-//  return axios.get(`http://localhost:4000/users`)
-//}
-
-
-
-// export const authorizationAPI = (data, reg) => {
-//   let regUrl = reg ? "register" : "login"
-//   let dataJSON = JSON.stringify(data)
-//   return axios.post(`${server}api/${regUrl}/`, dataJSON, {
-//      headers: { 'content-type': 'application/json' }
-//   })
-// }
-
-
-// export const sendMyCommentAPI = (data, id, token) => {
-//   let dataJSON = JSON.stringify(data)
-//   return axios.post(`${server}api/reviews/${id}`, dataJSON, {
-//      headers: {
-//        'content-type': 'application/json',
-//        'Authorization': `Token ${token}`
-//      }
-//   })
-// }
+export const delUserAPI = (payload) => {
+  return axios.delete(`http://localhost:4000/admin/del_user/${payload}`)
+}

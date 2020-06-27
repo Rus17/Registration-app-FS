@@ -6,7 +6,9 @@ const urlJSONParser = bodyParser.json()
 
 const settParticipant = require('./conference_registration').settParticipant
 const getUsersAndParticipants = require('./users_of_db').getUsersAndParticipants
+const updateUser = require('./users_of_db').updateUser
 const authUser = require('./users_of_db').authUser
+const delUser = require('./users_of_db').delUser
 
 const sendMail = require('./sendMail')
 const validateParticipant = require("./validateParticipant")
@@ -31,21 +33,11 @@ router.post('/admin', urlJSONParser, authUser, getUsersAndParticipants)
 //router.get('/users', getUsers)
 
 //=============================== Update user ===================================
-router.put('/admin/update_user', updateUser)
+router.put('/admin/update_user', urlJSONParser, updateUser)
 
+//=============================== Delete user ===================================
+router.delete('/admin/del_user/:id', delUser)
 
-
-
-// //=============================== Root ===================================
-// router.get('/', (req, res) => {
-//   if (req.cookies.token) {res.redirect("/My_favorite_cities")
-//   } else {res.render("loginForm", {logReg: 'log'})}
-// })
-
-// //=============================== Choose_cities ===================================
-// router.get('/Choose_cities_on', tokenVerifier, gettingCities, (req, res) => {
-//   res.render("ChooseCities.hbs", {name: res.locals.userName, listCities: res.locals.arrCities})
-// })
 
 module.exports = router
 
