@@ -1,0 +1,21 @@
+.userAddForm{
+  background-color: azure;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-row-gap: 5px;
+  grid-column-gap: 10px;
+}
+
+.userAddForm label{
+  text-align: end;
+}
+
+.userAddForm button{
+  width: 120px;
+  justify-self: end;
+}
+
+.sa{
+  color: crimson;
+}

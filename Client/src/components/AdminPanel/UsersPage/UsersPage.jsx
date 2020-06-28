@@ -1,4 +1,6 @@
 import React from "react"
+import {Redirect} from 'react-router-dom'
+import {NavLink} from "react-router-dom"
 import "./usersPage.css"
 
 const UsersPage = ({userList, userStatus, delUser}) => {
@@ -31,6 +33,7 @@ const UsersPage = ({userList, userStatus, delUser}) => {
         }
           
       </tr>
+      
     )
   })
   
@@ -52,6 +55,7 @@ const UsersPage = ({userList, userStatus, delUser}) => {
       </tbody>
       
     </table>
+    <NavLink to="/admin/users/add_user"><button>Add user</button></NavLink>
 
     
   </div>)

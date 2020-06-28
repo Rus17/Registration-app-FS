@@ -7,6 +7,7 @@ import AdminLoginFormContainer from "./components/AdminPanel/AdminLoginForm/Admi
 //import AdminPanelContainer from "./components/AdminPanel/AdminPanelContainer"
 import ParticipantsPageContainer from "./components/AdminPanel/ParticipantsPage/ParticipantsPageContainer"
 import UsersPageContainer from "./components/AdminPanel/UsersPage/UsersPageContainer"
+import UserAddFormContainer from "./components/AdminPanel/UserAddForm/UserAddFormContainer"
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
     
       <Route exact path="/admin/participants" component={ParticipantsPageContainer} />
       <Route exact path="/admin/users" component={UsersPageContainer} />
+      <Route exact path="/admin/users/add_user" component={UserAddFormContainer} />
     
       {/*<Route path='/product/:id' component={ProductContainer} />*/}
       {/*<RegistrationFormContainer />*/}

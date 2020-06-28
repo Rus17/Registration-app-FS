@@ -60,8 +60,6 @@ const Page2 = (props) => {
       
       <label>Birthdate</label>
       <Field name="birthdate" type="date" placeholder="Birthdate" component="input"/>
-    
-    
         
       <label>Country</label>
       <Field name="country"component="select">
