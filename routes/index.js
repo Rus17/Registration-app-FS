@@ -9,6 +9,7 @@ const getUsersAndParticipants = require('./users_of_db').getUsersAndParticipants
 const updateUser = require('./users_of_db').updateUser
 const authUser = require('./users_of_db').authUser
 const delUser = require('./users_of_db').delUser
+const addUser = require('./users_of_db').addUser
 
 const sendMail = require('./sendMail')
 const validateParticipant = require("./validateParticipant")
@@ -37,6 +38,9 @@ router.put('/admin/update_user', urlJSONParser, updateUser)
 
 //=============================== Delete user ===================================
 router.delete('/admin/del_user/:id', delUser)
+
+//=============================== Delete user ===================================
+router.post('/admin/add_user', urlJSONParser, addUser)
 
 
 module.exports = router

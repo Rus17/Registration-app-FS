@@ -134,3 +134,34 @@ module.exports.delUser = (req, res, next) => {
   })
   
 }
+
+//======================== Add User =========================
+module.exports.addUser = (req, res, next) => {
+  if (Object.keys(req.body).length == 0) { 
+    res.status(403).send('no data')
+    return
+  }
+  
+  const sql = `INSERT INTO Users (
+    Email, Passwd, Role, First_Name, Last_Name, Status) 
+    VALUES (?, ?, ?, ?, ?, ?)`
+  const userData = [
+    req.body.Email, 
+    req.body.Passwd, 
+    req.body.Role, 
+    req.body.First_Name, 
+    req.body.Last_Name, 
+    req.body.Status
+  ]
+
+  db.connection.query(sql, userData, (err, results, fields) => {
+    
+    if (err){
+      console.log("error1 :", err)
+      res.status(403).send('DB error')
+      return
+    }
+    res.status(200).send({insertId: results.insertId})
+  })
+  
+}

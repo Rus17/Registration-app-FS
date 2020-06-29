@@ -1,6 +1,6 @@
 import {
   GET_PARTICIPANTS, GET_USERS, AUTHORIZATION_S_ADMIN,
-  AUTHORIZATION_ADMIN, LOGOUT, AUTH_ERROR
+  AUTHORIZATION_ADMIN, LOGOUT, AUTH_ERROR, ADD_USER, USER_ERROR
 } from "../actionTypes/typesUsers"
 
 let initialState = {
@@ -8,7 +8,8 @@ let initialState = {
   userList: [],
   isAuth: "",
   sAdmin: false,
-  authError: ""
+  authError: "",
+  userError: ""
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -40,6 +41,20 @@ const usersReducer = (state = initialState, action) => {
       return {
         ...state,
         userList: [...action.payload]  
+      }
+    }
+      
+    case ADD_USER: {
+      return {
+        ...state,
+        userList: [...state.userList, action.payload]  
+      }
+    }
+    
+    case USER_ERROR: {
+      return {
+        ...state,
+        userError: action.payload 
       }
     }
       

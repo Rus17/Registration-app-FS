@@ -32,3 +32,11 @@ export const updateUserAPI = (payload) => {
 export const delUserAPI = (payload) => {
   return axios.delete(`http://localhost:4000/admin/del_user/${payload}`)
 }
+
+
+export const addUserAPI = (payload) => {
+  const payloadJSON = JSON.stringify(payload)
+  return axios.post(`http://localhost:4000/admin/add_user`, payloadJSON, {
+    headers: {'content-type': 'application/json'}
+  })
+}

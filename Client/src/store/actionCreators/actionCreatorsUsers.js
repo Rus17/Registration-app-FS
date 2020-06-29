@@ -1,56 +1,76 @@
 import { takeEvery, put, call } from "redux-saga/effects"
-import {authorizationAPI, updateUserAPI, delUserAPI} from "../../api/api"
 import {
-   GET_PARTICIPANTS, GET_USERS, AUTHORIZATION_S_ADMIN, AUTHORIZATION_SAGA,
-   AUTHORIZATION_ADMIN, LOGOUT, AUTH_ERROR, UPDATE_USER_SAGA, DEL_USER_SAGA
- } from "../actionTypes/typesUsers"
+  authorizationAPI, updateUserAPI, delUserAPI, addUserAPI
+} from "../../api/api"
+import {
+  GET_PARTICIPANTS, GET_USERS, AUTHORIZATION_S_ADMIN, AUTHORIZATION_SAGA,
+  AUTHORIZATION_ADMIN, LOGOUT, AUTH_ERROR, UPDATE_USER_SAGA, DEL_USER_SAGA,
+  ADD_USER, ADD_USER_SAGA, USER_ERROR
+} from "../actionTypes/typesUsers"
 
 //======================= AC =======================
 //======================= Get user list ==============
 const getUsersAC = (payload) => {
-   return ({
-     type: GET_USERS,
-     payload
-   })
- }
+  return ({
+    type: GET_USERS,
+    payload
+  })
+}
 
- //======================= Get participants list ==============
+//======================= Get participants list ==============
  const getParticipantsAC = (payload) => {
    return ({
      type: GET_PARTICIPANTS,
      payload
    })
- }
- //======================= auth super admin ===============
+}
+//======================= auth super admin ===============
  const authorizationSadminAC = () => {
    return ({
      type: AUTHORIZATION_S_ADMIN
    })
- }
+}
  
- //======================= auth admin ===============
+//======================= auth admin ===============
  const authorizationAdminAC = (payload) => {
    return ({
      type: AUTHORIZATION_ADMIN,
      payload
    })
- }
+}
  
- //======================= Logout ===============
+//======================= Logout ===============
  export const logoutAC = () => {
    return ({
      type: LOGOUT
    })
  }
  
- //================ Authorisation Error ===============
+//================ Authorisation Error ===============
  const authErrorAC = (payload) => {
-   return ({
-     type: AUTH_ERROR,
-     payload
-   })
- }
+  return ({
+    type: AUTH_ERROR,
+    payload
+  })
+}
  
+//================ Add user =============== 
+const addUsersAC = (payload) => {
+   return ({
+    type: ADD_USER,
+    payload
+  })
+}
+
+//================ User error=============== 
+const userErrorAC = (payload) => {
+   return ({
+    type: USER_ERROR,
+    payload
+  })
+}
+
+//===================== CS ====================== 
  
  export const authorization_SAGA = (payload) => {
    return ({
@@ -69,6 +89,13 @@ export const updateUser_SAGA = (payload) => {
 export const delUser_SAGA = (payload) => {
   return ({
     type: DEL_USER_SAGA,
+    payload
+  })
+}
+
+export const addUser_SAGA = (payload) => {
+  return ({
+    type: ADD_USER_SAGA,
     payload
   })
 }
@@ -141,6 +168,29 @@ function* delUserSaga(dataAction) {
  
 export function* watchDelUserSaga() {
   yield takeEvery(DEL_USER_SAGA, delUserSaga)
+}
+
+
+//======================= Add User =======================
+function* addUserSaga(dataAction) {
+  
+  try {    
+    const response = yield call(() => {
+      return addUserAPI(dataAction.payload)
+    })
+    
+    if(response.data.insertId){
+      dataAction = {...dataAction.payload, UserID: response.data.insertId}
+      yield put(addUsersAC(dataAction))
+    }     
+  }
+  catch(error){
+    yield put(userErrorAC(error.response.data))
+  }
+}
+ 
+export function* watchAddUserSaga() {
+  yield takeEvery(ADD_USER_SAGA, addUserSaga)
 }
  
  

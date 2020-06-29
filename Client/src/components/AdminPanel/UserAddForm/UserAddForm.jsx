@@ -6,13 +6,13 @@ import s from "./UserAddForm.module.css"
 
 const UserAddForm = ({handleSubmit}) => {
   return (<>
-    <form onSubmit={handleSubmit} className={s.userAddForm}>      
+    <form onSubmit={handleSubmit} className={s.userAddForm}>
       
       <label>
         Email
       </label>
       <Field
-        name="email"
+        name="Email"
         component={Input}
         type="email"
         placeholder="Email"
@@ -21,7 +21,7 @@ const UserAddForm = ({handleSubmit}) => {
       
       <label>Password</label>
       <Field
-        name="passwd"
+        name="Passwd"
         component={Input}
         type="text"
         placeholder="Password"
@@ -30,7 +30,7 @@ const UserAddForm = ({handleSubmit}) => {
       
       <label>First Name</label>
       <Field
-        name="firstName"
+        name="First_Name"
         component={Input}
         type="text"
         placeholder="First Name"
@@ -39,7 +39,7 @@ const UserAddForm = ({handleSubmit}) => {
       
       <label>Last Name</label>
       <Field
-        name="lastName"
+        name="Last_Name"
         component={Input}
         type="text"
         placeholder="Last Name"
@@ -51,7 +51,7 @@ const UserAddForm = ({handleSubmit}) => {
       <div>
         <label className={s.sa}>
           <Field 
-            name="role" 
+            name="Role" 
             component="input" 
             type="radio" 
             value="sadmin"             
@@ -60,13 +60,34 @@ const UserAddForm = ({handleSubmit}) => {
         </label>
         <label>
           <Field 
-            name="role" 
+            name="Role" 
             component="input" 
             type="radio" 
             value="admin"
-            checked
           />{' '}              
           Administrator
+        </label>
+      </div>
+      
+      <label>Status</label>
+      <div>
+        <label>
+          <Field 
+            name="Status" 
+            component="input" 
+            type="radio" 
+            value="active"             
+          />{' '}
+          Active
+        </label>
+        <label>
+          <Field 
+            name="Status" 
+            component="input" 
+            type="radio" 
+            value="blocked"            
+          />{' '}              
+          Blocked
         </label>
       </div>
 
