@@ -6,4 +6,5 @@
 .inputError div{
   color: darkred;
   font-weight: bold;
+  text-align: start;
 }

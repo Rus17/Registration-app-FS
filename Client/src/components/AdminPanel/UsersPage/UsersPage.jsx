@@ -55,7 +55,7 @@ const UsersPage = ({userList, userStatus, delUser}) => {
       </tbody>
       
     </table>
-    <NavLink to="/admin/users/add_user"><button>Add user</button></NavLink>
+    <NavLink to="/admin/users/add_user"><button className="addUserButton">Add user</button></NavLink>
 
     
   </div>)

@@ -5,7 +5,7 @@ import {
 import {
   GET_PARTICIPANTS, GET_USERS, AUTHORIZATION_S_ADMIN, AUTHORIZATION_SAGA,
   AUTHORIZATION_ADMIN, LOGOUT, AUTH_ERROR, UPDATE_USER_SAGA, DEL_USER_SAGA,
-  ADD_USER, ADD_USER_SAGA, USER_ERROR
+  ADD_USER, ADD_USER_SAGA, USER_ERROR, PRELOADER, REDIRECT
 } from "../actionTypes/typesUsers"
 
 //======================= AC =======================
@@ -13,6 +13,22 @@ import {
 const getUsersAC = (payload) => {
   return ({
     type: GET_USERS,
+    payload
+  })
+}
+
+//======================= Set preloader ==============
+const preloaderAC = (payload) => {
+  return ({
+    type: PRELOADER,
+    payload
+  })
+}
+
+//======================= Set redirect ==============
+export const redirectAC = (payload) => {
+  return ({
+    type: REDIRECT,
     payload
   })
 }
@@ -174,7 +190,8 @@ export function* watchDelUserSaga() {
 //======================= Add User =======================
 function* addUserSaga(dataAction) {
   
-  try {    
+  try {
+    yield put(preloaderAC(true))
     const response = yield call(() => {
       return addUserAPI(dataAction.payload)
     })
@@ -182,9 +199,12 @@ function* addUserSaga(dataAction) {
     if(response.data.insertId){
       dataAction = {...dataAction.payload, UserID: response.data.insertId}
       yield put(addUsersAC(dataAction))
+      yield put(preloaderAC(false))
+      yield put(redirectAC(true))
     }     
   }
   catch(error){
+    yield put(preloaderAC(false))
     yield put(userErrorAC(error.response.data))
   }
 }

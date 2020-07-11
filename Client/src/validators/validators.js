@@ -3,6 +3,11 @@ export const required = value => {
    return "This field is required"
 }
 
+export const requiredRadio = value => {
+  if(value) return undefined
+  return "One of two options is required"
+}
+
 export const minInput = value => {
   if (value && value.length < 3) return "This field cannot be less than 3 characters"
   return undefined

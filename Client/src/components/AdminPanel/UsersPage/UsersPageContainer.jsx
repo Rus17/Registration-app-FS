@@ -3,13 +3,15 @@ import UsersPage from "./UsersPage"
 import SidebarContainer from "../Sidebar/SidebarContainer"
 import { useSelector, useDispatch } from 'react-redux'
 import {Redirect} from "react-router-dom"
-import {updateUser_SAGA, delUser_SAGA} from "../../../store/actionCreators/actionCreatorsUsers"
+import {updateUser_SAGA, delUser_SAGA, redirectAC} from "../../../store/actionCreators/actionCreatorsUsers"
 
 const UsersPageContainer = (props) => {
   
   const sAdmin = useSelector(state => state.usersPage.sAdmin)
   const userList = useSelector(state => state.usersPage.userList)
   const dispatch = useDispatch()
+  
+  dispatch(redirectAC(false))
     
   const userStatus = (id, status) => {
     

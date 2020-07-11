@@ -18,3 +18,12 @@ export const Email = ({input, meta, ...props}) => {
     </div>
   )
 }
+
+export const Radio = ({ input, type, meta, ...props }) => {
+  return(
+      <label className={meta.touched && meta.error ? "inputError" : ' '}>
+        <input {...input} type={type}/>
+        {meta.touched && meta.error && <div>{meta.error}</div>}
+      </label>
+  )  
+}

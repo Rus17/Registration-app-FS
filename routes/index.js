@@ -13,16 +13,16 @@ const addUser = require('./users_of_db').addUser
 
 const sendMail = require('./sendMail')
 const validateParticipant = require("./validateParticipant")
+const validateUser = require("./validateUser")
 
 
 //================================ FOR PARTICIPANTS ===========================
 //=============================== Registration  ===============================
-router.post(
-   '/conf_registration', 
-   urlJSONParser, 
-   validateParticipant, 
-   sendMail, 
-   settParticipant
+router.post('/conf_registration', 
+  urlJSONParser, 
+  validateParticipant, 
+  sendMail, 
+  settParticipant
 )
 
 
@@ -33,14 +33,17 @@ router.post('/admin', urlJSONParser, authUser, getUsersAndParticipants)
 //=============================== Get users list  ==============================
 //router.get('/users', getUsers)
 
+
+
+
 //=============================== Update user ===================================
-router.put('/admin/update_user', urlJSONParser, updateUser)
+router.put('/admin/users', urlJSONParser, updateUser)
 
 //=============================== Delete user ===================================
-router.delete('/admin/del_user/:id', delUser)
+router.delete('/admin/users/:id', delUser)
 
-//=============================== Delete user ===================================
-router.post('/admin/add_user', urlJSONParser, addUser)
+//=============================== Add user ===================================
+router.post('/admin/users', urlJSONParser, validateUser, addUser)
 
 
 module.exports = router

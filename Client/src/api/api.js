@@ -24,19 +24,19 @@ export const authorizationAPI = (payload) => {
 
 export const updateUserAPI = (payload) => {
   const payloadJSON = JSON.stringify(payload)
-  return axios.put(`http://localhost:4000/admin/update_user`, payloadJSON, {
+  return axios.put(`http://localhost:4000/admin/users`, payloadJSON, {
     headers: {'content-type': 'application/json'}
   })
 }
 
 export const delUserAPI = (payload) => {
-  return axios.delete(`http://localhost:4000/admin/del_user/${payload}`)
+  return axios.delete(`http://localhost:4000/admin/users/${payload}`)
 }
 
 
 export const addUserAPI = (payload) => {
   const payloadJSON = JSON.stringify(payload)
-  return axios.post(`http://localhost:4000/admin/add_user`, payloadJSON, {
+  return axios.post(`http://localhost:4000/admin/users`, payloadJSON, {
     headers: {'content-type': 'application/json'}
   })
 }

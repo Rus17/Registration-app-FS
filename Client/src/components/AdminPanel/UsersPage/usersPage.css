@@ -10,6 +10,11 @@
   /* font-family: "Liber sans"; */
 }
 
+.addUserButton{
+  margin-left: 70%;
+  margin-top: 20px;
+}
+
 .titleTable {
   padding: 10px;
   font-weight: bold;
