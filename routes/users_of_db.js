@@ -122,7 +122,7 @@ module.exports.delUser = (req, res, next) => {
   }
   
   const sql = "DELETE FROM Users WHERE UserID=?"
-  db.connection.query(sql, req.params.id, (err, results, fields) => { //DELETE FROM таблица WHERE условие
+  db.connection.query(sql, req.params.id, (err, results, fields) => {
     
     if (err){
       console.log("error1 :", err)
@@ -140,28 +140,46 @@ module.exports.addUser = (req, res, next) => {
   if (Object.keys(req.body).length == 0) { 
     res.status(403).send('no data')
     return
-  }
-  
-  const sql = `INSERT INTO Users (
-    Email, Passwd, Role, First_Name, Last_Name, Status) 
-    VALUES (?, ?, ?, ?, ?, ?)`
-  const userData = [
-    req.body.Email, 
-    req.body.Passwd, 
-    req.body.Role, 
-    req.body.First_Name, 
-    req.body.Last_Name, 
-    req.body.Status
-  ]
-
-  db.connection.query(sql, userData, (err, results, fields) => {
+  }  
     
+  let sql = "SELECT * FROM Users WHERE Email=?"  
+  db.connection.query(sql, req.body.Email, (err, results, fields) => {
+
     if (err){
       console.log("error1 :", err)
       res.status(403).send('DB error')
       return
     }
-    res.status(200).send({insertId: results.insertId})
+    
+    if(results.length > 0){
+      let errors = {}
+      errors.Email = "A user with this email is already registered"
+      console.log("errors.Email inner: ", errors.Email)
+      res.status(400).json(errors)
+      return
+    }
+    
+    sql = `INSERT INTO Users (
+      Email, Passwd, Role, First_Name, Last_Name, Status) 
+      VALUES (?, ?, ?, ?, ?, ?)`
+    const userData = [
+      req.body.Email, 
+      req.body.Passwd, 
+      req.body.Role, 
+      req.body.First_Name, 
+      req.body.Last_Name, 
+      req.body.Status
+    ]
+
+    db.connection.query(sql, userData, (err, results, fields) => {
+
+      if (err){
+        console.log("error1 :", err)
+        res.status(403).send('DB error')
+        return
+      }
+      res.status(200).send({insertId: results.insertId})
+    })
   })
   
 }

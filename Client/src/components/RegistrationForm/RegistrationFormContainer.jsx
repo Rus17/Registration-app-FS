@@ -5,7 +5,7 @@ import {
   setParticipant_SAGA, getListOfCountries_SAGA, setCurrentPageFormAC
 } from "../../store/actionCreators/actionCreatorsParticipants"
 
-const RegistrationFormContainer = (props) => {
+const RegistrationFormContainer = () => {
   
   const dispatch = useDispatch()  
   const currentPageForm = useSelector(state => state.participantsPage.currentPageForm)

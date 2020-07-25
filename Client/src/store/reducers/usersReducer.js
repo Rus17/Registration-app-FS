@@ -1,6 +1,7 @@
 import {
-  GET_PARTICIPANTS, GET_USERS, AUTHORIZATION_S_ADMIN,
-  AUTHORIZATION_ADMIN, LOGOUT, AUTH_ERROR, ADD_USER, USER_ERROR, PRELOADER, REDIRECT
+  GET_PARTICIPANTS, GET_USERS, UPDATE_USER_STATUS, AUTHORIZATION_S_ADMIN,
+  AUTHORIZATION_ADMIN, LOGOUT, AUTH_ERROR, ADD_USER, USER_ERROR, PRELOADER, 
+  REDIRECT, DEL_USER
 } from "../actionTypes/typesUsers"
 
 let initialState = {
@@ -9,7 +10,7 @@ let initialState = {
   isAuth: "",
   sAdmin: false,
   authError: "",
-  userError: "",
+  userError: {},
   preloader: false,
   redirect: false
 }
@@ -52,6 +53,28 @@ const usersReducer = (state = initialState, action) => {
         userList: [...state.userList, action.payload]  
       }
     }
+    
+    case DEL_USER: {
+      return {
+        ...state,
+        userList: state.userList.filter((user) => {     
+          return user.UserID !== action.payload
+        })
+      }
+    }
+      
+    case UPDATE_USER_STATUS: {
+      return {
+        ...state,
+        userList: state.userList.map((user) => {
+          if(user.UserID === action.payload.id){
+            user.Status = action.payload.newStatus
+          }
+          return user
+        })
+      }
+    }
+      
     
     case USER_ERROR: {
       return {

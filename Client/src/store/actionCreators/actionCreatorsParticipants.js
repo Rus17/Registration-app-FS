@@ -1,5 +1,5 @@
 import { takeEvery, put, call } from "redux-saga/effects"
-import {getListOfCountriesAPI, setParticipantAPI} from "../../api/api"
+import { conference } from "../../api/api"
 import {
    SET_CURRENT_PAGE, GET_LIST_OF_COUNTRUES, GET_LIST_OF_COUNTRUES_SAGA,
    SET_PARTICIPANT_SAGA, SERVER_CHECK_ERROR
@@ -8,7 +8,6 @@ import {
 
 //======================= AC =======================
 export const setCurrentPageFormAC = (payload) => {
-   console.log("payload", payload)
    return ({
      type: SET_CURRENT_PAGE,
      payload
@@ -46,7 +45,7 @@ export const setParticipant_SAGA = (payload) => {
  //======================= Get List Of Countries =======================
  function* getListOfCountriesSaga() {
    try {
-     const response = yield call(() => {return getListOfCountriesAPI()})
+     const response = yield call(() => {return conference.getListOfCountriesAPI()})
      yield put(getListOfCountriesAC(response.data))
    }
    catch(e){console.log(e, "failure")}
@@ -59,7 +58,8 @@ export const setParticipant_SAGA = (payload) => {
  //======================= Set Participant =======================
  function* setParticipantSaga(dataAction) {
    try {
-     const response = yield call(() => {return setParticipantAPI(dataAction.payload)})
+     yield put(serverCheckErrorAC({}))
+     const response = yield call(() => {return conference.setParticipantAPI(dataAction.payload)})
      yield put(setCurrentPageFormAC(3))
     }
    catch(error){

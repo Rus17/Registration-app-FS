@@ -5,23 +5,21 @@ import Page2Container from "./Page2/Page2Container"
 import Page3Container from "./Page3/Page3Container"
 import "./registrationForm.css"
 
-const RegistrationForm = (props) => {
+const RegistrationForm = ({ handleSubmit, onSubmit, nextPageHandler, prevPageHandler, currentPageForm }) => {
   return (
     <>
-      <form action="" onSubmit={props.handleSubmit} className="registrationForm"> 
+      <form action="" onSubmit={handleSubmit} className="registrationForm"> 
         
-        {props.currentPageForm === 1 && 
-          <Page1Container 
-            nextPageHandler={props.nextPageHandler}
-          />}
+        {currentPageForm === 1 && 
+          <Page1Container nextPageHandler={nextPageHandler} />}
           
-          {props.currentPageForm === 2 && 
-          <Page2Container 
-            prevPageHandler={props.prevPageHandler}
-          />}
-          {props.currentPageForm === 2 && <button type="submit" className="buttonForm">Finish</button>}
+        {currentPageForm === 2 && 
+          <Page2Container prevPageHandler={prevPageHandler} />}
           
-          {props.currentPageForm === 3 && <Page3Container />}
+        {currentPageForm === 2 && 
+          <button type="submit" className="buttonForm">Finish</button>}
+          
+        {currentPageForm === 3 && <Page3Container prevPageHandler={prevPageHandler} />}
           
       </form>
     </>

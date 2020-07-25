@@ -3,14 +3,14 @@ import { useSelector } from 'react-redux'
 
 import Page2 from "./Page2"
 
-const Page2Container = (props) => {
+const Page2Container = ({prevPageHandler}) => {
   
   const listOfCountries = useSelector(state => state.participantsPage.listOfCountries)
   const currentPageForm = useSelector(state => state.participantsPage.currentPageForm)  
   
   return <>    
     <Page2 
-          prevPageHandler={props.prevPageHandler}
+          prevPageHandler={prevPageHandler}
           currentPageForm={currentPageForm}
           listOfCountries={listOfCountries}        
     />

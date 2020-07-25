@@ -1,11 +1,10 @@
 import { takeEvery, put, call } from "redux-saga/effects"
+import { users } from "../../api/api"
 import {
-  authorizationAPI, updateUserAPI, delUserAPI, addUserAPI
-} from "../../api/api"
-import {
-  GET_PARTICIPANTS, GET_USERS, AUTHORIZATION_S_ADMIN, AUTHORIZATION_SAGA,
-  AUTHORIZATION_ADMIN, LOGOUT, AUTH_ERROR, UPDATE_USER_SAGA, DEL_USER_SAGA,
-  ADD_USER, ADD_USER_SAGA, USER_ERROR, PRELOADER, REDIRECT
+  GET_PARTICIPANTS, GET_USERS, UPDATE_USER_STATUS, AUTHORIZATION_S_ADMIN, 
+  AUTHORIZATION_SAGA, AUTHORIZATION_ADMIN, LOGOUT, AUTH_ERROR, UPDATE_USER_SAGA,
+  DEL_USER_SAGA, ADD_USER, ADD_USER_SAGA, USER_ERROR, PRELOADER, REDIRECT,
+  DEL_USER
 } from "../actionTypes/typesUsers"
 
 //======================= AC =======================
@@ -13,6 +12,22 @@ import {
 const getUsersAC = (payload) => {
   return ({
     type: GET_USERS,
+    payload
+  })
+}
+
+//================ Update user status=============== 
+const updateUserStatusAC = (payload) => {
+  return ({
+    type: UPDATE_USER_STATUS,
+    payload
+  })
+}
+
+//================ Del user =============== 
+const delUserAC = (payload) => {
+  return ({
+    type: DEL_USER,
     payload
   })
 }
@@ -79,7 +94,7 @@ const addUsersAC = (payload) => {
 }
 
 //================ User error=============== 
-const userErrorAC = (payload) => {
+export const userErrorAC = (payload) => {
    return ({
     type: USER_ERROR,
     payload
@@ -122,7 +137,7 @@ export const addUser_SAGA = (payload) => {
  //======================= Authorization =======================
 function* authorizationSaga(dataAction) {
   try {
-    const response = yield call(() => {return authorizationAPI(dataAction.payload)})
+    const response = yield call(() => {return users.authorizationAPI(dataAction.payload)})
     if(response.data.dataUser.role === "super_admin"){
       yield put(authorizationSadminAC())
       yield put(getUsersAC(response.data.userList))
@@ -134,6 +149,7 @@ function* authorizationSaga(dataAction) {
      
   }
   catch(error){
+    console.log("error", error)
     yield put(authErrorAC(error.response.data))
   }
 }
@@ -148,13 +164,13 @@ function* updateUsersSaga(dataAction) {
   
   try {    
     const response = yield call(() => {
-      return updateUserAPI({
+      return users.updateUserAPI({
         id: dataAction.payload.id, 
-        status: dataAction.payload.status
+        status: dataAction.payload.newStatus
       })
     })
     if(response.data === "OK"){
-      yield put(getUsersAC(dataAction.payload.newUserList))
+      yield put(updateUserStatusAC(dataAction.payload))
     }     
   }
   catch(error){
@@ -168,13 +184,13 @@ export function* watchUpdateUsersSaga() {
 
 //======================= Del User =======================
 function* delUserSaga(dataAction) {
-  
+  console.log("dataAction", dataAction)
   try {    
     const response = yield call(() => {
-      return delUserAPI(dataAction.payload.id)
+      return users.delUserAPI(dataAction.payload)
     })
     if(response.data === "OK"){
-      yield put(getUsersAC(dataAction.payload.newUserList))
+      yield put(delUserAC(dataAction.payload))
     }     
   }
   catch(error){
@@ -193,7 +209,7 @@ function* addUserSaga(dataAction) {
   try {
     yield put(preloaderAC(true))
     const response = yield call(() => {
-      return addUserAPI(dataAction.payload)
+      return users.addUserAPI(dataAction.payload)
     })
     
     if(response.data.insertId){
@@ -201,6 +217,7 @@ function* addUserSaga(dataAction) {
       yield put(addUsersAC(dataAction))
       yield put(preloaderAC(false))
       yield put(redirectAC(true))
+      yield put(userErrorAC({}))
     }     
   }
   catch(error){

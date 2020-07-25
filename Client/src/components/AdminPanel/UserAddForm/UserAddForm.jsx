@@ -14,7 +14,7 @@ const UserAddForm = ({handleSubmit, preloader, userError}) => {
       </label>
       <Field
         name="Email"
-        component={Input}
+        component={Email}
         type="email"
         placeholder="Email"
         validate={[required, minInput, email]}
@@ -104,7 +104,7 @@ const UserAddForm = ({handleSubmit, preloader, userError}) => {
 
       <label></label>
       {preloader
-      ? <img src={spinner} width="40" height="40" alt="image description" />
+      ? <img src={spinner} width="40" height="40" alt="" />
       : <button type="submit">Add user</button>}      
     
     </form>

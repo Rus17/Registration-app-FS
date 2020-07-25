@@ -1,42 +1,38 @@
 import * as axios from "axios"
 
-//https://restcountries.eu/rest/v2/all
-//const server = "http://localhost:4000/"
+const instance = axios.create({
+  baseURL: 'http://localhost:4000/admin',
+  headers: {'Content-Type': 'application/json'}
+})
 
-
-export const getListOfCountriesAPI = () => {
-  return axios.get(`https://restcountries.eu/rest/v2/all`)
+export const conference = {
+  getListOfCountriesAPI() {
+    return axios.get(`https://restcountries.eu/rest/v2/all`)
+  },
+  
+  setParticipantAPI(payload) {
+    return axios.post(`http://localhost:4000/conf_registration`, 
+      JSON.stringify(payload), 
+      {headers: {'content-type': 'application/json'}}
+    )
+  }
 }
 
-export const setParticipantAPI = (payload) => {
-  const payloadJSON = JSON.stringify(payload)
-  return axios.post(`http://localhost:4000/conf_registration`, payloadJSON, {
-    headers: {'content-type': 'application/json'}
-  })
+export const users = {
+  authorizationAPI(payload) {
+    return instance.post('', JSON.stringify(payload))
+  },
+
+  updateUserAPI(payload) {  
+    return instance.put('/users', JSON.stringify(payload))
+  },
+
+  delUserAPI(payload) {
+    return instance.delete(`/users/${payload}`, payload)
+  },
+
+  addUserAPI (payload) {  
+    return instance.post('/users', JSON.stringify(payload))
+  }
 }
 
-export const authorizationAPI = (payload) => {
-  const payloadJSON = JSON.stringify(payload)
-  return axios.post(`http://localhost:4000/admin`, payloadJSON, {
-    headers: {'content-type': 'application/json'}
-  })
-}
-
-export const updateUserAPI = (payload) => {
-  const payloadJSON = JSON.stringify(payload)
-  return axios.put(`http://localhost:4000/admin/users`, payloadJSON, {
-    headers: {'content-type': 'application/json'}
-  })
-}
-
-export const delUserAPI = (payload) => {
-  return axios.delete(`http://localhost:4000/admin/users/${payload}`)
-}
-
-
-export const addUserAPI = (payload) => {
-  const payloadJSON = JSON.stringify(payload)
-  return axios.post(`http://localhost:4000/admin/users`, payloadJSON, {
-    headers: {'content-type': 'application/json'}
-  })
-}

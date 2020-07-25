@@ -21,7 +21,6 @@ const validateUser = require("./validateUser")
 router.post('/conf_registration', 
   urlJSONParser, 
   validateParticipant, 
-  sendMail, 
   settParticipant
 )
 

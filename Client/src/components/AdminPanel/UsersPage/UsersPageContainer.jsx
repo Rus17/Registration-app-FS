@@ -13,22 +13,15 @@ const UsersPageContainer = (props) => {
   
   dispatch(redirectAC(false))
     
-  const userStatus = (id, status) => {
-    
-    let newUserList = userList.map((user) => {
-      if(user.UserID === id){
-        user.Status = status
-      }
-      return user
-    })
-    dispatch(updateUser_SAGA({newUserList, id, status}))
+  const userStatus = (id, newStatus) => {
+    dispatch(updateUser_SAGA({id, newStatus}))    
   }
   
   const delUser = (id) => {
-    let newUserList = userList.filter((user) => {     
-      return user.UserID != id
-    })
-    dispatch(delUser_SAGA({newUserList, id}))
+//    let newUserList = userList.filter((user) => {     
+//      return user.UserID !== id
+//    })
+    dispatch(delUser_SAGA(id))
   }
   
   

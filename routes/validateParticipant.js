@@ -64,7 +64,7 @@ module.exports = validateParticipant = (req, res, next) => {
   
   if(data.country) {
     if(!validator.isLength(data.country, {min: 3, max: 30})) {
-      errors.country = 'Country be between 7 and 8 characters'
+      errors.country = 'Country be between 3 and 30 characters'
     }
     if(!validator.isAlpha(data.role)) {
       errors.country = 'Country must contain only latin characters'

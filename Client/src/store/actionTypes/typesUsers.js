@@ -4,6 +4,7 @@ export const GET_USERS = "GET_USERS"
 export const AUTHORIZATION_S_ADMIN = "AUTHORIZATION_S_ADMIN"
 export const AUTHORIZATION_SAGA = "AUTHORIZATION_SAGA"
 export const UPDATE_USER_SAGA = "UPDATE_USER_SAGA"
+export const UPDATE_USER_STATUS = "UPDATE_USER_STATUS"
 export const AUTHORIZATION_ADMIN = "AUTHORIZATION_ADMIN"
 export const LOGOUT = "LOGOUT"
 export const AUTH_ERROR = "AUTH_ERROR"
@@ -13,3 +14,7 @@ export const ADD_USER_SAGA = "ADD_USER_SAGA"
 export const USER_ERROR = "USER_ERROR"
 export const PRELOADER = "PRELOADER"
 export const REDIRECT = "REDIRECT"
+export const DEL_USER = "DEL_USER"
+
+
+

@@ -3,16 +3,15 @@ import {Field} from 'redux-form'
 import {required, minInput, alphabetic} from '../../../validators/validators'
 import {Input} from '../../formsControl/formsControl'
 
-const Page2 = (props) => {
+const Page2 = ({prevPageHandler, currentPageForm, listOfCountries}) => {
   
-  const countriesPoints = props.listOfCountries.map((item, i) => {
+  const countriesPoints = listOfCountries.map((item, i) => {
     return <option key={i} value={item.name}>{item.name}</option>
-  })
-  
+  })  
   
   return (
     <>
-      <div className="titleForm">Step {props.currentPageForm}</div>
+      <div className="titleForm">Step {currentPageForm}</div>
       <label>Arrival date</label>
       <Field name="arrivalDate" type="date" placeholder="Arrival date" component="input"/>
         
@@ -67,7 +66,7 @@ const Page2 = (props) => {
         {countriesPoints}
       </Field>
     
-      <button onClick={props.prevPageHandler} className="buttonBack">Back</button>
+      <button onClick={prevPageHandler} className="buttonBack">Back</button>
     </>
   )
 }

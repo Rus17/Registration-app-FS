@@ -3,10 +3,10 @@ import {Field} from 'redux-form'
 import {required, minInput, email, alphabetic} from '../../../validators/validators'
 import {Input, Email} from '../../formsControl/formsControl'
 
-const Page1 = (props) => {
+const Page1 = ({nextPageHandler, currentPageForm}) => {
   return (
     <>
-      <div className="titleForm">Step {props.currentPageForm}</div>
+      <div className="titleForm">Step {currentPageForm}</div>
       <label>First Name</label>
       <Field 
         name="fName"
@@ -31,7 +31,7 @@ const Page1 = (props) => {
         validate={[required, email]}
         type="email"
       />
-      <button onClick={props.nextPageHandler} className="buttonForm">Next</button>
+      <button onClick={nextPageHandler} className="buttonForm">Next</button>
     </>
   )
 }
