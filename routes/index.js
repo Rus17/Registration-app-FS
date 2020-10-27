@@ -1,11 +1,11 @@
 const express = require('express')
 const router = express.Router()
 const bodyParser = require('body-parser')
-const urlencodedParser = bodyParser.urlencoded({extended: true});
+const urlencodedParser = bodyParser.urlencoded({ extended: true });
 const urlJSONParser = bodyParser.json()
 
 const settParticipant = require('./conference_registration').settParticipant
-const getUsersAndParticipants = require('./users_of_db').getUsersAndParticipants
+const getUsers = require('./users_of_db').getUsers
 const updateUser = require('./users_of_db').updateUser
 const authUser = require('./users_of_db').authUser
 const delUser = require('./users_of_db').delUser
@@ -18,19 +18,19 @@ const validateUser = require("./validateUser")
 
 //================================ FOR PARTICIPANTS ===========================
 //=============================== Registration  ===============================
-router.post('/conf_registration', 
-  urlJSONParser, 
-  validateParticipant, 
+router.post('/conf_registration',
+  urlJSONParser,
+  validateParticipant,
   settParticipant
 )
 
 
 //================================== FOR ADMIN ===========================
 //=============================== Authorization  ==============================
-router.post('/admin', urlJSONParser, authUser, getUsersAndParticipants)
+router.post('/admin', urlJSONParser, authUser, (req, res) => { res.status(200).json(res.locals.dataUser) })
 
 //=============================== Get users list  ==============================
-//router.get('/users', getUsers)
+router.get('/admin/users', urlJSONParser, getUsers)
 
 
 
