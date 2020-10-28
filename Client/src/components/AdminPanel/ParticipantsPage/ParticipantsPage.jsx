@@ -1,8 +1,8 @@
 import React from "react"
 import "./participantsPage.css"
 
-const ParticipantsPage = ({participantList}) => {
-  
+const ParticipantsPage = ({ participantList }) => {
+
   const participantsTable = participantList.map((participant, i, arr) => {
     return (
       <tr key={participant.UserID}>
@@ -17,39 +17,39 @@ const ParticipantsPage = ({participantList}) => {
         <td>{participant.Birthdate}</td>
         <td>{participant.Registration_date}</td>
         <td>{participant.Status}</td>
-        <td>{participant.Role}</td>   
+        <td>{participant.Role}</td>
       </tr>
     )
   })
-    
-  return (    
-    <div className="participantsPage">    
-    <div className="titleTable">List of participants</div>
-    <div className="containerTable">
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Arrival date</th>
-            <th>Departure date</th>
-            <th>Company</th>
-            <th>Country</th>
-            <th>Position</th>
-            <th>Sex</th>
-            <th>Birthdate</th>
-            <th>Registration date</th>
-            <th>Status</th>
-            <th>Role</th>          
-          </tr>
-        </thead>
-        <tbody>
-          {participantsTable}
-        </tbody>
 
-      </table>
+  return (
+    <div className="participantsPage">
+      <div className="titleTable">List of participants</div>
+      <div className="containerTable">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Arrival date</th>
+              <th>Departure date</th>
+              <th>Company</th>
+              <th>Country</th>
+              <th>Position</th>
+              <th>Sex</th>
+              <th>Birthdate</th>
+              <th>Registration date</th>
+              <th>Status</th>
+              <th>Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            {participantsTable}
+          </tbody>
+
+        </table>
+      </div>
     </div>
-  </div>
   )
 }
 

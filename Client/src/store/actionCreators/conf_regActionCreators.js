@@ -3,7 +3,7 @@ import { conference } from "../../api/api"
 import {
   SET_CURRENT_PAGE, GET_LIST_OF_COUNTRUES, GET_LIST_OF_COUNTRUES_SAGA,
   SET_PARTICIPANT_SAGA, SERVER_CHECK_ERROR
-} from "../actionTypes/typesParticipants"
+} from "../actionTypes/conf_regTypes"
 
 
 //======================= AC =======================
@@ -28,20 +28,17 @@ const serverCheckErrorAC = (payload) => {
   })
 }
 
-
-
-export const getListOfCountries_SAGA = () => {
+//======================= SC =======================
+export const getListOfCountries_SC = () => {
   return ({ type: GET_LIST_OF_COUNTRUES_SAGA })
 }
 
-export const setParticipant_SAGA = (payload) => {
+export const setParticipant_SC = (payload) => {
   return ({
     type: SET_PARTICIPANT_SAGA,
     payload
   })
 }
-
-
 
 //============================== Sagas ==============================
 //======================= Get List Of Countries =======================
@@ -62,7 +59,9 @@ function* setParticipantSaga(dataAction) {
   try {
     yield put(serverCheckErrorAC({}))
     const response = yield call(() => { return conference.setParticipantAPI(dataAction.payload) })
-    yield put(setCurrentPageFormAC(3))
+    if (response.statusText === "OK") {
+      yield put(setCurrentPageFormAC(3))
+    }
   }
   catch (error) {
     yield put(serverCheckErrorAC(error.response.data))

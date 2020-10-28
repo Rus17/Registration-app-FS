@@ -40,15 +40,6 @@ module.exports.authUser = (req, res, next) => {
 
 //======================== Get Users =========================
 module.exports.getUsers = (req, res, next) => {
-  console.log("getUsers", res)
-  // if (Object.keys(req.body).length == 0) {
-  //   res.status(403).send('no data')
-  //   return
-  // }
-
-  // const dataUser = res.locals.dataUser
-
-  // if (dataUser.role === "super_admin") {
   const sql = "SELECT * FROM Users"
   db.connection.query(sql, (err, results, fields) => {
 
@@ -58,81 +49,34 @@ module.exports.getUsers = (req, res, next) => {
       return
     }
 
-    const userList = {
-      // dataUser,
-      userList: results
-    }
-
-    res.status(200).json(userList)
+    res.status(200).json(results)
   })
-  // }
-
-  // if (dataUser.role === "admin") {
-  //   const combinedResponse = {
-  //     dataUser,
-  //     userList: []
-  //   }
-
-  // res.status(200).json(combinedResponse)
-  // }
-
 }
 
 
+//======================== Modification User =========================
+module.exports.modUser = (req, res, next) => {
 
+  console.log("modUser param", req.params.UserID)
+  console.log("modUser body", req.body)
 
-//======================== Get  Participants =========================
-module.exports.getParticipants = (req, res, next) => {
   if (Object.keys(req.body).length == 0) {
     res.status(403).send('no data')
     return
   }
 
-  const dataUser = res.locals.dataUser
-  let participantList
+  const sql = "UPDATE Users SET Status=? WHERE UserID=?"
+  const userData = [req.body.status, req.body.id]
+  db.connection.query(sql, userData, (err, results, fields) => {
 
-  if (dataUser.role === "super_admin" || dataUser.role === "admin") {
-    const sql = "SELECT * FROM Participants"
-    db.connection.query(sql, (err, results, fields) => {
-      console.log("Hi query!")
-      if (err) {
-        console.log("error1 :", err)
-        res.status(403).send('DB error')
-        return
-      }
+    if (err) {
+      console.log("error1 :", err)
+      res.status(403).send('DB error')
+      return
+    }
 
-      participantList = results
-
-      if (dataUser.role === "super_admin") {
-        const sql = "SELECT * FROM Users"
-        db.connection.query(sql, (err, results, fields) => {
-
-          if (err) {
-            console.log("error1 :", err)
-            res.status(403).send('DB error')
-            return
-          }
-
-          const combinedResponse = {
-            dataUser,
-            userList: results,
-            participantList
-          }
-
-          res.status(200).json(combinedResponse)
-        })
-      }
-
-      if (dataUser.role === "admin") {
-        const combinedResponse = {
-          dataUser,
-          participantList
-        }
-
-        res.status(200).json(combinedResponse)
-      }
-    })
-  }
+    res.sendStatus(200)
+  })
 }
 
 //======================== Update User Status =========================
@@ -154,7 +98,6 @@ module.exports.updateUser = (req, res, next) => {
 
     res.sendStatus(200)
   })
-
 }
 
 //======================== Delete User =========================
@@ -175,7 +118,6 @@ module.exports.delUser = (req, res, next) => {
 
     res.sendStatus(200)
   })
-
 }
 
 //======================== Add User =========================

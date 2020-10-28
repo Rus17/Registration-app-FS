@@ -35,6 +35,11 @@ export const users = {
   //   return instance.post('', JSON.stringify(payload))
   // },
 
+  modificationUserAPI(payload) {
+    console.log("api", payload.modUser)
+    return instance.put(`/user/${payload.modUser.UserID}`, JSON.stringify(payload.modUser))
+  },
+
   updateUserAPI(payload) {
     return instance.put('/users', JSON.stringify(payload))
   },
@@ -45,6 +50,12 @@ export const users = {
 
   addUserAPI(payload) {
     return instance.post('/users', JSON.stringify(payload))
+  }
+}
+
+export const participants = {
+  getParticipantsAPI() {
+    return instance.get('/participants')
   }
 }
 

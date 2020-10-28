@@ -10,6 +10,9 @@ const updateUser = require('./users_of_db').updateUser
 const authUser = require('./users_of_db').authUser
 const delUser = require('./users_of_db').delUser
 const addUser = require('./users_of_db').addUser
+const modUser = require('./users_of_db').modUser
+
+const getParticipants = require('./participants_of_db').getParticipants
 
 const sendMail = require('./sendMail')
 const validateParticipant = require("./validateParticipant")
@@ -24,16 +27,17 @@ router.post('/conf_registration',
   settParticipant
 )
 
-
 //================================== FOR ADMIN ===========================
 //=============================== Authorization  ==============================
 router.post('/admin', urlJSONParser, authUser, (req, res) => { res.status(200).json(res.locals.dataUser) })
 
+
+//================================== USERS ======================================
+//=============================== Modification user ==============================
+router.put('/admin/user/:UserID', urlJSONParser, modUser)
+
 //=============================== Get users list  ==============================
 router.get('/admin/users', urlJSONParser, getUsers)
-
-
-
 
 //=============================== Update user ===================================
 router.put('/admin/users', urlJSONParser, updateUser)
@@ -43,6 +47,13 @@ router.delete('/admin/users/:id', delUser)
 
 //=============================== Add user ===================================
 router.post('/admin/users', urlJSONParser, validateUser, addUser)
+
+
+//================================== PARTICIPANTS ======================================
+//=============================== Get participants list  ==============================
+router.get('/admin/participants', urlJSONParser, getParticipants)
+
+
 
 
 module.exports = router

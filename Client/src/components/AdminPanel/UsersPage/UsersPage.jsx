@@ -2,7 +2,7 @@ import React from "react"
 import { NavLink } from "react-router-dom"
 import "./usersPage.css"
 
-const UsersPage = ({ userList, userStatus, delUser }) => {
+const UsersPage = ({ userList, userStatus, delUser, editHandler }) => {
 
   const userTable = userList.map((user, i, arr) => {
     return (
@@ -10,7 +10,7 @@ const UsersPage = ({ userList, userStatus, delUser }) => {
         <td>{user.First_Name}</td>
         <td>{user.Last_Name}</td>
         <td>{user.Email}</td>
-        <td><NavLink to="/admin/users/add_user"><button>Edit</button></NavLink></td>
+        <td><button onClick={editHandler.bind(null, user)}>Edit</button></td>
 
         {user.Status === "active"
           &&

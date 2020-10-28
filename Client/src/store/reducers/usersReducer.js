@@ -1,11 +1,10 @@
 import {
-  GET_PARTICIPANTS, GET_USERS, UPDATE_USER_STATUS,
+  GET_USERS, UPDATE_USER_STATUS,
   ADD_USER, USER_ERROR, PRELOADER,
   REDIRECT, DEL_USER
 } from "../actionTypes/typesUsers"
 
 let initialState = {
-  participantList: [],
   userList: [],
   userError: {},
   preloader: false,
@@ -15,13 +14,6 @@ let initialState = {
 const usersReducer = (state = initialState, action) => {
 
   switch (action.type) {
-
-    case GET_PARTICIPANTS: {
-      return {
-        ...state,
-        participantList: [...action.payload]
-      }
-    }
 
     case GET_USERS: {
       return {

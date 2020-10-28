@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import UserAddForm from "./UserAddForm"
-import { addUser_SC, userErrorAC } from "../../../store/actionCreators/actionCreatorsUsers"
+import { addUser_SC, userErrorAC } from "../../../store/actionCreators/usersActionCreator"
 import SidebarContainer from "../Sidebar/SidebarContainer"
 
 const UserAddFormContainer = () => {

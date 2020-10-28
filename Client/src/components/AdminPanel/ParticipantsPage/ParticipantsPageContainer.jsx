@@ -1,25 +1,31 @@
-import React from "react"
-import {Redirect} from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from "react"
+import { Redirect } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 import ParticipantsPage from "./ParticipantsPage"
 import SidebarContainer from "../Sidebar/SidebarContainer"
+import { getParticipantsSC } from "../../../store/actionCreators/participantsActionCreator"
 
 const ParticipantsPageContainer = () => {
-  
-  const isAuth = useSelector(state => state.usersPage.isAuth)
-  const sAdmin = useSelector(state => state.usersPage.sAdmin)
-  const participantList = useSelector(state => state.usersPage.participantList)
-  
+
+  const name = useSelector(state => state.authPage.auth.name)
+  const participantList = useSelector(state => state.participantsPage.participantList)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (!participantList.length) {
+      dispatch(getParticipantsSC())
+    }
+  }, [])
+
   return (<>
-    
+
     <SidebarContainer />
-    
-    {
-      isAuth || sAdmin
+
+    {name
       ? <ParticipantsPage participantList={participantList} />
       : <Redirect to={"/admin"} />
-    }    
-    
+    }
+
   </>)
 }
 

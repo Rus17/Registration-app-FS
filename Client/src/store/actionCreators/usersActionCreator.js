@@ -1,7 +1,8 @@
 import { takeEvery, put, call } from "redux-saga/effects"
 import { users } from "../../api/api"
 import {
-  GET_USERS_SAGA, GET_PARTICIPANTS, GET_USERS, UPDATE_USER_STATUS, UPDATE_USER_SAGA,
+  USER_MODIFICATION, USER_MODIFICATION_SAGA,
+  GET_USERS_SAGA, GET_USERS, UPDATE_USER_STATUS, UPDATE_USER_SAGA,
   DEL_USER_SAGA, ADD_USER, ADD_USER_SAGA, USER_ERROR, PRELOADER, REDIRECT, DEL_USER
 } from "../actionTypes/typesUsers"
 
@@ -10,6 +11,14 @@ import {
 const getUsersAC = (payload) => {
   return ({
     type: GET_USERS,
+    payload
+  })
+}
+
+//================ Modification user =============== 
+const modificationUserAC = (payload) => {
+  return ({
+    type: USER_MODIFICATION,
     payload
   })
 }
@@ -46,14 +55,6 @@ export const redirectAC = (payload) => {
   })
 }
 
-//======================= Get participants list ==============
-const getParticipantsAC = (payload) => {
-  return ({
-    type: GET_PARTICIPANTS,
-    payload
-  })
-}
-
 //================ Add user =============== 
 const addUsersAC = (payload) => {
   return ({
@@ -73,7 +74,6 @@ export const userErrorAC = (payload) => {
 //===================== SC ====================== 
 
 export const getUsers_SC = (payload) => {
-  console.log("getUsers_SC")
   return ({
     type: GET_USERS_SAGA,
     payload
@@ -101,17 +101,24 @@ export const addUser_SC = (payload) => {
   })
 }
 
+export const modifyUserSC = (payload) => {
+  // console.log("mSC")
+  return ({
+    type: USER_MODIFICATION_SAGA,
+    payload
+  })
+}
 
-//============================== Sagas ==============================  
 
-//======================= Get Users =======================
+//============================ Sagas ============================ 
+//========================== Get Users ==========================
 function* getUsersSaga(dataAction) {
   try {
     const response = yield call(() => {
       return users.getUsersAPI()
     })
     if (response.statusText === "OK") {
-      yield put(getUsersAC(response.data.userList))
+      yield put(getUsersAC(response.data))
     }
   }
   catch (error) {
@@ -123,8 +130,30 @@ export function* watchGetUsersSaga() {
   yield takeEvery(GET_USERS_SAGA, getUsersSaga)
 }
 
+//======================= Modification User =======================
+function* modificationUserSaga(dataAction) {
+  // console.log("saga", dataAction.payload)
+  try {
+    const response = yield call(() => {
+      return users.modificationUserAPI({
+        modUser: dataAction.payload
+      })
+    })
+    if (response.data === "OK") {
+      yield put(modificationUserAC(dataAction.payload))
+    }
+  }
+  catch (error) {
+    yield put(userErrorAC(error.response.data))
+  }
+}
 
-//======================= Update Users =======================
+export function* watchModificationUserSaga() {
+  yield takeEvery(USER_MODIFICATION_SAGA, modificationUserSaga)
+}
+
+
+//======================= Update User status =======================
 function* updateUsersSaga(dataAction) {
 
   try {

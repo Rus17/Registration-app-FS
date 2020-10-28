@@ -1,11 +1,12 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import UsersPage from "./UsersPage"
 import SidebarContainer from "../Sidebar/SidebarContainer"
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from "react-router-dom"
-import { getUsers_SC, updateUser_SC, delUser_SC, redirectAC } from "../../../store/actionCreators/actionCreatorsUsers"
+import { getUsers_SC, updateUser_SC, delUser_SC, redirectAC } from "../../../store/actionCreators/usersActionCreator"
+import UserEditFormContainer from "../UserEditForm/UserEditFormContainer"
 
-const UsersPageContainer = (props) => {
+const UsersPageContainer = () => {
 
   const auth = useSelector(state => state.authPage.auth)
   const userList = useSelector(state => state.usersPage.userList)
@@ -13,32 +14,41 @@ const UsersPageContainer = (props) => {
 
   dispatch(redirectAC(false))
 
+  const [editMode, setEditMode] = useState(0)
+  const [editableUser, setEditableUser] = useState({})
+
+  // console.log("editableUser", editableUser)
+
+  const editHandler = (user) => {
+    setEditableUser(user)
+    setEditMode(1)
+  }
+
   const userStatus = (id, newStatus) => {
     dispatch(updateUser_SC({ id, newStatus }))
   }
 
-  const delUser = (id) => {
-    //    let newUserList = userList.filter((user) => {     
-    //      return user.UserID !== id
-    //    })
-    dispatch(delUser_SC(id))
-  }
+  const delUser = (id) => { dispatch(delUser_SC(id)) }
 
   useEffect(() => {
-    // console.log("useEffect")
-    dispatch(getUsers_SC())
+    if (!userList.length && auth.role === "super_admin") {
+      dispatch(getUsers_SC())
+    }
   }, [])
+
+  console.log("editMode", editMode)
 
   return (<>
 
     <SidebarContainer />
 
-    {
-      (auth.name && auth.role === "super_admin")
-        ? <UsersPage userList={userList} userStatus={userStatus} delUser={delUser} />
-        : <Redirect to={"/admin"} />
+    {(!editMode && auth.role === "super_admin")
+      && <UsersPage userList={userList} userStatus={userStatus} delUser={delUser} editHandler={editHandler} />
     }
 
+    {(!editMode && auth.role !== "super_admin") && <Redirect to={"/admin"} />}
+
+    {(editMode) && <UserEditFormContainer editableUser={editableUser} />}
   </>)
 }
 
