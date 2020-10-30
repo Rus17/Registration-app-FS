@@ -21,7 +21,6 @@ export const conference = {
 
 export const auth = {
   authorizationAPI(payload) {
-    console.log("authorizationAPI:", payload)
     return instance.post('', JSON.stringify(payload))
   }
 }
@@ -36,7 +35,6 @@ export const users = {
   // },
 
   modificationUserAPI(payload) {
-    console.log("api", payload.modUser)
     return instance.put(`/user/${payload.modUser.UserID}`, JSON.stringify(payload.modUser))
   },
 

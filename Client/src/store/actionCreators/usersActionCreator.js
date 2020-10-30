@@ -1,11 +1,12 @@
 import { takeEvery, put, call } from "redux-saga/effects"
 import { users } from "../../api/api"
 import {
-  USER_MODIFICATION, USER_MODIFICATION_SAGA,
+  USER_MODIFICATION, USER_MODIFICATION_SAGA, CLEAR_USER_PAGE,
   GET_USERS_SAGA, GET_USERS, UPDATE_USER_STATUS, UPDATE_USER_SAGA,
   DEL_USER_SAGA, ADD_USER, ADD_USER_SAGA, USER_ERROR, PRELOADER, REDIRECT, DEL_USER
 } from "../actionTypes/typesUsers"
-
+import { logoutAC } from "./authActionCreator"
+import { clearParticipantPageAC } from "./participantsActionCreator"
 //======================= AC =======================
 //======================= Get user list ==============
 const getUsersAC = (payload) => {
@@ -71,6 +72,15 @@ export const userErrorAC = (payload) => {
   })
 }
 
+//================ Clear UserPage =============== 
+export const clearUserPageAC = () => {
+  return ({
+    type: CLEAR_USER_PAGE
+  })
+}
+
+
+
 //===================== SC ====================== 
 
 export const getUsers_SC = (payload) => {
@@ -132,7 +142,6 @@ export function* watchGetUsersSaga() {
 
 //======================= Modification User =======================
 function* modificationUserSaga(dataAction) {
-  // console.log("saga", dataAction.payload)
   try {
     const response = yield call(() => {
       return users.modificationUserAPI({
@@ -140,7 +149,17 @@ function* modificationUserSaga(dataAction) {
       })
     })
     if (response.data === "OK") {
-      yield put(modificationUserAC(dataAction.payload))
+      // console.log("dataAction.auth dataAction.Email", dataAction.payload.auth, dataAction.payload.Email)
+      if (dataAction.payload.Role === "super_admin" && dataAction.payload.auth !== dataAction.payload.Email) {
+        yield put(logoutAC())
+        yield put(clearUserPageAC())
+        yield put(clearParticipantPageAC())
+      } else {
+        yield put(modificationUserAC(dataAction.payload))
+      }
+
+
+
     }
   }
   catch (error) {
@@ -178,7 +197,7 @@ export function* watchUpdateUsersSaga() {
 
 //======================= Del User =======================
 function* delUserSaga(dataAction) {
-  console.log("dataAction", dataAction)
+  // console.log("dataAction", dataAction)
   try {
     const response = yield call(() => {
       return users.delUserAPI(dataAction.payload)
@@ -208,10 +227,14 @@ function* addUserSaga(dataAction) {
 
     if (response.data.insertId) {
       dataAction = { ...dataAction.payload, UserID: response.data.insertId }
-      yield put(addUsersAC(dataAction))
       yield put(preloaderAC(false))
-      yield put(redirectAC(true))
+      // yield put(redirectAC(true))
+      yield put(addUsersAC(dataAction))
       yield put(userErrorAC({}))
+
+      if (dataAction.Role === "super_admin") {
+        yield put(logoutAC())
+      }
     }
   }
   catch (error) {

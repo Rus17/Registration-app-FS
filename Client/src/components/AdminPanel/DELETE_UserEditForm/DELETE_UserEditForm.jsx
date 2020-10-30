@@ -5,7 +5,7 @@ import { Input, Email, Radio } from '../../formsControl/formsControl'
 import spinner from "../../../Img/2.svg"
 import s from "../UserAddForm/UserAddForm.module.css"
 
-const UserEditForm = ({ handleSubmit, preloader, userError }) => {
+const UserEditForm = ({ handleSubmit, preloader, userError, msg }) => {
   return (<div className={s.userAddFormPage}>
     <form onSubmit={handleSubmit} className={s.userAddForm}>
       <div className={s.titleForm}>Editing user data</div>
@@ -68,6 +68,9 @@ const UserEditForm = ({ handleSubmit, preloader, userError }) => {
           />{' '}Administrator
           </div>
       </div>
+
+      {msg ? <label className={s.attention}>Attention!</label> : null}
+      {msg ? <div className={s.attention}> The current super administrator account will be deleted.</div> : null}
 
       <label>Status</label>
       <div>

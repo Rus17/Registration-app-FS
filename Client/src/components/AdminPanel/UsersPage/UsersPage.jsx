@@ -1,8 +1,8 @@
 import React from "react"
-import { NavLink } from "react-router-dom"
+// import { NavLink } from "react-router-dom"
 import "./usersPage.css"
 
-const UsersPage = ({ userList, userStatus, delUser, editHandler }) => {
+const UsersPage = ({ userList, statusUserHandler, delUserHandler, setEditUserHandler, setComponentMode }) => {
 
   const userTable = userList.map((user, i, arr) => {
     return (
@@ -10,12 +10,12 @@ const UsersPage = ({ userList, userStatus, delUser, editHandler }) => {
         <td>{user.First_Name}</td>
         <td>{user.Last_Name}</td>
         <td>{user.Email}</td>
-        <td><button onClick={editHandler.bind(null, user)}>Edit</button></td>
+        <td><button onClick={setEditUserHandler.bind(null, user)}>Edit</button></td>
 
         {user.Status === "active"
           &&
           <td>
-            <button onClick={userStatus.bind(null, user.UserID, "blocked")}>
+            <button onClick={statusUserHandler.bind(null, user.UserID, "blocked")}>
               Block
           </button>
           </td>
@@ -24,15 +24,13 @@ const UsersPage = ({ userList, userStatus, delUser, editHandler }) => {
         {user.Status === "blocked"
           &&
           <td>
-            <button onClick={userStatus.bind(null, user.UserID, "active")}>
+            <button onClick={statusUserHandler.bind(null, user.UserID, "active")}>
               Activate
           </button>
-            <button onClick={delUser.bind(null, user.UserID)}>Delete</button>
+            <button onClick={delUserHandler.bind(null, user.UserID)}>Delete</button>
           </td>
         }
-
       </tr>
-
     )
   })
 
@@ -54,9 +52,8 @@ const UsersPage = ({ userList, userStatus, delUser, editHandler }) => {
         </tbody>
 
       </table>
-      <NavLink to="/admin/users/add_user"><button className="addUserButton">Add user</button></NavLink>
-
-
+      {/* <NavLink to="/admin/users/add_user"><button className="addUserButton">Add user</button></NavLink> */}
+      <button className="addUserButton" onClick={setComponentMode.bind(null, "addUser")}>Add user</button>
     </div>)
 }
 

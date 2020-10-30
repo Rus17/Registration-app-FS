@@ -1,4 +1,5 @@
 import {
+  USER_MODIFICATION, CLEAR_USER_PAGE,
   GET_USERS, UPDATE_USER_STATUS,
   ADD_USER, USER_ERROR, PRELOADER,
   REDIRECT, DEL_USER
@@ -22,6 +23,13 @@ const usersReducer = (state = initialState, action) => {
       }
     }
 
+    case CLEAR_USER_PAGE: {
+      return {
+        ...state,
+        userList: []
+      }
+    }
+
     case ADD_USER: {
       return {
         ...state,
@@ -34,6 +42,18 @@ const usersReducer = (state = initialState, action) => {
         ...state,
         userList: state.userList.filter((user) => {
           return user.UserID !== action.payload
+        })
+      }
+    }
+
+    case USER_MODIFICATION: {
+      return {
+        ...state,
+        userList: state.userList.map((user) => {
+          if (user.UserID === action.payload.UserID) {
+            user = { ...action.payload }
+          }
+          return user
         })
       }
     }
@@ -63,6 +83,7 @@ const usersReducer = (state = initialState, action) => {
         preloader: action.payload
       }
     }
+
     case REDIRECT: {
       return {
         ...state,

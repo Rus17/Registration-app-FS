@@ -4,12 +4,12 @@ import {
 } from "../actionTypes/authTypes"
 
 let initialState = {
-  // auth: {},
-  auth: {
-    role: "super_admin",
-    name: "Rus",
-    email: "rus@company.zp"
-  },
+  auth: {},
+  // auth: {
+  //   role: "super_admin",
+  //   name: "Rus",
+  //   email: "rus@company.zp"
+  // },
   authError: "",
   preloader: false,
   redirect: false
@@ -29,8 +29,7 @@ const authReducer = (state = initialState, action) => {
     case LOGOUT: {
       return {
         ...state,
-        name: "",
-        sAdmin: false
+        auth: {}
       }
     }
 

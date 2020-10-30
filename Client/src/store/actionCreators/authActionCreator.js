@@ -68,7 +68,7 @@ export const authorization_SAGA = (payload) => {
 function* authorizationSaga(dataAction) {
   try {
     const response = yield call(() => { return auth.authorizationAPI(dataAction.payload) })
-    console.log("resp front", response.data)
+    // console.log("resp front", response.data)
     // if (response.data.role === "super_admin") {
     //   yield put(authorizationSadminAC())
     // yield put(getUsersAC(response.data.userList))

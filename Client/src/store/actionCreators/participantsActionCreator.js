@@ -1,6 +1,6 @@
 import { takeEvery, put, call } from "redux-saga/effects"
 import { participants } from "../../api/api"
-import { GET_PARTICIPANTS, GET_PARTICIPANTS_SAGA } from "../actionTypes/participantsTypes"
+import { GET_PARTICIPANTS, GET_PARTICIPANTS_SAGA, CLEAR_PARTICIPANT_PAGE } from "../actionTypes/participantsTypes"
 
 
 //======================= AC =======================
@@ -15,6 +15,13 @@ const getParticipantsAC = (payload) => {
 //======================= SC =======================
 export const getParticipantsSC = () => {
   return ({ type: GET_PARTICIPANTS_SAGA })
+}
+
+//================ Clear ParticipantPage =============== 
+export const clearParticipantPageAC = () => {
+  return ({
+    type: CLEAR_PARTICIPANT_PAGE
+  })
 }
 
 //============================== Sagas ==============================

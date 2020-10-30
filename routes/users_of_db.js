@@ -40,7 +40,7 @@ module.exports.authUser = (req, res, next) => {
 
 //======================== Get Users =========================
 module.exports.getUsers = (req, res, next) => {
-  const sql = "SELECT * FROM Users"
+  const sql = "SELECT UserID, First_Name, Last_Name, Email, Role, Status FROM Users"
   db.connection.query(sql, (err, results, fields) => {
 
     if (err) {
@@ -48,7 +48,6 @@ module.exports.getUsers = (req, res, next) => {
       res.status(403).send('DB error')
       return
     }
-
     res.status(200).json(results)
   })
 }
@@ -57,16 +56,60 @@ module.exports.getUsers = (req, res, next) => {
 //======================== Modification User =========================
 module.exports.modUser = (req, res, next) => {
 
-  console.log("modUser param", req.params.UserID)
-  console.log("modUser body", req.body)
-
   if (Object.keys(req.body).length == 0) {
     res.status(403).send('no data')
     return
   }
+  console.log("req.body", req.body)
 
-  const sql = "UPDATE Users SET Status=? WHERE UserID=?"
-  const userData = [req.body.status, req.body.id]
+  if (req.body.Role === 'super_admin') {
+
+    console.log("super_admin - yes")
+
+    // db.connection.query(`SELECT * FROM Users WHERE Email='${req.body.Email}' `, (err, results, fields) => {
+
+    //   if (err) {
+    //     console.log("error1 :", err)
+    //     res.status(403).send('DB error')
+    //     return
+    //   }
+
+    // console.log("results: ", results)
+
+
+    if (req.body.auth !== req.body.Email) {
+      //   return
+      // } else {
+      console.log("auth !== Email")
+      const sql = `DELETE FROM Users WHERE Role="super_admin"`
+      db.connection.query(sql, (err, results, fields) => {
+        if (err) {
+          console.log("error1 :", err)
+          res.status(403).send('DB error')
+          return
+        }
+      })
+    }
+    // })
+  }
+
+  const sql = `UPDATE Users SET 
+  Email=?, 
+  Passwd=?, 
+  Role=?, 
+  First_Name=?, 
+  Last_Name=?, 
+  Status=? WHERE UserID=${req.params.UserID}`
+
+  const userData = [
+    req.body.Email,
+    req.body.Passwd,
+    req.body.Role,
+    req.body.First_Name,
+    req.body.Last_Name,
+    req.body.Status
+  ]
+
   db.connection.query(sql, userData, (err, results, fields) => {
 
     if (err) {
@@ -88,6 +131,7 @@ module.exports.updateUser = (req, res, next) => {
 
   const sql = "UPDATE Users SET Status=? WHERE UserID=?"
   const userData = [req.body.status, req.body.id]
+
   db.connection.query(sql, userData, (err, results, fields) => {
 
     if (err) {
@@ -122,12 +166,13 @@ module.exports.delUser = (req, res, next) => {
 
 //======================== Add User =========================
 module.exports.addUser = (req, res, next) => {
+  console.log("req :", req.body)
   if (Object.keys(req.body).length == 0) {
     res.status(403).send('no data')
     return
   }
 
-  let sql = "SELECT * FROM Users WHERE Email=?"
+  const sql = "SELECT * FROM Users WHERE Email=?"
   db.connection.query(sql, req.body.Email, (err, results, fields) => {
 
     if (err) {
@@ -144,9 +189,22 @@ module.exports.addUser = (req, res, next) => {
       return
     }
 
-    sql = `INSERT INTO Users (
+    if (req.body.Role === 'super_admin') {
+      const sql = `DELETE FROM Users WHERE Role="super_admin"`
+      db.connection.query(sql, (err, results, fields) => {
+        if (err) {
+          console.log("error1 :", err)
+          res.status(403).send('DB error')
+          return
+        }
+      })
+    }
+
+
+    const sql = `INSERT INTO Users (
       Email, Passwd, Role, First_Name, Last_Name, Status) 
       VALUES (?, ?, ?, ?, ?, ?)`
+
     const userData = [
       req.body.Email,
       req.body.Passwd,
@@ -165,6 +223,8 @@ module.exports.addUser = (req, res, next) => {
       }
       res.status(200).send({ insertId: results.insertId })
     })
+
+
   })
 
 }

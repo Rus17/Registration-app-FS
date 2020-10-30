@@ -1,4 +1,4 @@
-import { GET_PARTICIPANTS } from "../actionTypes/participantsTypes"
+import { GET_PARTICIPANTS, CLEAR_PARTICIPANT_PAGE } from "../actionTypes/participantsTypes"
 
 
 let initialState = {
@@ -13,6 +13,13 @@ const participantsReducer = (state = initialState, action) => {
       return {
         ...state,
         participantList: [...action.payload]
+      }
+    }
+
+    case CLEAR_PARTICIPANT_PAGE: {
+      return {
+        ...state,
+        participantList: []
       }
     }
 
