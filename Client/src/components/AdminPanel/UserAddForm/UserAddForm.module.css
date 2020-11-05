@@ -50,3 +50,10 @@
 .sa{
   color: crimson;
 }
+
+.link{
+  color: blue;
+  cursor: pointer;
+  text-align: end;
+  font-style: italic;
+}

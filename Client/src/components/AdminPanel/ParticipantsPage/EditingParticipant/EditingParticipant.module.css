@@ -1,0 +1,33 @@
+.participant{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 20px;
+  grid-row-gap: 10px;
+  background-color: rgb(253, 233, 236);
+  align-self: flex-start;
+  flex-basis: 60%;
+  padding: 20px;
+}
+
+.participant div:nth-child(odd){
+  /* color: green; */
+  text-align: end;
+  font-weight: bold;
+}
+
+.approveButton {
+  background-color: lightgreen;
+  width: 150px;
+}
+
+.declineButton {
+  background-color: lightpink;
+  width: 150px;
+}
+
+.link{
+  color: blue;
+  cursor: pointer;
+  text-align: end;
+  font-style: italic;
+}

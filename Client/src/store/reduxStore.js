@@ -12,7 +12,7 @@ import {
 } from "./actionCreators/usersActionCreator"
 
 import participantsReducer from "./reducers/participantsReducer"
-import { watchGetParticipantsSaga } from "./actionCreators/participantsActionCreator"
+import { watchGetParticipantsSaga, watchSetStatusParticipantSaga } from "./actionCreators/participantsActionCreator"
 
 import conf_regReducer from "./reducers/conf_regReducer"
 import { watchGetListOfCountriesSaga, watchSetParticipantSaga } from "./actionCreators/conf_regActionCreators"
@@ -40,6 +40,7 @@ sagaMiddleware.run(watchGetUsersSaga)
 sagaMiddleware.run(watchUpdateUsersSaga)
 sagaMiddleware.run(watchDelUserSaga)
 sagaMiddleware.run(watchAddUserSaga)
+sagaMiddleware.run(watchSetStatusParticipantSaga)
 
 window.store = store
 export default store

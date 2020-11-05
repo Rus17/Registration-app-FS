@@ -1,0 +1,14 @@
+.participantsPage{
+  background-color: azure;
+  width: 80%;  
+  height: 100vh;
+}
+.participantsPage th:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.participantsPage tbody tr:hover {
+  cursor: pointer;
+  color: blue;
+}

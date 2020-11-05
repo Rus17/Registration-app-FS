@@ -9,15 +9,12 @@ const AdminLoginFormContainer = () => {
 
   const name = useSelector(state => state.authPage.auth.name)
   const role = useSelector(state => state.authPage.auth.role)
-  const authError = useSelector(state => state.usersPage.authError)
+  const authError = useSelector(state => state.authPage.authError)
   const dispatch = useDispatch()
 
   const onSubmit = (formData) => {
     dispatch(authorization_SAGA(formData))
   }
-
-  //Отправляем запрос на сервер с логином и паролем, когда приходит "ОК", 
-  //то пропсы меняются и происходит перенаправление на AdminPanelContainer
 
   return (<>
     {(name && role === 'super_admin') && <Redirect to={"/admin/users"} />}

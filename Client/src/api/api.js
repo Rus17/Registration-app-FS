@@ -30,16 +30,13 @@ export const users = {
     return instance.get('/users')
   },
 
-  // authorizationAPI(payload) {
-  //   return instance.post('', JSON.stringify(payload))
-  // },
-
   modificationUserAPI(payload) {
     return instance.put(`/user/${payload.modUser.UserID}`, JSON.stringify(payload.modUser))
   },
 
   updateUserAPI(payload) {
-    return instance.put('/users', JSON.stringify(payload))
+    // console.log("api", payload)
+    return instance.patch(`/users/${payload.id}`, JSON.stringify({ status: payload.status }))
   },
 
   delUserAPI(payload) {
@@ -51,9 +48,16 @@ export const users = {
   }
 }
 
+
 export const participants = {
-  getParticipantsAPI() {
-    return instance.get('/participants')
+  getParticipantsAPI(payload) {
+    console.log("api", payload)
+    return instance.get(`/participants/${payload.sort}/${payload.pageSize}/${payload.currentPage}`)
+  },
+
+  setStatusParticipantAPI(payload) {
+    // console.log("api", payload)
+    return instance.patch(`/participant/${payload.id}`, JSON.stringify({ status: payload.status }))
   }
 }
 

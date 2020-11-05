@@ -3,7 +3,7 @@ import { reduxForm, Field } from 'redux-form'
 import "./adminLoginForm.css"
 
 const AdminLoginForm = ({ handleSubmit, authError }) => {
-  //  console.log("props", props)
+  console.log("props", authError)
   return (<>
     <form action="" onSubmit={handleSubmit} className="adminLoginForm">
       <div className="titleForm">Login to admin panel <br /> rus@company.zp</div>

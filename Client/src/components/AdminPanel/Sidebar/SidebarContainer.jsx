@@ -2,6 +2,7 @@ import React from "react"
 import { useSelector, useDispatch } from 'react-redux'
 import Sidebar from "./Sidebar"
 import { logoutAC } from "../../../store/actionCreators/authActionCreator"
+import { clearUserPageAC } from "../../../store/actionCreators/usersActionCreator"
 
 const SidebarContainer = (props) => {
 
@@ -11,6 +12,7 @@ const SidebarContainer = (props) => {
 
   const logoutHandler = () => {
     dispatch(logoutAC())
+    dispatch(clearUserPageAC())
   }
 
 

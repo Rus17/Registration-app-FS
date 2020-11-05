@@ -5,7 +5,7 @@ import { Input, Email, Radio } from '../../formsControl/formsControl'
 import s from "./UserAddForm.module.css"
 import spinner from "../../../Img/2.svg"
 
-const UserAddForm = ({ handleSubmit, preloader, userError, msg, mod, initialValues }) => {
+const UserAddForm = ({ handleSubmit, preloader, userError, msg, mod, initialValues, backHandler }) => {
   return (<div className={s.userAddFormPage}>
     <form onSubmit={handleSubmit} className={s.userAddForm}>
       <div className={s.titleForm}>
@@ -27,7 +27,7 @@ const UserAddForm = ({ handleSubmit, preloader, userError, msg, mod, initialValu
         component={Input}
         type="text"
         placeholder="Password"
-        validate={[required, minInput]}
+        validate={[minInput]}
       />
 
       <label>First Name</label>
@@ -106,7 +106,7 @@ const UserAddForm = ({ handleSubmit, preloader, userError, msg, mod, initialValu
         </div>
       </>}
 
-      <label></label>
+      <div className={s.link} onClick={backHandler}>&#8592; Back</div>
       {preloader
         ? <img src={spinner} width="40" height="40" alt="" />
         : mod === "add"

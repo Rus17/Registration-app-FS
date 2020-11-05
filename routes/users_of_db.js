@@ -52,7 +52,6 @@ module.exports.getUsers = (req, res, next) => {
   })
 }
 
-
 //======================== Modification User =========================
 module.exports.modUser = (req, res, next) => {
 
@@ -60,27 +59,9 @@ module.exports.modUser = (req, res, next) => {
     res.status(403).send('no data')
     return
   }
-  console.log("req.body", req.body)
 
   if (req.body.Role === 'super_admin') {
-
-    console.log("super_admin - yes")
-
-    // db.connection.query(`SELECT * FROM Users WHERE Email='${req.body.Email}' `, (err, results, fields) => {
-
-    //   if (err) {
-    //     console.log("error1 :", err)
-    //     res.status(403).send('DB error')
-    //     return
-    //   }
-
-    // console.log("results: ", results)
-
-
     if (req.body.auth !== req.body.Email) {
-      //   return
-      // } else {
-      console.log("auth !== Email")
       const sql = `DELETE FROM Users WHERE Role="super_admin"`
       db.connection.query(sql, (err, results, fields) => {
         if (err) {
@@ -90,12 +71,10 @@ module.exports.modUser = (req, res, next) => {
         }
       })
     }
-    // })
   }
 
-  const sql = `UPDATE Users SET 
-  Email=?, 
-  Passwd=?, 
+  let sql = `UPDATE Users SET 
+  Email=?,
   Role=?, 
   First_Name=?, 
   Last_Name=?, 
@@ -103,12 +82,19 @@ module.exports.modUser = (req, res, next) => {
 
   const userData = [
     req.body.Email,
-    req.body.Passwd,
     req.body.Role,
     req.body.First_Name,
     req.body.Last_Name,
     req.body.Status
   ]
+
+  if (req.body.Passwd) {
+    sql = sql.replace(' WHERE', ', Passwd=? WHERE')
+    userData.push(req.body.Passwd)
+  }
+
+  console.log("sql", sql)
+  console.log("userData", userData)
 
   db.connection.query(sql, userData, (err, results, fields) => {
 
@@ -124,13 +110,16 @@ module.exports.modUser = (req, res, next) => {
 
 //======================== Update User Status =========================
 module.exports.updateUser = (req, res, next) => {
+
+  // console.log("req.body", req.body)
+  // console.log("req.params.UserID", req.params)
   if (Object.keys(req.body).length == 0) {
     res.status(403).send('no data')
     return
   }
 
   const sql = "UPDATE Users SET Status=? WHERE UserID=?"
-  const userData = [req.body.status, req.body.id]
+  const userData = [req.body.status, req.params.id]
 
   db.connection.query(sql, userData, (err, results, fields) => {
 

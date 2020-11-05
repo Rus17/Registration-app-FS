@@ -33,10 +33,22 @@ const UserAddFormContainer = ({ setComponentMode, mod, editableUser }) => {
     setComponentMode("showUsers")
   }
 
+  const backHandler = () => {
+    setComponentMode('showUsers')
+  }
+
   // if (redirect && Object.keys(userError).length === 0) {
   //   return <Redirect to={"/admin/users"} />
   // }
-  return <UserAddForm onSubmit={onSubmit} preloader={preloader} userError={userError} msg={msg} mod={mod} initialValues={editableUser} />
+  return <UserAddForm
+    onSubmit={onSubmit}
+    preloader={preloader}
+    userError={userError}
+    msg={msg}
+    mod={mod}
+    initialValues={editableUser}
+    backHandler={backHandler}
+  />
 
 }
 

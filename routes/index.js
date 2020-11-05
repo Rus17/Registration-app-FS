@@ -13,6 +13,7 @@ const addUser = require('./users_of_db').addUser
 const modUser = require('./users_of_db').modUser
 
 const getParticipants = require('./participants_of_db').getParticipants
+const setParticipantStatus = require('./participants_of_db').setParticipantStatus
 
 const sendMail = require('./sendMail')
 const validateParticipant = require("./validateParticipant")
@@ -24,7 +25,9 @@ const validateUser = require("./validateUser")
 router.post('/conf_registration',
   urlJSONParser,
   validateParticipant,
-  settParticipant
+  settParticipant,
+  sendMail,
+  (req, res) => { res.status(200).send("Data is valid") }
 )
 
 //================================== FOR ADMIN ===========================
@@ -39,8 +42,10 @@ router.put('/admin/user/:UserID', urlJSONParser, modUser)
 //=============================== Get users list  ==============================
 router.get('/admin/users', urlJSONParser, getUsers)
 
-//=============================== Update user ===================================
-router.put('/admin/users', urlJSONParser, updateUser)
+//=============================== Update user status ===================================
+router.patch('/admin/users/:id', urlJSONParser, updateUser)
+
+
 
 //=============================== Delete user ===================================
 router.delete('/admin/users/:id', delUser)
@@ -51,7 +56,10 @@ router.post('/admin/users', urlJSONParser, validateUser, addUser)
 
 //================================== PARTICIPANTS ======================================
 //=============================== Get participants list  ==============================
-router.get('/admin/participants', urlJSONParser, getParticipants)
+router.get('/admin/participants/:sort/:pageSize/:currentPage', urlJSONParser, getParticipants)
+
+//=============================== Set participant status ==============================
+router.patch('/admin/participant/:id', urlJSONParser, setParticipantStatus, sendMail, (req, res) => { res.sendStatus(200) })
 
 
 

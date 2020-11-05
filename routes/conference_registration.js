@@ -50,8 +50,8 @@ module.exports.settParticipant = (req, res, next) => {
 
   // ==================== query to the DB =======================
 
-  console.log("userData my : ", userData)
-  console.log("sql my : ", sql)
+  // console.log("userData my : ", userData)
+  // console.log("sql my : ", sql)
   db.connection.query(sql, userData, (err, results, fields) => {
 
     if (err) {
@@ -59,9 +59,12 @@ module.exports.settParticipant = (req, res, next) => {
       res.status(403).send('DB error')
       return
     }
+
+    res.locals.status = 'new'
+
     next()
-    console.log("Done Participant added to DB")
-    res.status(200).send("Data is valid")
+    // console.log("Done Participant added to DB")
+    // res.status(200).send("Data is valid")
 
   })
 }
