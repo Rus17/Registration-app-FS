@@ -3,10 +3,6 @@ require('dotenv').config()
 
 async function mailSender(req, res, next) {
 
-  console.log("req", req.body)
-  console.log("res", res.locals)
-  // console.log("res", res)
-
   // let testEmailAccount = await nodemailer.createTestAccount()
   // let transporter = nodemailer.createTransport({
   //   host: 'smtp.ethereal.email',

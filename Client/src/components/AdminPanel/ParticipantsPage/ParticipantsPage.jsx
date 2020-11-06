@@ -1,7 +1,7 @@
 import React from "react"
 import s from "./participantsPage.module.css"
 
-const ParticipantsPage = ({ participantList, editParticipantHandler, sortHandler }) => {
+const ParticipantsPage = ({ participantList, editParticipantHandler, sortHandler, numberOfPages, pageClickHandler, currentPage }) => {
 
   const participantsTable = participantList.map((participant, i, arr) => {
     return (
@@ -15,6 +15,16 @@ const ParticipantsPage = ({ participantList, editParticipantHandler, sortHandler
         <td>{participant.Status}</td>
       </tr>
     )
+  })
+
+  let pagesArr = []
+  for (let i = 1; i <= numberOfPages; i++) { pagesArr.push(i) }
+
+  const pages = pagesArr.map((p) => {
+    if (p === currentPage) {
+      return <span key={p} className={s.active} > {p} </span>
+    }
+    return <span key={p} onClick={pageClickHandler.bind(null, p)}> {p} </span>
   })
 
   return (
@@ -38,6 +48,9 @@ const ParticipantsPage = ({ participantList, editParticipantHandler, sortHandler
           </tbody>
 
         </table>
+      </div>
+      <div className={s.paginator}>
+        {pages}
       </div>
     </div>
   )

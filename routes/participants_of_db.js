@@ -2,8 +2,25 @@ const db = require('../server')
 
 //======================== Get  Participants =========================
 module.exports.getParticipants = (req, res, next) => {
+  // console.log("req :", req.params.sort, req.params.currentPage, req.params.pageSize, req.params.filter)
 
-  const sql = `SELECT * FROM Participants ORDER BY ${req.params.sort} LIMIT ${req.params.currentPage}, ${req.params.pageSize}`
+  let order = 'ASC'
+  let sort = req.params.sort
+
+  if (sort.slice(-4) === '!rev') {
+    const arrSort = sort.split('!')
+    sort = arrSort[0]
+    order = 'DESC'
+  }
+
+  let primaryParticipant
+  if (req.params.currentPage === 1) {
+    primaryParticipant = req.params.currentPage--
+  } else {
+    primaryParticipant = (req.params.currentPage - 1) * req.params.pageSize
+  }
+
+  const sql = `SELECT * FROM Participants ORDER BY ${sort} ${order} LIMIT ${primaryParticipant}, ${req.params.pageSize}`
   db.connection.query(sql, (err, results, fields) => {
 
     if (err) {

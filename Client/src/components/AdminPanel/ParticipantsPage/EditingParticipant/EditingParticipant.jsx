@@ -1,9 +1,9 @@
-import reactRouterDom from "react-router-dom";
+// import reactRouterDom from "react-router-dom";
 import React from "react"
 import s from "./EditingParticipant.module.css"
 
 const EditingParticipant = ({ participant, statusHandler, setEditMode }) => {
-  console.log("part", participant)
+  // console.log("part", participant)
   return <div className={s.participant}>
     <div>ID: </div><div>{participant.UserID}</div>
     <div>First Name: </div><div>{participant.First_Name}</div>

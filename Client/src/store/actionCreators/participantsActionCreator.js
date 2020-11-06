@@ -2,7 +2,7 @@ import { takeEvery, put, call } from "redux-saga/effects"
 import { participants } from "../../api/api"
 import {
   GET_PARTICIPANTS, GET_PARTICIPANTS_SAGA, CLEAR_PARTICIPANT_PAGE,
-  SET_STATUS_PARTICIPANT_SAGA, SET_STATUS_PARTICIPANT, SET_TOTAL_PARTICIPANTS_COUNT
+  SET_STATUS_PARTICIPANT_SAGA, SET_STATUS_PARTICIPANT, SET_TOTAL_PARTICIPANTS_COUNT, SET_SORTING_PARTICIPANTS, SET_CURRENT_PAGE_PARTICIPANTS
 } from "../actionTypes/participantsTypes"
 
 
@@ -25,8 +25,17 @@ const setTotalParticipantsCountAC = (payload) => {
 
 //================= set Status Participant ===================
 export const setStatusParticipantAC = (payload) => {
-  console.log("AC", payload)
   return ({ type: SET_STATUS_PARTICIPANT, payload })
+}
+
+//================= set Sorting Participants ===================
+export const setSortingParticipantsAC = (payload) => {
+  return ({ type: SET_SORTING_PARTICIPANTS, payload })
+}
+
+//================= set Sorting Participants ===================
+export const setCurrentPageParticipantsAC = (payload) => {
+  return ({ type: SET_CURRENT_PAGE_PARTICIPANTS, payload })
 }
 
 
@@ -54,7 +63,6 @@ export const clearParticipantPageAC = () => {
 //============================== Sagas ==============================
 //======================= Get Participants =======================
 function* getParticipantsSaga(dataAction) {
-  console.log("Saga", dataAction)
   try {
     const response = yield call(() => {
       return participants.getParticipantsAPI(dataAction.payload)
@@ -76,7 +84,6 @@ export function* watchGetParticipantsSaga(payload) {
 
 //================== Set Status Participant =====================
 function* setStatusParticipantSaga(dataAction) {
-  console.log("Saga", dataAction)
   try {
     // yield put(setStatusParticipantAC(dataAction.payload))
     const response = yield call(() => {
