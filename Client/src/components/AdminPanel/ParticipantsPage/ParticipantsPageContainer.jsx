@@ -3,7 +3,10 @@ import { Redirect } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import ParticipantsPage from "./ParticipantsPage"
 import SidebarContainer from "../Sidebar/SidebarContainer"
-import { getParticipantsSC, setSortingParticipantsAC, setCurrentPageParticipantsAC } from "../../../store/actionCreators/participantsActionCreator"
+import {
+  getParticipantsSC, setSortingParticipantsAC,
+  setCurrentPageParticipantsAC, setFiltrationParticipantsAC
+} from "../../../store/actionCreators/participantsActionCreator"
 import EditingParticipantsContainer from "./EditingParticipant/EditingParticipantContainer"
 
 const ParticipantsPageContainer = () => {
@@ -14,6 +17,8 @@ const ParticipantsPageContainer = () => {
   const totalParticipantsCount = useSelector(state => state.participantsPage.totalParticipantsCount)
   const currentPage = useSelector(state => state.participantsPage.currentPage)
   const sort = useSelector(state => state.participantsPage.sort)
+  const filter = useSelector(state => state.participantsPage.filter)
+  const search = useSelector(state => state.participantsPage.search)
 
   const dispatch = useDispatch()
   const numberOfPages = Math.ceil(totalParticipantsCount / pageSize)
@@ -26,7 +31,7 @@ const ParticipantsPageContainer = () => {
     setParticipant(participant)
   }
 
-  // let finalSort = sort
+  // Меняем значение sort в redax-е => Срабатывает useEffect, потому что sort указан в  зависимостях => срабатывает getParticipantsSC()
   const sortHandler = (newSort) => {
     if (sort == newSort) {
       newSort = newSort + '!rev'
@@ -38,16 +43,15 @@ const ParticipantsPageContainer = () => {
     dispatch(setCurrentPageParticipantsAC(p))
   }
 
-  const filterHandler = () => {
-    //all|new|Approve|Decline
+  const filterHandler = (newFilter) => {
+    //All|New|Approve|Decline
+    dispatch(setFiltrationParticipantsAC(newFilter))
+    dispatch(setCurrentPageParticipantsAC(1))
   }
 
   useEffect(() => {
-    // if (!participantList.length) {
-    // console.log("useEffect", sort, pageSize, currentPage)
-    dispatch(getParticipantsSC({ sort, pageSize, currentPage, /*filter*/ }))
-    // }
-  }, [sort, currentPage])
+    dispatch(getParticipantsSC({ sort, pageSize, currentPage, filter }))
+  }, [sort, currentPage, filter, search])
 
   if (editMode) {
     return (<>
@@ -61,7 +65,7 @@ const ParticipantsPageContainer = () => {
     {name
       ? <ParticipantsPage
         participantList={participantList} editParticipantHandler={editParticipantHandler} currentPage={currentPage}
-        sortHandler={sortHandler} numberOfPages={numberOfPages} pageClickHandler={pageClickHandler}
+        sortHandler={sortHandler} numberOfPages={numberOfPages} pageClickHandler={pageClickHandler} filterHandler={filterHandler}
       />
       : <Redirect to={"/admin"} />
     }

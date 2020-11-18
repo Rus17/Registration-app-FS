@@ -1,7 +1,8 @@
 import React from "react"
 import s from "./participantsPage.module.css"
+import SearchFormContainer from '../SearchForm/SearchFormContainer'
 
-const ParticipantsPage = ({ participantList, editParticipantHandler, sortHandler, numberOfPages, pageClickHandler, currentPage }) => {
+const ParticipantsPage = ({ participantList, editParticipantHandler, sortHandler, numberOfPages, pageClickHandler, currentPage, filterHandler }) => {
 
   const participantsTable = participantList.map((participant, i, arr) => {
     return (
@@ -34,13 +35,36 @@ const ParticipantsPage = ({ participantList, editParticipantHandler, sortHandler
         <table>
           <thead>
             <tr>
-              <th onClick={sortHandler.bind(null, 'First_Name')}>Name</th>
-              <th onClick={sortHandler.bind(null, 'Email')}>Email</th>
-              <th onClick={sortHandler.bind(null, 'Company')}>Company</th>
-              <th onClick={sortHandler.bind(null, 'Country')}>Country</th>
-              <th onClick={sortHandler.bind(null, 'Position')}>Position</th>
-              <th onClick={sortHandler.bind(null, 'Registration_date')}>Registration date</th>
-              <th onClick={sortHandler.bind(null, 'Status')}>Status</th>
+              <th>
+                <div onClick={sortHandler.bind(null, 'First_Name')} className={s.sorter}>
+                  Name
+                </div>
+                <SearchFormContainer name='First_Name' />
+              </th>
+              <th>
+                <div onClick={sortHandler.bind(null, 'Email')} className={s.sorter}>
+                  Email
+                </div>
+                <SearchFormContainer name='Email' />
+              </th>
+              <th>
+                <div onClick={sortHandler.bind(null, 'Company')} className={s.sorter}>
+                  Company
+                </div>
+                <SearchFormContainer name='Company' />
+              </th>
+              <th onClick={sortHandler.bind(null, 'Country')} className={s.sorter}>Country</th>
+              <th onClick={sortHandler.bind(null, 'Position')} className={s.sorter}>Position</th>
+              <th onClick={sortHandler.bind(null, 'Registration_date')} className={s.sorter}>Registration date</th>
+              <th>
+                <div onClick={sortHandler.bind(null, 'Status')} className={s.sorter}>Status</div>
+                <div className={s.filter}>
+                  <span onClick={filterHandler.bind(null, 'All')}>All</span>|
+                  <span onClick={filterHandler.bind(null, 'new')}>New</span>|
+                  <span onClick={filterHandler.bind(null, 'Approve')}>App.</span>|
+                  <span onClick={filterHandler.bind(null, 'Decline')}>Dec.</span>
+                </div>
+              </th>
             </tr>
           </thead>
           <tbody>

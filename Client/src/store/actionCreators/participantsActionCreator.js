@@ -1,7 +1,7 @@
 import { takeEvery, put, call } from "redux-saga/effects"
 import { participants } from "../../api/api"
 import {
-  GET_PARTICIPANTS, GET_PARTICIPANTS_SAGA, CLEAR_PARTICIPANT_PAGE,
+  GET_PARTICIPANTS, GET_PARTICIPANTS_SAGA, CLEAR_PARTICIPANT_PAGE, SET_FILTRATION_PARTICIPANTS, SET_SEARCH_PARTICIPANTS,
   SET_STATUS_PARTICIPANT_SAGA, SET_STATUS_PARTICIPANT, SET_TOTAL_PARTICIPANTS_COUNT, SET_SORTING_PARTICIPANTS, SET_CURRENT_PAGE_PARTICIPANTS
 } from "../actionTypes/participantsTypes"
 
@@ -33,11 +33,20 @@ export const setSortingParticipantsAC = (payload) => {
   return ({ type: SET_SORTING_PARTICIPANTS, payload })
 }
 
-//================= set Sorting Participants ===================
+//================= set Current Page Participants ===================
 export const setCurrentPageParticipantsAC = (payload) => {
   return ({ type: SET_CURRENT_PAGE_PARTICIPANTS, payload })
 }
 
+//================= set Filtration Participants ===================
+export const setFiltrationParticipantsAC = (payload) => {
+  return ({ type: SET_FILTRATION_PARTICIPANTS, payload })
+}
+
+//================= set Filtration Participants ===================
+export const setSearchParticipantsAC = (payload) => {
+  return ({ type: SET_SEARCH_PARTICIPANTS, payload })
+}
 
 
 //======================= SC =======================
@@ -68,6 +77,7 @@ function* getParticipantsSaga(dataAction) {
       return participants.getParticipantsAPI(dataAction.payload)
     })
     if (response.statusText === "OK") {
+      // yield put(setCurrentPageParticipantsAC(1))
       yield put(setParticipantsAC(response.data.participants))
       yield put(setTotalParticipantsCountAC(response.data.totalParticipantsCount))
     }

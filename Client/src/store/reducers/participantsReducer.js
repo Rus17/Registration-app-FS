@@ -1,5 +1,5 @@
 import {
-  GET_PARTICIPANTS, CLEAR_PARTICIPANT_PAGE,
+  GET_PARTICIPANTS, CLEAR_PARTICIPANT_PAGE, SET_FILTRATION_PARTICIPANTS, SET_SEARCH_PARTICIPANTS,
   SET_STATUS_PARTICIPANT, SET_TOTAL_PARTICIPANTS_COUNT, SET_SORTING_PARTICIPANTS, SET_CURRENT_PAGE_PARTICIPANTS
 } from "../actionTypes/participantsTypes"
 
@@ -9,7 +9,9 @@ let initialState = {
   pageSize: 10,
   totalParticipantsCount: 0,
   currentPage: 1,
-  sort: "UserID"
+  sort: "UserID",
+  filter: "All",
+  search: ""
 }
 
 const participantsReducer = (state = initialState, action) => {
@@ -34,6 +36,20 @@ const participantsReducer = (state = initialState, action) => {
       return {
         ...state,
         sort: action.payload
+      }
+    }
+
+    case SET_FILTRATION_PARTICIPANTS: {
+      return {
+        ...state,
+        filter: action.payload
+      }
+    }
+
+    case SET_SEARCH_PARTICIPANTS: {
+      return {
+        ...state,
+        search: action.payload
       }
     }
 

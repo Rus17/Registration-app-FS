@@ -51,7 +51,7 @@ export const users = {
 
 export const participants = {
   getParticipantsAPI(payload) {
-    return instance.get(`/participants/${payload.sort}/${payload.pageSize}/${payload.currentPage}`)
+    return instance.get(`/participants/${payload.sort}/${payload.pageSize}/${payload.currentPage}/${payload.filter}`)
   },
 
   setStatusParticipantAPI(payload) {

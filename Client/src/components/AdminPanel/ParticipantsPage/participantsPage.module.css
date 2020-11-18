@@ -3,7 +3,7 @@
   width: 80%;  
   height: 100vh;
 }
-.participantsPage th:hover{
+.participantsPage .sorter:hover{
   cursor: pointer;
   text-decoration: underline;
 }
@@ -14,7 +14,6 @@
 }
 
 .paginator{
-  /* display: inline-block; */
   text-align: center;
   margin: 0 auto;
 }
@@ -32,4 +31,17 @@
 
 .paginator span:hover{
   font-weight: bold;
+}
+
+.filter{
+  font-size: 10px;
+  font-weight: normal;
+  color: blue;
+  width: 100px;
+  margin-top: 10px;
+}
+
+.filter span:hover{
+  text-decoration: underline;
+  cursor: pointer;
 }

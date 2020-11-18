@@ -2,7 +2,7 @@ const db = require('../server')
 
 //======================== Get  Participants =========================
 module.exports.getParticipants = (req, res, next) => {
-  // console.log("req :", req.params.sort, req.params.currentPage, req.params.pageSize, req.params.filter)
+  console.log("req :", req.params.sort, req.params.currentPage, req.params.pageSize, req.params.filter)
 
   let order = 'ASC'
   let sort = req.params.sort
@@ -20,7 +20,14 @@ module.exports.getParticipants = (req, res, next) => {
     primaryParticipant = (req.params.currentPage - 1) * req.params.pageSize
   }
 
-  const sql = `SELECT * FROM Participants ORDER BY ${sort} ${order} LIMIT ${primaryParticipant}, ${req.params.pageSize}`
+  let sql = `SELECT * FROM Participants ORDER BY ${sort} ${order} LIMIT ${primaryParticipant}, ${req.params.pageSize}`
+
+  if (req.params.filter !== "All") {
+    sql = `SELECT * FROM Participants WHERE Status="${req.params.filter}" 
+    ORDER BY ${sort} ${order} 
+    LIMIT ${primaryParticipant}, ${req.params.pageSize}`
+  }
+
   db.connection.query(sql, (err, results, fields) => {
 
     if (err) {
@@ -29,7 +36,14 @@ module.exports.getParticipants = (req, res, next) => {
       return
     }
 
-    const sql2 = 'SELECT COUNT(*) FROM Participants'
+    console.log("results: ", results)
+
+    let sql2 = 'SELECT COUNT(*) FROM Participants'
+
+    if (req.params.filter !== "All") {
+      sql2 = `SELECT COUNT(*) FROM Participants WHERE Status="${req.params.filter}"`
+    }
+
     db.connection.query(sql2, (err, resultCount, fields) => {
 
       if (err) {
@@ -38,17 +52,12 @@ module.exports.getParticipants = (req, res, next) => {
         return
       }
 
+      console.log("resultCount: ", resultCount)
+
       const results2 = resultCount[0]['COUNT(*)']
       res.status(200).json({ participants: results, totalParticipantsCount: results2 })
 
     })
-    // console.log("resultsCount2", results2)
-    // {
-    //   users: [ ... ],
-    //   page: 3,
-    //   limit: 20,
-    //   totalParticipantsCount: 450,
-    // }
   })
 }
 
