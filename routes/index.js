@@ -56,7 +56,7 @@ router.post('/admin/users', urlJSONParser, validateUser, addUser)
 
 //================================== PARTICIPANTS ======================================
 //=============================== Get participants list  ==============================
-router.get('/admin/participants/:sort/:pageSize/:currentPage/:filter', urlJSONParser, getParticipants)
+router.get('/admin/participants/:sort/:pageSize/:currentPage/:filter/:fieldName?/:search?', urlJSONParser, getParticipants)
 
 //=============================== Set participant status ==============================
 router.patch('/admin/participant/:id', urlJSONParser, setParticipantStatus, sendMail, (req, res) => { res.sendStatus(200) })

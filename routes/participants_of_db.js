@@ -2,32 +2,65 @@ const db = require('../server')
 
 //======================== Get  Participants =========================
 module.exports.getParticipants = (req, res, next) => {
-  console.log("req :", req.params.sort, req.params.currentPage, req.params.pageSize, req.params.filter)
+  console.log("req :", req.params)
 
-  let order = 'ASC'
+  let order = 'ASC'                   // Указываем прямой порядок сортировка по умолчанию.
   let sort = req.params.sort
 
-  if (sort.slice(-4) === '!rev') {
+  if (sort.slice(-4) === '!rev') {    // Проверяем, и указываем обратный порядок сортировки
     const arrSort = sort.split('!')
     sort = arrSort[0]
     order = 'DESC'
   }
 
-  let primaryParticipant
+  let primaryParticipant              // Определяем для запроса первую запись в таблице
   if (req.params.currentPage === 1) {
     primaryParticipant = req.params.currentPage--
   } else {
     primaryParticipant = (req.params.currentPage - 1) * req.params.pageSize
   }
 
-  let sql = `SELECT * FROM Participants ORDER BY ${sort} ${order} LIMIT ${primaryParticipant}, ${req.params.pageSize}`
+  // Формируем условие для запроса учитывая "фильтр" и "поиск"
+  let condition = ""
 
-  if (req.params.filter !== "All") {
-    sql = `SELECT * FROM Participants WHERE Status="${req.params.filter}" 
-    ORDER BY ${sort} ${order} 
-    LIMIT ${primaryParticipant}, ${req.params.pageSize}`
+  // Если указан только фильтр, то пересоставляем условие.
+  if (req.params.filter !== "All" && req.params.search === "undefined") {
+    console.log("filter")
+    condition = `WHERE Status="${req.params.filter}"`
   }
 
+  // Если указан только поиск, то пересоставляем условие.
+  if (req.params.search !== "undefined" && req.params.filter === "All" && req.params.fieldName !== 'First_Name') {
+    console.log("search")
+    condition = `WHERE ${req.params.fieldName} LIKE "%${req.params.search}%"`
+  }
+
+  // Если указан только поиск по полю First_Name, то пересоставляем условие.
+  if (req.params.search !== "undefined" && req.params.fieldName === 'First_Name' && req.params.filter === "All") {
+    console.log("search(First_Name)")
+    condition = `WHERE ${req.params.fieldName} LIKE "%${req.params.search}%" 
+    OR Last_Name LIKE "%${req.params.search}%"`
+  }
+
+  // Если указан и фильтр, и поиск, то пересоставляем условие.
+  if (req.params.filter !== "All" && req.params.search !== "undefined" && req.params.fieldName !== 'First_Name') {
+    console.log("filter and search")
+    condition = `WHERE ${req.params.fieldName} LIKE "%${req.params.search}%" 
+    AND Status="${req.params.filter}"`
+  }
+
+  // Если указан и фильтр по полю First_Name, и поиск, то пересоставляем условие.
+  if (req.params.search !== "undefined" && req.params.fieldName === 'First_Name' && req.params.filter !== "All") {
+    console.log("filter and search(First_Name)")
+    condition = `WHERE ${req.params.fieldName} LIKE "%${req.params.search}%"
+    OR Last_Name LIKE "%${req.params.search}%" AND Status="${req.params.filter}"`
+  }
+
+  console.log("condition: ", condition)
+  // Составляем запрос
+  let sql = `SELECT * FROM Participants ${condition} ORDER BY ${sort} ${order} LIMIT ${primaryParticipant}, ${req.params.pageSize}`
+  console.log("sql: ", sql)
+  // Делаем запрос, - получаем сортированный по нужному полю, отфильтрованный и ограниченный список участников
   db.connection.query(sql, (err, results, fields) => {
 
     if (err) {
@@ -36,14 +69,17 @@ module.exports.getParticipants = (req, res, next) => {
       return
     }
 
-    console.log("results: ", results)
+    // console.log("results: ", results)
 
-    let sql2 = 'SELECT COUNT(*) FROM Participants'
+    let sql2 = `SELECT COUNT(*) FROM Participants ${condition}`
 
-    if (req.params.filter !== "All") {
-      sql2 = `SELECT COUNT(*) FROM Participants WHERE Status="${req.params.filter}"`
-    }
+    // if (req.params.filter !== "All") {
+    //   sql2 = `SELECT COUNT(*) FROM Participants ${condition}`
+    // }
 
+    console.log("sql2", sql2)
+
+    // Делаем еще один запрос, чтобы определить, сколько всего записей в таблице по этому фильтру.
     db.connection.query(sql2, (err, resultCount, fields) => {
 
       if (err) {
@@ -55,6 +91,7 @@ module.exports.getParticipants = (req, res, next) => {
       console.log("resultCount: ", resultCount)
 
       const results2 = resultCount[0]['COUNT(*)']
+
       res.status(200).json({ participants: results, totalParticipantsCount: results2 })
 
     })

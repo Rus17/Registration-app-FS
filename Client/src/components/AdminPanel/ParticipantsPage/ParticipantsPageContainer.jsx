@@ -50,7 +50,7 @@ const ParticipantsPageContainer = () => {
   }
 
   useEffect(() => {
-    dispatch(getParticipantsSC({ sort, pageSize, currentPage, filter }))
+    dispatch(getParticipantsSC({ sort, pageSize, currentPage, filter, search }))
   }, [sort, currentPage, filter, search])
 
   if (editMode) {

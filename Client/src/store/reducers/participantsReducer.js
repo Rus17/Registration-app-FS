@@ -6,12 +6,16 @@ import {
 
 let initialState = {
   participantList: [],
-  pageSize: 10,
+  pageSize: 20,
   totalParticipantsCount: 0,
   currentPage: 1,
   sort: "UserID",
   filter: "All",
-  search: ""
+  // search: "",
+  search: {
+    // fieldName: '',
+    // searchText: ''
+  }
 }
 
 const participantsReducer = (state = initialState, action) => {

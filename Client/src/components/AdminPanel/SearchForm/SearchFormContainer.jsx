@@ -8,7 +8,7 @@ const SearchFormContainer = ({ name }) => {
 
   const onSubmit = (text) => {
     console.log("text: ", text)
-    dispatch(setSearchParticipantsAC(text.Search))
+    dispatch(setSearchParticipantsAC({ searchText: text.Search, fieldName: text.fieldName }))
   }
 
   return <SearchForm onSubmit={onSubmit} form={name} initialValues={{ fieldName: name }} />
