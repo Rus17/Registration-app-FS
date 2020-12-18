@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import ParticipantsPage from "./ParticipantsPage"
 import SidebarContainer from "../Sidebar/SidebarContainer"
 import {
-  getParticipantsSC, setSortingParticipantsAC,
+  getParticipantsSC, setSortingParticipantsAC, setSearchParticipantsAC,
   setCurrentPageParticipantsAC, setFiltrationParticipantsAC
 } from "../../../store/actionCreators/participantsActionCreator"
 import EditingParticipantsContainer from "./EditingParticipant/EditingParticipantContainer"
@@ -33,7 +33,7 @@ const ParticipantsPageContainer = () => {
 
   // Меняем значение sort в redax-е => Срабатывает useEffect, потому что sort указан в  зависимостях => срабатывает getParticipantsSC()
   const sortHandler = (newSort) => {
-    if (sort == newSort) {
+    if (sort === newSort) {
       newSort = newSort + '!rev'
     }
     dispatch(setSortingParticipantsAC(newSort))
@@ -47,6 +47,10 @@ const ParticipantsPageContainer = () => {
     //All|New|Approve|Decline
     dispatch(setFiltrationParticipantsAC(newFilter))
     dispatch(setCurrentPageParticipantsAC(1))
+  }
+
+  const searchReset = () => {
+    dispatch(setSearchParticipantsAC({}))
   }
 
   useEffect(() => {
@@ -66,6 +70,7 @@ const ParticipantsPageContainer = () => {
       ? <ParticipantsPage
         participantList={participantList} editParticipantHandler={editParticipantHandler} currentPage={currentPage}
         sortHandler={sortHandler} numberOfPages={numberOfPages} pageClickHandler={pageClickHandler} filterHandler={filterHandler}
+        sort={sort} filter={filter} search={search} searchReset={searchReset}
       />
       : <Redirect to={"/admin"} />
     }

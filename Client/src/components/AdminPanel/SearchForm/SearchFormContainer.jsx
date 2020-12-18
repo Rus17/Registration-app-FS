@@ -1,14 +1,15 @@
-import React, { useEffect } from "react"
-import { useDispatch, useSelector } from 'react-redux'
+import React from "react"
+import { useDispatch } from 'react-redux'
+import { reset } from 'redux-form'
 import SearchForm from "./SearchForm"
 import { setSearchParticipantsAC } from '../../../store/actionCreators/participantsActionCreator'
 
 const SearchFormContainer = ({ name }) => {
-  const dispatch = useDispatch()
 
+  const dispatch = useDispatch()
   const onSubmit = (text) => {
-    console.log("text: ", text)
     dispatch(setSearchParticipantsAC({ searchText: text.Search, fieldName: text.fieldName }))
+    dispatch(reset(name))
   }
 
   return <SearchForm onSubmit={onSubmit} form={name} initialValues={{ fieldName: name }} />

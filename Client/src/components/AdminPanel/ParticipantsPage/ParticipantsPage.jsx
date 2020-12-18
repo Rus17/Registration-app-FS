@@ -2,8 +2,10 @@ import React from "react"
 import s from "./participantsPage.module.css"
 import SearchFormContainer from '../SearchForm/SearchFormContainer'
 
-const ParticipantsPage = ({ participantList, editParticipantHandler, sortHandler, numberOfPages, pageClickHandler, currentPage, filterHandler }) => {
+const ParticipantsPage = ({ participantList, editParticipantHandler, sortHandler, numberOfPages, pageClickHandler,
+  currentPage, filterHandler, sort, filter, search, searchReset }) => {
 
+  // console.log("sort", sort)
   const participantsTable = participantList.map((participant, i, arr) => {
     return (
       <tr key={participant.UserID} onClick={editParticipantHandler.bind(null, participant)}>
@@ -32,6 +34,11 @@ const ParticipantsPage = ({ participantList, editParticipantHandler, sortHandler
     <div className={s.participantsPage}>
       <div className="titleTable">List of participants</div>
       <div className="containerTable">
+        <div>
+          Sorting: {sort} <br />
+          Filtration: {filter} <br />
+          Search: {search.searchText} {search.searchText ? <span className={s.resetSymbol} onClick={searchReset.bind()} >Reset</span> : null}
+        </div>
         <table>
           <thead>
             <tr>
@@ -39,19 +46,16 @@ const ParticipantsPage = ({ participantList, editParticipantHandler, sortHandler
                 <div onClick={sortHandler.bind(null, 'First_Name')} className={s.sorter}>
                   Name
                 </div>
-                <SearchFormContainer name='First_Name' />
               </th>
               <th>
                 <div onClick={sortHandler.bind(null, 'Email')} className={s.sorter}>
                   Email
                 </div>
-                <SearchFormContainer name='Email' />
               </th>
               <th>
                 <div onClick={sortHandler.bind(null, 'Company')} className={s.sorter}>
                   Company
                 </div>
-                <SearchFormContainer name='Company' />
               </th>
               <th onClick={sortHandler.bind(null, 'Country')} className={s.sorter}>Country</th>
               <th onClick={sortHandler.bind(null, 'Position')} className={s.sorter}>Position</th>
@@ -59,15 +63,36 @@ const ParticipantsPage = ({ participantList, editParticipantHandler, sortHandler
               <th>
                 <div onClick={sortHandler.bind(null, 'Status')} className={s.sorter}>Status</div>
                 <div className={s.filter}>
+                </div>
+              </th>
+            </tr>
+
+
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <SearchFormContainer name='First_Name' />
+              </td>
+              <td>
+                <SearchFormContainer name='Email' />
+              </td>
+              <td>
+                <SearchFormContainer name='Company' />
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <div>Filter:</div>
+                <div className={s.filter}>
                   <span onClick={filterHandler.bind(null, 'All')}>All</span>|
                   <span onClick={filterHandler.bind(null, 'new')}>New</span>|
                   <span onClick={filterHandler.bind(null, 'Approve')}>App.</span>|
                   <span onClick={filterHandler.bind(null, 'Decline')}>Dec.</span>
                 </div>
-              </th>
+              </td>
             </tr>
-          </thead>
-          <tbody>
             {participantsTable}
           </tbody>
 

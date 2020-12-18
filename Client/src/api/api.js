@@ -52,9 +52,9 @@ export const users = {
 export const participants = {
 
   getParticipantsAPI(payload) {
-    console.log("api", payload)
-    console.log("payload.search.fieldName", payload.search.fieldName)
-    console.log("payload.search.searchText", payload.search.searchText)
+    // console.log("api", payload)
+    // console.log("payload.search.fieldName", payload.search.fieldName)
+    // console.log("payload.search.searchText", payload.search.searchText)
 
     return instance.get(
       `/participants/${payload.sort}/${payload.pageSize}/${payload.currentPage}/${payload.filter}/${payload.search.fieldName}/${payload.search.searchText}`

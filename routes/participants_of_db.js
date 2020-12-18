@@ -2,7 +2,7 @@ const db = require('../server')
 
 //======================== Get  Participants =========================
 module.exports.getParticipants = (req, res, next) => {
-  console.log("req :", req.params)
+  // console.log("req :", req.params)
 
   let order = 'ASC'                   // Указываем прямой порядок сортировка по умолчанию.
   let sort = req.params.sort
@@ -20,7 +20,7 @@ module.exports.getParticipants = (req, res, next) => {
     primaryParticipant = (req.params.currentPage - 1) * req.params.pageSize
   }
 
-  // Формируем условие для запроса учитывая "фильтр" и "поиск"
+  // ================ Формируем условие для запроса учитывая "фильтр" и "поиск"======================
   let condition = ""
 
   // Если указан только фильтр, то пересоставляем условие.
@@ -52,14 +52,15 @@ module.exports.getParticipants = (req, res, next) => {
   // Если указан и фильтр по полю First_Name, и поиск, то пересоставляем условие.
   if (req.params.search !== "undefined" && req.params.fieldName === 'First_Name' && req.params.filter !== "All") {
     console.log("filter and search(First_Name)")
-    condition = `WHERE ${req.params.fieldName} LIKE "%${req.params.search}%"
+    condition = `WHERE ${req.params.fieldName} LIKE "%${req.params.search}%" AND Status="${req.params.filter}"
     OR Last_Name LIKE "%${req.params.search}%" AND Status="${req.params.filter}"`
   }
+  // ================ Формируем условие для запроса учитывая "фильтр" и "поиск"====================== /
 
-  console.log("condition: ", condition)
+  // console.log("condition: ", condition)
   // Составляем запрос
   let sql = `SELECT * FROM Participants ${condition} ORDER BY ${sort} ${order} LIMIT ${primaryParticipant}, ${req.params.pageSize}`
-  console.log("sql: ", sql)
+  // console.log("sql: ", sql)
   // Делаем запрос, - получаем сортированный по нужному полю, отфильтрованный и ограниченный список участников
   db.connection.query(sql, (err, results, fields) => {
 
@@ -77,7 +78,7 @@ module.exports.getParticipants = (req, res, next) => {
     //   sql2 = `SELECT COUNT(*) FROM Participants ${condition}`
     // }
 
-    console.log("sql2", sql2)
+    // console.log("sql2", sql2)
 
     // Делаем еще один запрос, чтобы определить, сколько всего записей в таблице по этому фильтру.
     db.connection.query(sql2, (err, resultCount, fields) => {
@@ -88,7 +89,7 @@ module.exports.getParticipants = (req, res, next) => {
         return
       }
 
-      console.log("resultCount: ", resultCount)
+      // console.log("resultCount: ", resultCount)
 
       const results2 = resultCount[0]['COUNT(*)']
 

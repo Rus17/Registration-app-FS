@@ -1,7 +1,6 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { Field, reduxForm } from 'redux-form'
 import { required } from '../../../validators/validators'
-// import { Input } from '../../formsControl/formsControl'
 import s from './SearchForm.module.css'
 
 const SearchForm = ({ handleSubmit }) => {
