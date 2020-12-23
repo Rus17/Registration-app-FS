@@ -19,6 +19,7 @@ const ParticipantsPageContainer = () => {
   const sort = useSelector(state => state.participantsPage.sort)
   const filter = useSelector(state => state.participantsPage.filter)
   const search = useSelector(state => state.participantsPage.search)
+  const preloader = useSelector((state => state.participantsPage.preloader))
 
   const dispatch = useDispatch()
   const numberOfPages = Math.ceil(totalParticipantsCount / pageSize)
@@ -70,7 +71,7 @@ const ParticipantsPageContainer = () => {
       ? <ParticipantsPage
         participantList={participantList} editParticipantHandler={editParticipantHandler} currentPage={currentPage}
         sortHandler={sortHandler} numberOfPages={numberOfPages} pageClickHandler={pageClickHandler} filterHandler={filterHandler}
-        sort={sort} filter={filter} search={search} searchReset={searchReset}
+        sort={sort} filter={filter} search={search} searchReset={searchReset} preloader={preloader}
       />
       : <Redirect to={"/admin"} />
     }

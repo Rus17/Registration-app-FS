@@ -1,6 +1,6 @@
 .participantsPage{
   background-color: azure;
-  width: 80%;  
+  flex-basis: 80%;  
   height: 100vh;
 }
 .participantsPage .sorter:hover{
@@ -16,6 +16,7 @@
 .paginator{
   text-align: center;
   margin: 0 auto;
+  padding-bottom: 10px;
 }
 
 .paginator span {
@@ -24,7 +25,7 @@
 }
 
 .paginator .active {
-  color: black;
+  color: gray;
   font-weight: bold;
   cursor: default;
 }
@@ -38,7 +39,6 @@
   font-weight: normal;
   color: blue;
   width: 100px;
-  /* margin-top: 10px; */
 }
 
 .filter span:hover{
@@ -46,8 +46,42 @@
   cursor: pointer;
 }
 
-.resetSymbol{
+.sett{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 300px;
+  column-gap: 10px;
+  margin: 20px auto 10px;
+}
+
+.sett button{
   font-size: 12px;
   color: red;
   cursor: pointer;
+  width: 50px;
+  border: gainsboro 1px solid;
+  border-radius: 5px;
+}
+
+.settTitle{
+  font-weight: bold;
+}
+
+.settValue{
+  color:rgb(56, 56, 56);
+  font-style: italic;
+  font-size: 12px;
+}
+
+.spinner{
+  width: 150px;
+  margin: 0 auto;
+  display: block;
+}
+
+.hidden{
+  width: 150px;
+  margin: 0 auto;
+  display: block;
+  visibility: hidden;
 }

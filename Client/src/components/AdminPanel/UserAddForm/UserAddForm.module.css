@@ -1,8 +1,8 @@
 .userAddFormPage{
-  background-color: azure;
-  align-self: flex-start;
-  width: 80%;
-  height: 100vh;
+  /* background-color: azure; */
+  align-self: center;
+  flex-basis: 80%;
+  /* height: 100vh; */
 }
 
 .userAddForm{ 
@@ -10,6 +10,11 @@
   grid-template-columns: 1fr 2fr;
   grid-row-gap: 5px;
   grid-column-gap: 10px;
+  background-color:rgb(184, 218, 240);
+  border: 1px rgb(13, 31, 65) solid;
+  width: 600px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 .attention{

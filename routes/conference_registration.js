@@ -13,8 +13,8 @@ module.exports.settParticipant = (req, res, next) => {
   //=========== We get the current date ===========
   let currentDate = new Date();
   let setDate = String(currentDate.getFullYear())
-  setDate += ` ${currentDate.getMonth() + 1}`
-  setDate += ` ${currentDate.getDate()}`
+  setDate += `-${currentDate.getMonth() + 1}`
+  setDate += `-${currentDate.getDate()}`
 
   //============ Generate data for the DB ===========
   const userData = [

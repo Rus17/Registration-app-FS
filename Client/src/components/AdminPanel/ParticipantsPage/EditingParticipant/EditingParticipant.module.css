@@ -1,15 +1,23 @@
-.participant{
+.participant_outer{  
+  align-self:center;
+  flex-basis: 80%;
+  /* padding: 20px; */
+}
+
+.participant_inner{
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 20px;
   grid-row-gap: 10px;
   background-color: rgb(253, 233, 236);
-  align-self: flex-start;
-  flex-basis: 60%;
+  border: 1px brown solid;
   padding: 20px;
+  width: 600px;
+  margin: 0 auto;
+
 }
 
-.participant div:nth-child(odd){
+.participant_inner div:nth-child(odd){
   /* color: green; */
   text-align: end;
   font-weight: bold;

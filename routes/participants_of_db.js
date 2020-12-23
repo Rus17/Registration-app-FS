@@ -2,7 +2,7 @@ const db = require('../server')
 
 //======================== Get  Participants =========================
 module.exports.getParticipants = (req, res, next) => {
-  // console.log("req :", req.params)
+  console.log("req :", req.params)
 
   let order = 'ASC'                   // Указываем прямой порядок сортировка по умолчанию.
   let sort = req.params.sort
@@ -12,8 +12,8 @@ module.exports.getParticipants = (req, res, next) => {
     sort = arrSort[0]
     order = 'DESC'
   }
-
-  let primaryParticipant              // Определяем для запроса первую запись в таблице
+  // ================== Определяем первую запись на текущей странице для запроса sql ==================
+  let primaryParticipant
   if (req.params.currentPage === 1) {
     primaryParticipant = req.params.currentPage--
   } else {
@@ -55,7 +55,7 @@ module.exports.getParticipants = (req, res, next) => {
     condition = `WHERE ${req.params.fieldName} LIKE "%${req.params.search}%" AND Status="${req.params.filter}"
     OR Last_Name LIKE "%${req.params.search}%" AND Status="${req.params.filter}"`
   }
-  // ================ Формируем условие для запроса учитывая "фильтр" и "поиск"====================== /
+  // ===================================================================================================== /
 
   // console.log("condition: ", condition)
   // Составляем запрос
@@ -69,7 +69,6 @@ module.exports.getParticipants = (req, res, next) => {
       res.status(403).send('DB error')
       return
     }
-
     // console.log("results: ", results)
 
     let sql2 = `SELECT COUNT(*) FROM Participants ${condition}`
@@ -77,7 +76,6 @@ module.exports.getParticipants = (req, res, next) => {
     // if (req.params.filter !== "All") {
     //   sql2 = `SELECT COUNT(*) FROM Participants ${condition}`
     // }
-
     // console.log("sql2", sql2)
 
     // Делаем еще один запрос, чтобы определить, сколько всего записей в таблице по этому фильтру.
@@ -88,13 +86,13 @@ module.exports.getParticipants = (req, res, next) => {
         res.status(403).send('DB error')
         return
       }
-
       // console.log("resultCount: ", resultCount)
 
       const results2 = resultCount[0]['COUNT(*)']
 
-      res.status(200).json({ participants: results, totalParticipantsCount: results2 })
+      // if(results2 / req.params.currentPage )
 
+      res.status(200).json({ participants: results, totalParticipantsCount: results2 })
     })
   })
 }

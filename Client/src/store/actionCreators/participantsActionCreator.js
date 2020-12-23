@@ -1,7 +1,7 @@
 import { takeEvery, put, call } from "redux-saga/effects"
 import { participants } from "../../api/api"
 import {
-  GET_PARTICIPANTS, GET_PARTICIPANTS_SAGA, CLEAR_PARTICIPANT_PAGE, SET_FILTRATION_PARTICIPANTS, SET_SEARCH_PARTICIPANTS,
+  GET_PARTICIPANTS, GET_PARTICIPANTS_SAGA, CLEAR_PARTICIPANT_PAGE, SET_FILTRATION_PARTICIPANTS, SET_SEARCH_PARTICIPANTS, SET_PRELOADER,
   SET_STATUS_PARTICIPANT_SAGA, SET_STATUS_PARTICIPANT, SET_TOTAL_PARTICIPANTS_COUNT, SET_SORTING_PARTICIPANTS, SET_CURRENT_PAGE_PARTICIPANTS
 } from "../actionTypes/participantsTypes"
 
@@ -48,6 +48,24 @@ export const setSearchParticipantsAC = (payload) => {
   return ({ type: SET_SEARCH_PARTICIPANTS, payload })
 }
 
+//================ Clear ParticipantPage =============== 
+export const clearParticipantPageAC = () => {
+  return ({
+    type: CLEAR_PARTICIPANT_PAGE
+  })
+}
+
+//================ Set preloader =============== 
+export const setPreloaderAC = (payload) => {
+  return ({
+    type: SET_PRELOADER,
+    payload
+  })
+}
+
+
+
+
 
 //======================= SC =======================
 export const getParticipantsSC = (payload) => {
@@ -61,18 +79,12 @@ export const setStatusParticipantSC = (payload) => {
 
 
 
-//================ Clear ParticipantPage =============== 
-export const clearParticipantPageAC = () => {
-  return ({
-    type: CLEAR_PARTICIPANT_PAGE
-  })
-}
-
 
 //============================== Sagas ==============================
 //======================= Get Participants =======================
 function* getParticipantsSaga(dataAction) {
   try {
+    yield put(setPreloaderAC(true))
     const response = yield call(() => {
       return participants.getParticipantsAPI(dataAction.payload)
     })
@@ -81,6 +93,7 @@ function* getParticipantsSaga(dataAction) {
       yield put(setParticipantsAC(response.data.participants))
       yield put(setTotalParticipantsCountAC(response.data.totalParticipantsCount))
     }
+    yield put(setPreloaderAC(false))
   }
   catch (error) {
     console.log("error", error)
@@ -96,12 +109,14 @@ export function* watchGetParticipantsSaga(payload) {
 function* setStatusParticipantSaga(dataAction) {
   try {
     // yield put(setStatusParticipantAC(dataAction.payload))
+    yield put(setPreloaderAC(true))
     const response = yield call(() => {
       return participants.setStatusParticipantAPI(dataAction.payload)
     })
     if (response.statusText === "OK") {
       yield put(setStatusParticipantAC(dataAction.payload))
     }
+    yield put(setPreloaderAC(false))
   }
   catch (error) {
     console.log("error", error)

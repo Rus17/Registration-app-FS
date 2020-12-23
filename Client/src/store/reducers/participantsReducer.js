@@ -1,5 +1,5 @@
 import {
-  GET_PARTICIPANTS, CLEAR_PARTICIPANT_PAGE, SET_FILTRATION_PARTICIPANTS, SET_SEARCH_PARTICIPANTS,
+  GET_PARTICIPANTS, CLEAR_PARTICIPANT_PAGE, SET_FILTRATION_PARTICIPANTS, SET_SEARCH_PARTICIPANTS, SET_PRELOADER,
   SET_STATUS_PARTICIPANT, SET_TOTAL_PARTICIPANTS_COUNT, SET_SORTING_PARTICIPANTS, SET_CURRENT_PAGE_PARTICIPANTS
 } from "../actionTypes/participantsTypes"
 
@@ -15,7 +15,8 @@ let initialState = {
   search: {
     // fieldName: '',
     // searchText: ''
-  }
+  },
+  preloader: false
 }
 
 const participantsReducer = (state = initialState, action) => {
@@ -82,6 +83,16 @@ const participantsReducer = (state = initialState, action) => {
         participantList: []
       }
     }
+
+    case SET_PRELOADER: {
+      return {
+        ...state,
+        preloader: action.payload
+      }
+    }
+
+
+
 
     default: return state
   }

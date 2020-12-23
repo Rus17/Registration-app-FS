@@ -1,9 +1,10 @@
 import React from "react"
 import s from "./participantsPage.module.css"
 import SearchFormContainer from '../SearchForm/SearchFormContainer'
+import spinner from "../../../Img/spinner3.svg"
 
 const ParticipantsPage = ({ participantList, editParticipantHandler, sortHandler, numberOfPages, pageClickHandler,
-  currentPage, filterHandler, sort, filter, search, searchReset }) => {
+  currentPage, filterHandler, sort, filter, search, searchReset, preloader }) => {
 
   // console.log("sort", sort)
   const participantsTable = participantList.map((participant, i, arr) => {
@@ -34,11 +35,19 @@ const ParticipantsPage = ({ participantList, editParticipantHandler, sortHandler
     <div className={s.participantsPage}>
       <div className="titleTable">List of participants</div>
       <div className="containerTable">
-        <div>
-          Sorting: {sort} <br />
-          Filtration: {filter} <br />
-          Search: {search.searchText} {search.searchText ? <span className={s.resetSymbol} onClick={searchReset.bind()} >Reset</span> : null}
+        <div className={s.sett}>
+          <div className={s.settTitle}>Sorting:</div><div className={s.settValue}>{sort} <br /></div><div></div>
+          <div className={s.settTitle}>Filtration:</div><div className={s.settValue}>{filter} <br /></div><div></div>
+          <div className={s.settTitle}>Search:</div><div className={s.settValue}>{search.searchText}</div>
+          <div>{search.searchText ? <button onClick={searchReset.bind()} >Reset</button> : null}</div>
         </div>
+
+        <img className={preloader ? s.spinner : s.hidden} src={spinner} alt="" />
+
+        <div className={s.paginator}>
+          {pages}
+        </div>
+
         <table>
           <thead>
             <tr>
@@ -66,7 +75,6 @@ const ParticipantsPage = ({ participantList, editParticipantHandler, sortHandler
                 </div>
               </th>
             </tr>
-
 
           </thead>
           <tbody>
@@ -98,9 +106,9 @@ const ParticipantsPage = ({ participantList, editParticipantHandler, sortHandler
 
         </table>
       </div>
-      <div className={s.paginator}>
+      {/* <div className={s.paginator}>
         {pages}
-      </div>
+      </div> */}
     </div>
   )
 }

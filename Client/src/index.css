@@ -1,0 +1,19 @@
+ /* для обычного начертания */
+ @font-face {
+  font-family: "main_font";
+  src: url(fonts/Lato-Regular.ttf);
+  font-weight: normal;
+  font-style: normal;
+ }
+
+ /*  для жирного начертания */
+ @font-face {
+  font-family: "main_font";	
+  src: url(fonts/Lato-Bold.ttf);
+  font-weight: bold;
+  font-style: normal;
+ }
+
+body{
+  font-family: "main_font";
+}

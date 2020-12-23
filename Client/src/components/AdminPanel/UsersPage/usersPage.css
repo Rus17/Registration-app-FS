@@ -1,8 +1,3 @@
-/* @font-face {
-  font-family: "Liber sans";
-  src: url(../../../../public/fonts/LiberationSans-Regular.ttf);
- } */
-
 .usersPage{
   background-color: azure;
   flex-basis: 80%;
@@ -15,6 +10,7 @@
 }
 
 .titleTable {
+  font-size: 20px;
   padding: 10px;
   font-weight: bold;
   width: 200px;
@@ -32,10 +28,14 @@ table {
   letter-spacing: 1px;
   font-size: 0.8rem;
   margin: 0 auto;
+  table-layout: auto !important;
+  width: 90%;
 }
 
 td, th {
-  border: 1px solid rgb(200,200,200);  
+  border: 1px solid rgb(200,200,200);
+  width: auto !important;
+  /* white-space: nowrap; */
 }
 
 th {
@@ -43,12 +43,10 @@ th {
   padding: 10px 20px;
 }
 
-tbody{
-}
-
 td {
   padding: 2px 20px;
   text-align: center;
+  /* width: 1px; */
 }
 
 tr:nth-child(even) td {
