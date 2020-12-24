@@ -1,11 +1,8 @@
-
 .sidebar{
   display: flex;
   flex-direction: column;
-  /* width: 20%; */
   background-color:floralwhite;
   height: 100vh;
-/*  padding: 20px;*/
   align-self: flex-start;
   flex-basis: 20%;
 }
@@ -18,10 +15,6 @@
 .welcome{
   font-style: italic;
   font-size: 1.1em;
-}
-
-.activeLink{
-
 }
 
 .inactiveLink{

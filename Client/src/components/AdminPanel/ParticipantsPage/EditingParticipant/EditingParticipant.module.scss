@@ -1,7 +1,6 @@
 .participant_outer{  
   align-self:center;
   flex-basis: 80%;
-  /* padding: 20px; */
 }
 
 .participant_inner{
@@ -14,13 +13,13 @@
   padding: 20px;
   width: 600px;
   margin: 0 auto;
-
 }
 
-.participant_inner div:nth-child(odd){
-  /* color: green; */
-  text-align: end;
-  font-weight: bold;
+.participant_inner {
+  & div:nth-child(odd){
+    text-align: end;
+    font-weight: bold;
+  }
 }
 
 .approveButton {

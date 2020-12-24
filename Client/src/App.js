@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route } from "react-router-dom"
-import './App.css'
+import './App.scss'
 import RegistrationFormContainer from "./components/RegistrationForm/RegistrationFormContainer"
 
 import AdminLoginFormContainer from "./components/AdminPanel/AdminLoginForm/AdminLoginFormContainer"

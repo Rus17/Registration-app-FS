@@ -24,9 +24,11 @@
   color: red;
 }
 
-.registrationForm label{
+.registrationForm{
+  label{
   text-align: end;
   margin-right: 10px;
+  }
 }
 
 .buttonForm{
@@ -35,6 +37,7 @@
   justify-self: end;
   margin-top: 20px;
 }
+
 .buttonBack{
   grid-column: 1/2;
   width: 150px;

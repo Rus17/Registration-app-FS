@@ -1,23 +1,27 @@
 import React from "react"
 import { NavLink } from "react-router-dom"
-import "./sidebar.css"
+import s from "./Sidebar.module.scss"
 
 const Sidebar = ({ name, role, logoutHandler }) => {
-  return (<div className="sidebar">
+  return (
+    <div className={s.sidebar}>
 
-    <div className="itemSideBar welcome">
-      Welcome {name}! <br /> Have a nice day!
+      <div className={`${s.itemSideBar} ${s.welcome}`}>
+        Welcome {name}! <br /> Have a nice day!
     </div>
 
-    <NavLink to="/admin/participants" className="itemSideBar">Participants</NavLink>
+      <NavLink to="/admin/participants" className={s.itemSideBar}>Participants</NavLink>
 
-    {role === 'super_admin'
-      ? <NavLink to="/admin/users" className="itemSideBar">Users</NavLink>
-      : <div className="itemSideBar inactiveLink">Users</div>}
+      {
+        role === 'super_admin'
+          ? <NavLink to="/admin/users" className={s.itemSideBar}>Users</NavLink>
+          : <div className={`${s.itemSideBar} ${s.inactiveLink}`}> Users</div >
+      }
 
-    <div className="itemSideBar link" onClick={logoutHandler} >Logout</div>
+      <div className={`${s.itemSideBar} ${s.link}`} onClick={logoutHandler} >Logout</div>
 
-  </div>)
+    </div >
+  )
 }
 
 export default Sidebar

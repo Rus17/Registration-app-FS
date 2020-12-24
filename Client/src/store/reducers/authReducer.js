@@ -6,9 +6,9 @@ import {
 let initialState = {
   // auth: {},
   auth: {
-    role: "super_admin",
-    name: "Rus",
-    email: "rus@company.zp"
+    role: "",
+    name: "",
+    email: ""
   },
   authError: "",
   preloader: false,

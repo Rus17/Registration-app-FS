@@ -1,7 +1,7 @@
 import React from "react"
 import { Field, reduxForm } from 'redux-form'
 import { required } from '../../../validators/validators'
-import s from './SearchForm.module.css'
+import s from './SearchForm.module.scss'
 
 const SearchForm = ({ handleSubmit }) => {
 

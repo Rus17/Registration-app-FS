@@ -1,8 +1,6 @@
 .userAddFormPage{
-  /* background-color: azure; */
   align-self: center;
   flex-basis: 80%;
-  /* height: 100vh; */
 }
 
 .userAddForm{ 
@@ -30,18 +28,24 @@
   margin-bottom: 20px;
 }
 
-.userAddForm label{
-  text-align: end;
+.userAddForm {
+  label{
+    text-align: end;
+  }
 }
 
-.userAddForm button{
-  width: 120px;
-  justify-self: center;
-  height: 30px;
+.userAddForm {
+  button{
+    width: 120px;
+    justify-self: center;
+    height: 30px;
+  }
 }
 
-.userAddForm img{
-  justify-self: center;
+.userAddForm {
+  img{
+    justify-self: center;
+  }
 }
 
 .userError{

@@ -1,72 +1,73 @@
 import React from "react"
-import {Field} from 'redux-form'
-import {required, minInput, alphabetic} from '../../../validators/validators'
-import {Input} from '../../formsControl/formsControl'
+import { Field } from 'redux-form'
+import { required, minInput, alphabetic } from '../../../validators/validators'
+import { Input } from '../../formsControl/formsControl'
+import s from "../RegistrationForm.module.scss"
 
-const Page2 = ({prevPageHandler, currentPageForm, listOfCountries}) => {
-  
+const Page2 = ({ prevPageHandler, currentPageForm, listOfCountries }) => {
+
   const countriesPoints = listOfCountries.map((item, i) => {
     return <option key={i} value={item.name}>{item.name}</option>
-  })  
-  
+  })
+
   return (
     <>
-      <div className="titleForm">Step {currentPageForm}</div>
+      <div className={s.titleForm}>Step {currentPageForm}</div>
       <label>Arrival date</label>
-      <Field name="arrivalDate" type="date" placeholder="Arrival date" component="input"/>
-        
+      <Field name="arrivalDate" type="date" placeholder="Arrival date" component="input" />
+
       <label>Departure date</label>
-      <Field name="departureDate" type="date" placeholder="Departure date" component="input"/>
-      
+      <Field name="departureDate" type="date" placeholder="Departure date" component="input" />
+
       <label>Company name</label>
-      <Field 
-        name="company" 
+      <Field
+        name="company"
         placeholder="Company name"
         component={Input}
-        validate={[required, minInput, alphabetic]} 
+        validate={[required, minInput, alphabetic]}
       />
-      
+
       <label>Position in company</label>
-      <Field 
-        name="position" 
-        placeholder="Position in company" 
+      <Field
+        name="position"
+        placeholder="Position in company"
         component={Input}
-        validate={[required, minInput, alphabetic]}        
+        validate={[required, minInput, alphabetic]}
       />
-      
+
       <label>Role</label>
       <div>
         <Field name="role" component="input" type="radio" value="listener" />{' '}
           Listener
       </div>
-    
+
       <label></label>
       <div>
         <Field name="role" component="input" type="radio" value="speaker" />{' '}
           Speaker
-      </div>  
-      
-      <label>Sex</label> 
+      </div>
+
+      <label>Sex</label>
       <div>
         <Field name="sex" component="input" type="radio" value="male" />{' '}
           Male
       </div>
-      <label></label> 
+      <label></label>
       <div>
         <Field name="sex" component="input" type="radio" value="female" />{' '}
           Female
-      </div>      
-      
+      </div>
+
       <label>Birthdate</label>
-      <Field name="birthdate" type="date" placeholder="Birthdate" component="input"/>
-        
+      <Field name="birthdate" type="date" placeholder="Birthdate" component="input" />
+
       <label>Country</label>
-      <Field name="country"component="select">
+      <Field name="country" component="select">
         <option />
         {countriesPoints}
       </Field>
-    
-      <button onClick={prevPageHandler} className="buttonBack">Back</button>
+
+      <button onClick={prevPageHandler} className={s.buttonBack}>Back</button>
     </>
   )
 }

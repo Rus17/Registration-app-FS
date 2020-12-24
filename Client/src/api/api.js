@@ -12,7 +12,7 @@ export const conference = {
   },
 
   setParticipantAPI(payload) {
-    return axios.post(`http://localhost:4000/conf_registration`,
+    return axios.post(`http://localhost:4000/registration`,
       JSON.stringify(payload),
       { headers: { 'content-type': 'application/json' } }
     )
@@ -21,7 +21,7 @@ export const conference = {
 
 export const auth = {
   authorizationAPI(payload) {
-    return instance.post('', JSON.stringify(payload))
+    return instance.post('/auth', JSON.stringify(payload))
   }
 }
 
@@ -31,7 +31,7 @@ export const users = {
   },
 
   modificationUserAPI(payload) {
-    return instance.put(`/user/${payload.modUser.UserID}`, JSON.stringify(payload.modUser))
+    return instance.put(`/users/${payload.modUser.UserID}`, JSON.stringify(payload.modUser))
   },
 
   updateUserAPI(payload) {
@@ -48,7 +48,6 @@ export const users = {
   }
 }
 
-
 export const participants = {
 
   getParticipantsAPI(payload) {
@@ -63,7 +62,7 @@ export const participants = {
 
   setStatusParticipantAPI(payload) {
     // console.log("api", payload)
-    return instance.patch(`/participant/${payload.id}`, JSON.stringify({ status: payload.status }))
+    return instance.patch(`/participants/${payload.id}`, JSON.stringify({ status: payload.status }))
   }
 }
 

@@ -1,5 +1,5 @@
 import React from "react"
-import s from "./participantsPage.module.css"
+import s from "./ParticipantsPage.module.scss"
 import SearchFormContainer from '../SearchForm/SearchFormContainer'
 import spinner from "../../../Img/spinner3.svg"
 
@@ -33,8 +33,8 @@ const ParticipantsPage = ({ participantList, editParticipantHandler, sortHandler
 
   return (
     <div className={s.participantsPage}>
-      <div className="titleTable">List of participants</div>
-      <div className="containerTable">
+      <div className={s.titleTable}>List of participants</div>
+      <div className={s.containerTable}>
         <div className={s.sett}>
           <div className={s.settTitle}>Sorting:</div><div className={s.settValue}>{sort} <br /></div><div></div>
           <div className={s.settTitle}>Filtration:</div><div className={s.settValue}>{filter} <br /></div><div></div>
@@ -76,8 +76,6 @@ const ParticipantsPage = ({ participantList, editParticipantHandler, sortHandler
               </th>
             </tr>
 
-          </thead>
-          <tbody>
             <tr>
               <td>
                 <SearchFormContainer name='First_Name' />
@@ -101,6 +99,10 @@ const ParticipantsPage = ({ participantList, editParticipantHandler, sortHandler
                 </div>
               </td>
             </tr>
+
+          </thead>
+          <tbody>
+
             {participantsTable}
           </tbody>
 

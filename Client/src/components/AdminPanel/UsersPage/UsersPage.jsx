@@ -1,6 +1,6 @@
 import React from "react"
 // import { NavLink } from "react-router-dom"
-import "./usersPage.css"
+import s from "./UsersPage.module.scss"
 
 const UsersPage = ({ userList, statusUserHandler, delUserHandler, setEditUserHandler, setComponentMode }) => {
 
@@ -35,8 +35,8 @@ const UsersPage = ({ userList, statusUserHandler, delUserHandler, setEditUserHan
   })
 
   return (
-    <div className="usersPage">
-      <div className="titleTable">A list of users</div>
+    <div className={s.usersPage}>
+      <div className={s.titleTable}>A list of users</div>
       <table>
         <thead>
           <tr>
@@ -53,7 +53,7 @@ const UsersPage = ({ userList, statusUserHandler, delUserHandler, setEditUserHan
 
       </table>
       {/* <NavLink to="/admin/users/add_user"><button className="addUserButton">Add user</button></NavLink> */}
-      <button className="addUserButton" onClick={setComponentMode.bind(null, "addUser")}>Add user</button>
+      <button className={s.addUserButton} onClick={setComponentMode.bind(null, "addUser")}>Add user</button>
     </div>)
 }
 

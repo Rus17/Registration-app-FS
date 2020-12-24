@@ -1,28 +1,28 @@
 import React from "react"
 import { reduxForm, Field } from 'redux-form'
-import "./adminLoginForm.css"
+import s from "./AdminLoginForm.module.scss"
 
 const AdminLoginForm = ({ handleSubmit, authError }) => {
   console.log("props", authError)
   return (<>
-    <form action="" onSubmit={handleSubmit} className="adminLoginForm">
-      <div className="titleForm">Login to admin panel <br /> rus@company.zp</div>
+    <form action="" onSubmit={handleSubmit} className={s.adminLoginForm}>
+      <div className={s.titleForm}>Login to admin panel <br /> rus@company.zp</div>
       {authError && <div className="error"> {authError}</div>}
 
-      <div className="label">
+      <div className={s.label}>
         <label>Email</label>
       </div>
       <div>
-        <Field className="field" name="email" placeholder=" " component="input" type="email" />
+        <Field className={s.field} name="email" placeholder=" " component="input" type="email" />
       </div>
-      <div className="label">
+      <div className={s.label}>
         <label>Password</label>
       </div>
       <div>
-        <Field className="field" name="passwd" placeholder=" " component="input" type="text" />
+        <Field className={s.field} name="passwd" placeholder=" " component="input" type="password" />
       </div>
 
-      <button type="submit" className="buttonAdmForm">Login</button>
+      <button type="submit" className={s.buttonAdmForm}>Login</button>
     </form>
   </>)
 }

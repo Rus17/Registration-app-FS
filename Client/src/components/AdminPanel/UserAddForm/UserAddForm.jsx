@@ -2,7 +2,7 @@ import React from "react"
 import { Field, reduxForm } from 'redux-form'
 import { required, minInput, email, alphabetic, requiredRadio } from '../../../validators/validators'
 import { Input, Email, Radio } from '../../formsControl/formsControl'
-import s from "./UserAddForm.module.css"
+import s from "./UserAddForm.module.scss"
 import spinner from "../../../Img/spinner.svg"
 
 const UserAddForm = ({ handleSubmit, preloader, userError, msg, mod, initialValues, backHandler }) => {

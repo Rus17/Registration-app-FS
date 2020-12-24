@@ -2,7 +2,6 @@
   background-color: aliceblue;
   padding: 20px;
   width: 250px;
-/*  margin: 0 auto;*/
 }
 
 .titleForm{
@@ -11,12 +10,16 @@
   margin-bottom: 20px;
 }
 
-.adminLoginForm .label{
-  margin-top: 10px;
+.adminLoginForm{ 
+  .label{
+    margin-top: 10px;
+  }
 }
 
-.adminLoginForm .field{
-  width: 93%;
+.adminLoginForm{
+  .field{
+    width: 93%;
+  }
 }
 
 .buttonAdmForm{

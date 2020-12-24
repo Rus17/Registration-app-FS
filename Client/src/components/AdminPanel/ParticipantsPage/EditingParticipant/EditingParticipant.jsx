@@ -1,7 +1,7 @@
 // import reactRouterDom from "react-router-dom";
 import React from "react"
 import spinner from "../../../../Img/spinner2.svg"
-import s from "./EditingParticipant.module.css"
+import s from "./EditingParticipant.module.scss"
 
 const EditingParticipant = ({ participant, statusHandler, setEditMode, preloader }) => {
   // console.log("part", participant)

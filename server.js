@@ -1,20 +1,20 @@
 require('dotenv').config()
 const express = require('express')
 const app = express()
-var mariadb = require('mariadb/callback')
-// const bodyparser = require('body-parser')
+const mariadb = require('mariadb/callback')
+const cors = require('cors')
+const userRouter = require("./routes/userRouter")
+const participantRouter = require("./routes/participantRouter")
+const registrationParticRouter = require("./routes/registrationParticRouter")
+const authRouter = require("./routes/authRouter")
 
-var cors = require('cors')
-// const gettingCities = require('./requestsSQL').gettingCities
-// const registrar = require('./authentication').registrar
+
 app.use(cors())
-app.use("/", require("./routes/index"))
+app.use("/admin/users", userRouter)
+app.use("/admin/participants", participantRouter)
+app.use("/registration", registrationParticRouter)
+app.use("/admin/auth", authRouter)
 
-// app.options('*', (req, res) => {
-//   res.set('Access-Control-Allow-Origin', '*');
-//   res.set("Access-Control-Allow-Headers", "Content-Type");
-//   res.send('ok');
-// });
 
 const connection = mariadb.createConnection({   //const connection = mariadb.createConnection()
   host: process.env.DB_HOST,
@@ -26,5 +26,3 @@ const connection = mariadb.createConnection({   //const connection = mariadb.cre
 app.listen(process.env.PORT, () => console.log('Express server is runnig at port no: 4000'))
 
 module.exports.connection = connection
-
-//==========================================
