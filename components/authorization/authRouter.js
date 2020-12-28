@@ -1,7 +1,7 @@
 const express = require('express')
 const authRouter = express.Router()
 const urlJSONParser = require('body-parser').json()
-const authUser = require('../controllers/authController').authUser
+const authUser = require('./authController').authUser
 
 //================================== FOR ADMIN ===========================
 //=============================== Authorization  ==============================

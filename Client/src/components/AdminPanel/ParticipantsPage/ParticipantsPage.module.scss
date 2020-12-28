@@ -2,18 +2,14 @@
   background-color: azure;
   flex-basis: 80%;  
   height: 100vh;
-}
 
-.participantsPage {
   .sorter{
     &:hover{
     cursor: pointer;
     text-decoration: underline;
     }
   }
-}
 
-.participantsPage {
   tbody {
     tr{
       &:hover {
@@ -22,7 +18,29 @@
        }
     }
   }
+
+
 }
+
+// .participantsPage {
+//   .sorter{
+//     &:hover{
+//     cursor: pointer;
+//     text-decoration: underline;
+//     }
+//   }
+// }
+
+// .participantsPage {
+//   tbody {
+//     tr{
+//       &:hover {
+//         cursor: pointer;
+//         color: blue;
+//        }
+//     }
+//   }
+// }
 
 .titleTable {
   font-size: 20px;
@@ -74,7 +92,7 @@
   grid-template-columns: 1fr 1fr 1fr;
   width: 300px;
   column-gap: 10px;
-  margin: 20px auto 10px;
+  margin: 20px auto 0;
 }
 
 .sett {  

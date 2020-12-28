@@ -1,9 +1,8 @@
-const db = require('../server')
+const db = require('../../app')
 const validator = require('validator')
 
 //======================== Get Users =========================
 module.exports.getUsers = (req, res, next) => {
-  console.log("userRouter2")
   const sql = "SELECT UserID, First_Name, Last_Name, Email, Role, Status FROM Users"
   db.connection.query(sql, (err, results, fields) => {
 
@@ -57,9 +56,6 @@ module.exports.modUser = (req, res, next) => {
     userData.push(req.body.Passwd)
   }
 
-  console.log("sql", sql)
-  console.log("userData", userData)
-
   db.connection.query(sql, userData, (err, results, fields) => {
 
     if (err) {
@@ -74,9 +70,6 @@ module.exports.modUser = (req, res, next) => {
 
 //======================== Update User Status =========================
 module.exports.updateUser = (req, res, next) => {
-
-  // console.log("req.body", req.body)
-  // console.log("req.params.UserID", req.params)
   if (Object.keys(req.body).length == 0) {
     res.status(403).send('no data')
     return
@@ -186,9 +179,6 @@ module.exports.validateUser = (req, res, next) => {
   // console.log("req.body", req.body)
   const data = req.body
   let errors = {};
-
-  //  data.name = typeof data.name === 'string' && data.name.trim().length === 0 ? '' : data.name;
-
   if (data.Email) {
     if (!validator.isLength(data.Email, { min: 5, max: 50 })) {
       errors.Email = 'Email must be 10 characters'

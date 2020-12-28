@@ -1,12 +1,9 @@
 const express = require('express')
 const urlJSONParser = require('body-parser').json()
-// const urlJSONParser = bodyParser.json()
 const participantRouter = express.Router()
-
-// const settParticipant = require('../controllers/registrationParticController').settParticipant
-const getParticipants = require('../controllers/participantController').getParticipants
-const setParticipantStatus = require('../controllers/participantController').setParticipantStatus
-const sendMail = require('./sendMail')
+const getParticipants = require('./participantController').getParticipants
+const setParticipantStatus = require('./participantController').setParticipantStatus
+const sendMail = require('../utils/sendMail')
 
 
 //================================== PARTICIPANTS ======================================

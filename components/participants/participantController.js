@@ -1,4 +1,4 @@
-const db = require('../server')
+const db = require('../../app')
 
 //======================== Get  Participants =========================
 module.exports.getParticipants = (req, res, next) => {
@@ -57,10 +57,9 @@ module.exports.getParticipants = (req, res, next) => {
   }
   // ===================================================================================================== /
 
-  // console.log("condition: ", condition)
   // Составляем запрос
   let sql = `SELECT * FROM Participants ${condition} ORDER BY ${sort} ${order} LIMIT ${primaryParticipant}, ${req.params.pageSize}`
-  // console.log("sql: ", sql)
+
   // Делаем запрос, - получаем сортированный по нужному полю, отфильтрованный и ограниченный список участников
   db.connection.query(sql, (err, results, fields) => {
 
@@ -69,15 +68,8 @@ module.exports.getParticipants = (req, res, next) => {
       res.status(403).send('DB error')
       return
     }
-    // console.log("results: ", results)
 
     let sql2 = `SELECT COUNT(*) FROM Participants ${condition}`
-
-    // if (req.params.filter !== "All") {
-    //   sql2 = `SELECT COUNT(*) FROM Participants ${condition}`
-    // }
-    // console.log("sql2", sql2)
-
     // Делаем еще один запрос, чтобы определить, сколько всего записей в таблице по этому фильтру.
     db.connection.query(sql2, (err, resultCount, fields) => {
 
@@ -86,11 +78,8 @@ module.exports.getParticipants = (req, res, next) => {
         res.status(403).send('DB error')
         return
       }
-      // console.log("resultCount: ", resultCount)
 
       const results2 = resultCount[0]['COUNT(*)']
-
-      // if(results2 / req.params.currentPage )
 
       res.status(200).json({ participants: results, totalParticipantsCount: results2 })
     })
@@ -99,8 +88,6 @@ module.exports.getParticipants = (req, res, next) => {
 
 //======================== set Participant Status =========================
 module.exports.setParticipantStatus = (req, res, next) => {
-  // console.log("setParticipants", req.params.id)
-  // console.log("setParticipants", req.body)
 
   if (!req.params.id) {
     res.status(403).send('no data')

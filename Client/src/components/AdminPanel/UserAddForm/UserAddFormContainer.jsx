@@ -1,28 +1,27 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { useDispatch, useSelector } from 'react-redux'
-// import { Redirect } from 'react-router-dom'
 import UserAddForm from "./UserAddForm"
-import { addUser_SC, userErrorAC } from "../../../store/actionCreators/usersActionCreator"
+import { addUser_SC } from "../../../store/actionCreators/usersActionCreator"
 import { modifyUserSC } from "../../../store/actionCreators/usersActionCreator"
-// import SidebarContainer from "../Sidebar/SidebarContainer"
 
-const UserAddFormContainer = ({ setComponentMode, mod, editableUser }) => {
+const UserAddFormContainer = ({ componentModeHandler, mod, editableUser }) => {
   const dispatch = useDispatch()
   const preloader = useSelector(state => state.usersPage.preloader)
   const userError = useSelector(state => state.usersPage.userError)
-  // const redirect = useSelector(state => state.usersPage.redirect)
   const roleField = useSelector(state => state.form)
   const currentUser = useSelector(state => state.authPage.auth.email)
 
+  //If this is an attempt to make a superadmin, then display a warning that the current account will be deleted
   let msg = 0
   if (roleField.addUser
     && roleField.addUser.values
     && roleField.addUser.values.Role
-    && roleField.addUser.values.Role === "super_admin"
-    && currentUser !== editableUser.Email) {
+    && roleField.addUser.values.Role === "super_admin") {
     msg = 1
+    if (editableUser && currentUser === editableUser.Email) {
+      msg = 0
+    }
   }
-  useEffect(() => { dispatch(userErrorAC({})) }, [])
 
   const onSubmit = (user) => {
     if (mod === 'add') dispatch(addUser_SC(user))
@@ -30,16 +29,8 @@ const UserAddFormContainer = ({ setComponentMode, mod, editableUser }) => {
       user.auth = currentUser
       dispatch(modifyUserSC(user))
     }
-    setComponentMode("showUsers")
   }
 
-  const backHandler = () => {
-    setComponentMode('showUsers')
-  }
-
-  // if (redirect && Object.keys(userError).length === 0) {
-  //   return <Redirect to={"/admin/users"} />
-  // }
   return <UserAddForm
     onSubmit={onSubmit}
     preloader={preloader}
@@ -47,7 +38,7 @@ const UserAddFormContainer = ({ setComponentMode, mod, editableUser }) => {
     msg={msg}
     mod={mod}
     initialValues={editableUser}
-    backHandler={backHandler}
+    componentModeHandler={componentModeHandler}
   />
 
 }

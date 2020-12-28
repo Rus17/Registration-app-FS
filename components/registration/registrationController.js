@@ -1,9 +1,8 @@
 const express = require('express')
-const db = require('../server')
+const db = require('../../app')
 const validator = require('validator')
 
 module.exports.settParticipant = (req, res, next) => {
-  // console.log("settParticipant", req.body)
 
   // ===== If data has not arrived, then return an error
   if (Object.keys(req.body).length == 0) {
@@ -50,9 +49,6 @@ module.exports.settParticipant = (req, res, next) => {
      Country) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
 
   // ==================== query to the DB =======================
-
-  // console.log("userData my : ", userData)
-  // console.log("sql my : ", sql)
   db.connection.query(sql, userData, (err, results, fields) => {
 
     if (err) {
@@ -64,19 +60,12 @@ module.exports.settParticipant = (req, res, next) => {
     res.locals.status = 'new'
 
     next()
-    // console.log("Done Participant added to DB")
-    // res.status(200).send("Data is valid")
-
   })
 }
 
 module.exports.validateParticipant = (req, res, next) => {
-  // console.log("req.body", req.body)
   const data = req.body
   let errors = {};
-
-  //  data.name = typeof data.name === 'string' && data.name.trim().length === 0 ? '' : data.name;
-
 
   if (data.fName) {
     if (!validator.isLength(data.fName, { min: 3, max: 20 })) {

@@ -7,11 +7,12 @@ export const ADD_USER = "ADD_USER"
 export const ADD_USER_SAGA = "ADD_USER_SAGA"
 export const USER_ERROR = "USER_ERROR"
 export const PRELOADER = "PRELOADER"
-export const REDIRECT = "REDIRECT"
+// export const REDIRECT = "REDIRECT"
 export const DEL_USER = "DEL_USER"
 export const USER_MODIFICATION = 'USER_MODIFICATION'
 export const USER_MODIFICATION_SAGA = 'USER_MODIFICATION_SAGA'
 export const CLEAR_USER_PAGE = 'CLEAR_USER_PAGE'
+export const SET_COMPONENT_MODE = 'SET_COMPONENT_MODE'
 
 
 

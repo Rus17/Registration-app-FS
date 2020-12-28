@@ -1,11 +1,9 @@
 const express = require('express')
 const registrationParticRouter = express.Router()
 const urlJSONParser = require('body-parser').json()
-
-const sendMail = require('./sendMail')
-// const validateParticipant = require("./validateParticipant")
-const settParticipant = require('../controllers/registrationParticController').settParticipant
-const validateParticipant = require('../controllers/registrationParticController').validateParticipant
+const sendMail = require('../utils/sendMail')
+const settParticipant = require('./registrationController').settParticipant
+const validateParticipant = require('./registrationController').validateParticipant
 
 //================================ FOR PARTICIPANTS ===========================
 //=============================== Registration  ===============================

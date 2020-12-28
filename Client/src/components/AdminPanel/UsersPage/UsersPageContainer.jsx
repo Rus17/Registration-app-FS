@@ -3,20 +3,21 @@ import UsersPage from "./UsersPage"
 import SidebarContainer from "../Sidebar/SidebarContainer"
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from "react-router-dom"
-import { getUsers_SC, updateUser_SC, delUser_SC } from "../../../store/actionCreators/usersActionCreator"
+import { getUsers_SC, updateUser_SC, delUser_SC, setComponentModeAC } from "../../../store/actionCreators/usersActionCreator"
 import UserAddFormContainer from '../UserAddForm/UserAddFormContainer'
 
 const UsersPageContainer = () => {
 
   const auth = useSelector(state => state.authPage.auth)
   const userList = useSelector(state => state.usersPage.userList)
+  const componentMode = useSelector(state => state.usersPage.componentMode)
   const dispatch = useDispatch()
-  const [componentMode, setComponentMode] = useState('showUsers')      // showUsers|addUser|editUser
   const [editableUser, setEditableUser] = useState({})
+
 
   const setEditUserHandler = (user) => {
     setEditableUser(user)
-    setComponentMode("editUser")
+    dispatch(setComponentModeAC("editUser"))
   }
 
   const statusUserHandler = (id, newStatus) => {
@@ -24,6 +25,10 @@ const UsersPageContainer = () => {
   }
 
   const delUserHandler = (id) => { dispatch(delUser_SC(id)) }
+
+  const componentModeHandler = (payload) => {
+    dispatch(setComponentModeAC(payload))
+  }
 
   useEffect(() => {
     if (!userList.length && auth.role === "super_admin") {
@@ -41,13 +46,17 @@ const UsersPageContainer = () => {
         statusUserHandler={statusUserHandler}
         delUserHandler={delUserHandler}
         setEditUserHandler={setEditUserHandler}
-        setComponentMode={setComponentMode} />
+        componentModeHandler={componentModeHandler} />
     }
     {(!auth.name || auth.role !== "super_admin") && <Redirect to={"/admin"} />}
 
-    {componentMode === 'editUser' ? <UserAddFormContainer editableUser={editableUser} setComponentMode={setComponentMode} mod="edit" /> : null}
+    {componentMode === 'editUser' ? <UserAddFormContainer
+      editableUser={editableUser}
+      componentModeHandler={componentModeHandler}
+      mod="edit" /> : null
+    }
 
-    {componentMode === 'addUser' ? <UserAddFormContainer setComponentMode={setComponentMode} mod="add" /> : null}
+    {componentMode === 'addUser' ? <UserAddFormContainer componentModeHandler={componentModeHandler} mod="add" /> : null}
 
   </>)
 }

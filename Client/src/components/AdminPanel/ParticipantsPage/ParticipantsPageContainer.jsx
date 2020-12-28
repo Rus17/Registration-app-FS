@@ -32,7 +32,7 @@ const ParticipantsPageContainer = () => {
     setParticipant(participant)
   }
 
-  // Меняем значение sort в redax-е => Срабатывает useEffect, потому что sort указан в  зависимостях => срабатывает getParticipantsSC()
+  // Меняем значение sort в state => Срабатывает useEffect, потому что sort указан в  зависимостях => срабатывает getParticipantsSC()
   const sortHandler = (newSort) => {
     if (sort === newSort) {
       newSort = newSort + '!rev'

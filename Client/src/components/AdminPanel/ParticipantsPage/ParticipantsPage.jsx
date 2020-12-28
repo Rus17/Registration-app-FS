@@ -6,7 +6,6 @@ import spinner from "../../../Img/spinner3.svg"
 const ParticipantsPage = ({ participantList, editParticipantHandler, sortHandler, numberOfPages, pageClickHandler,
   currentPage, filterHandler, sort, filter, search, searchReset, preloader }) => {
 
-  // console.log("sort", sort)
   const participantsTable = participantList.map((participant, i, arr) => {
     return (
       <tr key={participant.UserID} onClick={editParticipantHandler.bind(null, participant)}>
@@ -102,15 +101,10 @@ const ParticipantsPage = ({ participantList, editParticipantHandler, sortHandler
 
           </thead>
           <tbody>
-
             {participantsTable}
           </tbody>
-
         </table>
       </div>
-      {/* <div className={s.paginator}>
-        {pages}
-      </div> */}
     </div>
   )
 }

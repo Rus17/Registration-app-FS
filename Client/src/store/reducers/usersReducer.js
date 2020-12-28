@@ -2,14 +2,14 @@ import {
   USER_MODIFICATION, CLEAR_USER_PAGE,
   GET_USERS, UPDATE_USER_STATUS,
   ADD_USER, USER_ERROR, PRELOADER,
-  REDIRECT, DEL_USER
+  DEL_USER, SET_COMPONENT_MODE
 } from "../actionTypes/typesUsers"
 
 let initialState = {
   userList: [],
   userError: {},
   preloader: false,
-  redirect: false
+  componentMode: 'showUsers'     // showUsers|addUser|editUser
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -84,10 +84,10 @@ const usersReducer = (state = initialState, action) => {
       }
     }
 
-    case REDIRECT: {
+    case SET_COMPONENT_MODE: {
       return {
         ...state,
-        redirect: action.payload
+        componentMode: action.payload
       }
     }
 

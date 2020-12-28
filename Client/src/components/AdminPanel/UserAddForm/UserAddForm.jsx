@@ -5,7 +5,7 @@ import { Input, Email, Radio } from '../../formsControl/formsControl'
 import s from "./UserAddForm.module.scss"
 import spinner from "../../../Img/spinner.svg"
 
-const UserAddForm = ({ handleSubmit, preloader, userError, msg, mod, initialValues, backHandler }) => {
+const UserAddForm = ({ handleSubmit, preloader, userError, msg, mod, initialValues, componentModeHandler }) => {
   return (
     <div className={s.userAddFormPage}>
       <form onSubmit={handleSubmit} className={s.userAddForm}>
@@ -107,7 +107,7 @@ const UserAddForm = ({ handleSubmit, preloader, userError, msg, mod, initialValu
           </div>
         </>}
 
-        <div className={s.link} onClick={backHandler}>&#8592; Back</div>
+        <div className={s.link} onClick={componentModeHandler.bind(null, 'showUsers')}>&#8592; Back</div>
         {preloader
           ? <img src={spinner} width="40" height="40" alt="" />
           : mod === "add"

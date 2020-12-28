@@ -40,7 +40,8 @@ export const users = {
   },
 
   delUserAPI(payload) {
-    return instance.delete(`/users/${payload}`, payload)
+    // console.log("api", payload)
+    return instance.delete(`/users/${payload}`)
   },
 
   addUserAPI(payload) {

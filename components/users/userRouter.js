@@ -2,17 +2,16 @@ const express = require('express')
 const userRouter = express.Router()
 const urlJSONParser = require('body-parser').json()
 
-const getUsers = require('../controllers/userController').getUsers
-const updateUser = require('../controllers/userController').updateUser
-const delUser = require('../controllers/userController').delUser
-const addUser = require('../controllers/userController').addUser
-const modUser = require('../controllers/userController').modUser
-const validateUser = require('../controllers/userController').validateUser
-// const validateUser = require("./validateUser")
+const getUsers = require('./userController').getUsers
+const updateUser = require('./userController').updateUser
+const delUser = require('./userController').delUser
+const addUser = require('./userController').addUser
+const modUser = require('./userController').modUser
+const validateUser = require('./userController').validateUser
 
 
 //=============================== Modification user ==============================
-userRouter.put('/:UserID', urlJSONParser, modUser)
+userRouter.put('/:UserID', urlJSONParser, validateUser, modUser)
 
 //=============================== Get users list  ==============================
 userRouter.get('/', urlJSONParser, getUsers)

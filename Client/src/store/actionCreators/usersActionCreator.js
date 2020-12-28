@@ -3,7 +3,7 @@ import { users } from "../../api/api"
 import {
   USER_MODIFICATION, USER_MODIFICATION_SAGA, CLEAR_USER_PAGE,
   GET_USERS_SAGA, GET_USERS, UPDATE_USER_STATUS, UPDATE_USER_SAGA,
-  DEL_USER_SAGA, ADD_USER, ADD_USER_SAGA, USER_ERROR, PRELOADER, REDIRECT, DEL_USER
+  DEL_USER_SAGA, ADD_USER, ADD_USER_SAGA, USER_ERROR, PRELOADER, DEL_USER, SET_COMPONENT_MODE
 } from "../actionTypes/typesUsers"
 import { logoutAC } from "./authActionCreator"
 import { clearParticipantPageAC } from "./participantsActionCreator"
@@ -48,14 +48,6 @@ const preloaderAC = (payload) => {
   })
 }
 
-//======================= Set redirect ==============
-export const redirectAC = (payload) => {
-  return ({
-    type: REDIRECT,
-    payload
-  })
-}
-
 //================ Add user =============== 
 const addUsersAC = (payload) => {
   return ({
@@ -78,6 +70,16 @@ export const clearUserPageAC = () => {
     type: CLEAR_USER_PAGE
   })
 }
+
+//================ Set component mode =============== 
+export const setComponentModeAC = (payload) => {
+  return ({
+    type: SET_COMPONENT_MODE,
+    payload
+  })
+}
+
+
 
 
 
@@ -112,7 +114,6 @@ export const addUser_SC = (payload) => {
 }
 
 export const modifyUserSC = (payload) => {
-  // console.log("mSC")
   return ({
     type: USER_MODIFICATION_SAGA,
     payload
@@ -156,10 +157,9 @@ function* modificationUserSaga(dataAction) {
         yield put(clearParticipantPageAC())
       } else {
         yield put(modificationUserAC(dataAction.payload))
+        yield put(userErrorAC({}))
+        yield put(setComponentModeAC("showUsers"))
       }
-
-
-
     }
   }
   catch (error) {
@@ -197,7 +197,7 @@ export function* watchUpdateUsersSaga() {
 
 //======================= Del User =======================
 function* delUserSaga(dataAction) {
-  // console.log("dataAction", dataAction)
+  console.log("dataAction", dataAction)
   try {
     const response = yield call(() => {
       return users.delUserAPI(dataAction.payload)
@@ -228,16 +228,18 @@ function* addUserSaga(dataAction) {
     if (response.data.insertId) {
       dataAction = { ...dataAction.payload, UserID: response.data.insertId }
       yield put(preloaderAC(false))
-      // yield put(redirectAC(true))
       yield put(addUsersAC(dataAction))
       yield put(userErrorAC({}))
+      yield put(setComponentModeAC("showUsers"))
 
+      console.log("success: ", dataAction)
       if (dataAction.Role === "super_admin") {
         yield put(logoutAC())
       }
     }
   }
   catch (error) {
+    console.log("error1 :::", error)
     yield put(preloaderAC(false))
     yield put(userErrorAC(error.response.data))
   }
