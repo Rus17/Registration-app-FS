@@ -1,4 +1,5 @@
 const db = require('../../app')
+const bcrypt = require('bcrypt')
 const validator = require('validator')
 
 //======================== Get Users =========================
@@ -36,36 +37,70 @@ module.exports.modUser = (req, res, next) => {
     }
   }
 
-  let sql = `UPDATE Users SET 
-  Email=?,
-  Role=?, 
-  First_Name=?, 
-  Last_Name=?, 
-  Status=? WHERE UserID=${req.params.UserID}`
+  bcrypt.hash(req.body.Passwd, 10, function (err, hash) {
+    // console.log("encrPasswd", hash)
+    let sql = `UPDATE Users SET 
+    Email=?,
+    Role=?, 
+    First_Name=?, 
+    Last_Name=?, 
+    Status=? WHERE UserID=${req.params.UserID}`
 
-  const userData = [
-    req.body.Email,
-    req.body.Role,
-    req.body.First_Name,
-    req.body.Last_Name,
-    req.body.Status
-  ]
+    const userData = [
+      req.body.Email,
+      req.body.Role,
+      req.body.First_Name,
+      req.body.Last_Name,
+      req.body.Status
+    ]
 
-  if (req.body.Passwd) {
-    sql = sql.replace(' WHERE', ', Passwd=? WHERE')
-    userData.push(req.body.Passwd)
-  }
-
-  db.connection.query(sql, userData, (err, results, fields) => {
-
-    if (err) {
-      console.log("error1 :", err)
-      res.status(403).send('DB error')
-      return
+    if (req.body.Passwd) {
+      sql = sql.replace(' WHERE', ', Passwd=? WHERE')
+      userData.push(hash)
     }
 
-    res.sendStatus(200)
+    db.connection.query(sql, userData, (err, results, fields) => {
+
+      if (err) {
+        console.log("error1 :", err)
+        res.status(403).send('DB error')
+        return
+      }
+
+      res.sendStatus(200)
+    })
   })
+
+  // let sql = `UPDATE Users SET 
+  // Email=?,
+  // Role=?, 
+  // First_Name=?, 
+  // Last_Name=?, 
+  // Status=? WHERE UserID=${req.params.UserID}`
+
+  // const userData = [
+  //   req.body.Email,
+  //   req.body.Role,
+  //   req.body.First_Name,
+  //   req.body.Last_Name,
+  //   req.body.Status
+  // ]
+
+  // if (req.body.Passwd) {
+  //   sql = sql.replace(' WHERE', ', Passwd=? WHERE')
+  //   userData.push(req.body.Passwd)
+  // }
+
+  // db.connection.query(sql, userData, (err, results, fields) => {
+
+  //   if (err) {
+  //     console.log("error1 :", err)
+  //     res.status(403).send('DB error')
+  //     return
+  //   }
+
+  //   res.sendStatus(200)
+  // })
 }
 
 //======================== Update User Status =========================
@@ -112,7 +147,6 @@ module.exports.delUser = (req, res, next) => {
 
 //======================== Add User =========================
 module.exports.addUser = (req, res, next) => {
-  console.log("req :", req.body)
   if (Object.keys(req.body).length == 0) {
     res.status(403).send('no data')
     return
@@ -146,33 +180,53 @@ module.exports.addUser = (req, res, next) => {
       })
     }
 
+    bcrypt.hash(req.body.Passwd, 10, function (err, hash) {
+      const sql = `INSERT INTO Users (
+        Email, Passwd, Role, First_Name, Last_Name, Status) 
+        VALUES (?, ?, ?, ?, ?, ?)`
 
-    const sql = `INSERT INTO Users (
-      Email, Passwd, Role, First_Name, Last_Name, Status) 
-      VALUES (?, ?, ?, ?, ?, ?)`
+      const userData = [
+        req.body.Email,
+        hash,
+        req.body.Role,
+        req.body.First_Name,
+        req.body.Last_Name,
+        req.body.Status
+      ]
 
-    const userData = [
-      req.body.Email,
-      req.body.Passwd,
-      req.body.Role,
-      req.body.First_Name,
-      req.body.Last_Name,
-      req.body.Status
-    ]
-
-    db.connection.query(sql, userData, (err, results, fields) => {
-
-      if (err) {
-        console.log("error1 :", err)
-        res.status(403).send('DB error')
-        return
-      }
-      res.status(200).send({ insertId: results.insertId })
+      db.connection.query(sql, userData, (err, results, fields) => {
+        if (err) {
+          console.log("error1 :", err)
+          res.status(403).send('DB error')
+          return
+        }
+        res.status(200).send({ insertId: results.insertId })
+      })
     })
 
 
-  })
+    // const sql = `INSERT INTO Users (
+    //   Email, Passwd, Role, First_Name, Last_Name, Status) 
+    //   VALUES (?, ?, ?, ?, ?, ?)`
 
+    // const userData = [
+    //   req.body.Email,
+    //   encrPasswd,
+    //   req.body.Role,
+    //   req.body.First_Name,
+    //   req.body.Last_Name,
+    //   req.body.Status
+    // ]
+
+    // db.connection.query(sql, userData, (err, results, fields) => {
+    //   if (err) {
+    //     console.log("error1 :", err)
+    //     res.status(403).send('DB error')
+    //     return
+    //   }
+    //   res.status(200).send({ insertId: results.insertId })
+    // })
+  })
 }
 
 module.exports.validateUser = (req, res, next) => {
@@ -233,7 +287,6 @@ module.exports.validateUser = (req, res, next) => {
     return
   }
 
-  console.log("Data is valid")
   next()
 
 }

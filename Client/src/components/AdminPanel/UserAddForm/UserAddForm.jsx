@@ -28,7 +28,7 @@ const UserAddForm = ({ handleSubmit, preloader, userError, msg, mod, initialValu
           component={Input}
           type="text"
           placeholder="Password"
-          validate={[minInput]}
+          validate={[required, minInput]}
         />
 
         <label>First Name</label>

@@ -1,0 +1,44 @@
+@import "../../variables";
+
+.startPage{  
+  background-color:lightcyan;
+  width: 70vw;
+  height: 500px;
+  font-size: $fontSizeMain + 3;
+  font-weight: bold;
+  text-align: end;
+
+  .admin{
+    font-size: $fontSizeMain - 3;
+    font-weight: normal;
+    text-decoration: none;
+  }
+  .content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    .link{
+    color: black;
+    cursor: pointer;
+    border: 2px rgb(248, 197, 101) solid;
+    width: 170px;
+    height: 50px;
+    border-radius: 3px;
+    margin-top: 100px;
+    text-align: center;
+    background-color: white;
+    text-decoration: none;
+
+    .text {
+      position: relative;
+      top: 50%;
+      transform: translate(0, -50%);
+      font-size: $fontSizeMain + 5;  
+    }
+  }
+  }
+  
+}

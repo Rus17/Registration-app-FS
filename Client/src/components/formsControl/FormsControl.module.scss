@@ -1,13 +1,59 @@
+@import '../../variables';
+
 .inputError {
   input{
-    border: 2px red solid
+    height: 28px;
+    width: 201px;
+    border: 2px red solid;
+    border-radius: 5px;
   }
 }
 
-.inputError {
-  div{
-    color: darkred;
-    font-weight: bold;
-    text-align: start;
+.inputErrorRadio {
+  input{
+    border: 2px red solid;
+    border-radius: 5px;
   }
 }
+
+.inputErrorDate{
+  input{
+    width: 240px;
+    height: 28px;
+    border: 2px red solid;
+    border-radius: 5px;
+  }
+}
+
+.visible{
+  color: darkred;
+  font-weight: bold;
+  text-align: start;
+  font-size: $fontSizeMain - 2;
+}
+
+.hidden{
+  visibility: hidden;
+  height: 15px;
+}
+
+
+
+
+
+// @import '../../variables';
+
+// .inputError {
+//   input{
+//     border: 2px red solid
+//   }
+// }
+
+// .inputError {
+//   div{
+//     color: darkred;
+//     font-weight: bold;
+//     text-align: start;
+//     font-size: $fontSizeMain - 2;
+//   }
+// }

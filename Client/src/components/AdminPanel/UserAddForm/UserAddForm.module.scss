@@ -1,3 +1,5 @@
+@import '../../../variables';
+
 .userAddFormPage{
   align-self: center;
   flex-basis: 80%;
@@ -17,12 +19,13 @@
 
 .attention{
   font-weight: bold;
-  color: red;
+  color: darkred;
+  font-size: $fontSizeMain - 2;
 }
 
 .titleForm{
   grid-column: 1/3;
-  font-size: 20px;
+  font-size: $fontSizeMain + 6;
   text-align: center;
   margin-top: 20px;
   margin-bottom: 20px;

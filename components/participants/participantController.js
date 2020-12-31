@@ -2,7 +2,6 @@ const db = require('../../app')
 
 //======================== Get  Participants =========================
 module.exports.getParticipants = (req, res, next) => {
-  console.log("req :", req.params)
 
   let order = 'ASC'                   // Указываем прямой порядок сортировка по умолчанию.
   let sort = req.params.sort
@@ -25,33 +24,28 @@ module.exports.getParticipants = (req, res, next) => {
 
   // Если указан только фильтр, то пересоставляем условие.
   if (req.params.filter !== "All" && req.params.search === "undefined") {
-    console.log("filter")
     condition = `WHERE Status="${req.params.filter}"`
   }
 
   // Если указан только поиск, то пересоставляем условие.
   if (req.params.search !== "undefined" && req.params.filter === "All" && req.params.fieldName !== 'First_Name') {
-    console.log("search")
     condition = `WHERE ${req.params.fieldName} LIKE "%${req.params.search}%"`
   }
 
   // Если указан только поиск по полю First_Name, то пересоставляем условие.
   if (req.params.search !== "undefined" && req.params.fieldName === 'First_Name' && req.params.filter === "All") {
-    console.log("search(First_Name)")
     condition = `WHERE ${req.params.fieldName} LIKE "%${req.params.search}%" 
     OR Last_Name LIKE "%${req.params.search}%"`
   }
 
   // Если указан и фильтр, и поиск, то пересоставляем условие.
   if (req.params.filter !== "All" && req.params.search !== "undefined" && req.params.fieldName !== 'First_Name') {
-    console.log("filter and search")
     condition = `WHERE ${req.params.fieldName} LIKE "%${req.params.search}%" 
     AND Status="${req.params.filter}"`
   }
 
   // Если указан и фильтр по полю First_Name, и поиск, то пересоставляем условие.
   if (req.params.search !== "undefined" && req.params.fieldName === 'First_Name' && req.params.filter !== "All") {
-    console.log("filter and search(First_Name)")
     condition = `WHERE ${req.params.fieldName} LIKE "%${req.params.search}%" AND Status="${req.params.filter}"
     OR Last_Name LIKE "%${req.params.search}%" AND Status="${req.params.filter}"`
   }

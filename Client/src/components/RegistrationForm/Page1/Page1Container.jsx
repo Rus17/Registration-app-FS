@@ -5,10 +5,24 @@ import { useSelector } from 'react-redux'
 const Page1Container = ({ nextPageHandler }) => {
 
   const currentPageForm = useSelector(state => state.conf_regPage.currentPageForm)
+  const currentValueFirstPage = useSelector(state => state.form.registration)
+
+  const firstPageHandler = (e) => {
+    if (currentValueFirstPage.values
+      && currentValueFirstPage.values.fName
+      && currentValueFirstPage.values.lName
+      && currentValueFirstPage.values.email
+    ) {
+      e.preventDefault()
+      nextPageHandler()
+    }
+  }
 
   return <>
     <Page1 nextPageHandler={nextPageHandler}
-      currentPageForm={currentPageForm} />
+      currentPageForm={currentPageForm}
+      firstPageHandler={firstPageHandler}
+    />
   </>
 }
 

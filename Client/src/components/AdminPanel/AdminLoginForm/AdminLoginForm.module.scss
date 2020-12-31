@@ -1,11 +1,13 @@
+@import '../../../variables';
+
 .adminLoginForm{
-  background-color: aliceblue;
+  background-color: $bgColor;
   padding: 20px;
   width: 250px;
 }
 
 .titleForm{
-  font-size: 16px;
+  font-size: $fontSizeMain + 2;
   text-align: center;
   margin-bottom: 20px;
 }

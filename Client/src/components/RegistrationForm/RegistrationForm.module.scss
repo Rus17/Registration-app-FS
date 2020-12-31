@@ -1,3 +1,5 @@
+@import '../../variables';
+
 .registrationForm{
   display: grid;
   background-color: aquamarine;
@@ -9,13 +11,13 @@
 
 .titleForm{
   grid-column: 1/3;
-  font-size: 16px;
+  font-size: $fontSizeMain + 2;
   text-align: center;
   margin-bottom: 20px;
 }
 .lastMessage{
   grid-column: 1/3;
-  font-size: 16px;
+  font-size: $fontSizeMain + 2;
   text-align: start;
   margin-bottom: 20px;
 }
@@ -28,6 +30,18 @@
   label{
   text-align: end;
   margin-right: 10px;
+  }
+  .input{
+    width: 201px;
+    height: 28px;
+  }
+  .inputDate{
+    width: 201px;
+    height: 28px;
+  }
+  .select{
+    width: 250px;
+    height: 30px;
   }
 }
 

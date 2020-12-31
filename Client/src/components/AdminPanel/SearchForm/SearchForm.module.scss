@@ -1,6 +1,8 @@
+@import '../../../variables';
+
 .search {
   input{
     width: 50px;
-    font-size: 10px;
+    font-size: $fontSizeMain  - 4;
   }
 }

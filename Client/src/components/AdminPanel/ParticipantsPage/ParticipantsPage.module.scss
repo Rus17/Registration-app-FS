@@ -1,5 +1,7 @@
+@import '../../../variables';
+
 .participantsPage{
-  background-color: azure;
+  background-color: $bgColor;
   flex-basis: 80%;  
   height: 100vh;
 
@@ -18,32 +20,10 @@
        }
     }
   }
-
-
 }
 
-// .participantsPage {
-//   .sorter{
-//     &:hover{
-//     cursor: pointer;
-//     text-decoration: underline;
-//     }
-//   }
-// }
-
-// .participantsPage {
-//   tbody {
-//     tr{
-//       &:hover {
-//         cursor: pointer;
-//         color: blue;
-//        }
-//     }
-//   }
-// }
-
 .titleTable {
-  font-size: 20px;
+  font-size: $fontSizeMain + 6;
   padding: 10px;
   font-weight: bold;
   width: 200px;
@@ -75,10 +55,11 @@
 }
 
 .filter{
-  font-size: 10px;
+  font-size: $fontSizeMain - 4;
   font-weight: normal;
   color: blue;
   width: 100px;
+  margin: 0 auto;
   span{
     &:hover{
       text-decoration: underline;
@@ -97,7 +78,7 @@
 
 .sett {  
   button{
-  font-size: 12px;
+  font-size: $fontSizeMain - 2;
   color: red;
   cursor: pointer;
   width: 50px;
@@ -113,7 +94,7 @@
 .settValue{
   color:rgb(56, 56, 56);
   font-style: italic;
-  font-size: 12px;
+  font-size: $fontSizeMain - 2;
 }
 
 .spinner{

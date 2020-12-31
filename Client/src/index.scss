@@ -1,6 +1,6 @@
 @import "variables";
 
- /* для обычного начертания */
+ /* normal */
  @font-face {
   font-family: "main_font";
   src: url(fonts/Lato-Regular.ttf);
@@ -8,7 +8,7 @@
   font-style: normal;
  }
 
- /*  для жирного начертания */
+ /*  bold */
  @font-face {
   font-family: "main_font";	
   src: url(fonts/Lato-Bold.ttf);
