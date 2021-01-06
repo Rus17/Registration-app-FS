@@ -5,6 +5,7 @@ export const AUTHORIZATION_ADMIN = "AUTHORIZATION_ADMIN"
 export const LOGOUT = "LOGOUT"
 export const AUTH_ERROR = "AUTH_ERROR"
 export const PRELOADER = "PRELOADER"
-export const REDIRECT = "REDIRECT"
+// export const REDIRECT = "REDIRECT"
+export const FORBIDDEN = "FORBIDDEN"
 
 

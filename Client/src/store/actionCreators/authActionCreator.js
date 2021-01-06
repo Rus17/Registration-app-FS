@@ -1,7 +1,7 @@
 import { takeEvery, put, call } from "redux-saga/effects"
 import { auth } from "../../api/api"
 import {
-  AUTHORIZATION_SAGA,
+  AUTHORIZATION_SAGA, FORBIDDEN,
   AUTHORIZATION_ADMIN, LOGOUT, AUTH_ERROR
 } from "../actionTypes/authTypes"
 
@@ -52,6 +52,14 @@ const authErrorAC = (payload) => {
   })
 }
 
+//================ Authorisation Error ===============
+export const forbiddenAC = (payload) => {
+  return ({
+    type: FORBIDDEN,
+    payload
+  })
+}
+
 
 //===================== SC ====================== 
 
@@ -68,16 +76,9 @@ export const authorization_SAGA = (payload) => {
 function* authorizationSaga(dataAction) {
   try {
     const response = yield call(() => { return auth.authorizationAPI(dataAction.payload) })
-    // console.log("resp front", response.data)
-    // if (response.data.role === "super_admin") {
-    //   yield put(authorizationSadminAC())
-    // yield put(getUsersAC(response.data.userList))
-    // yield put(getParticipantsAC(response.data.participantList))
-    // } else {
     yield put(authorizationAC(response.data))
-    // yield put(getParticipantsAC(response.data.participantList))
-    // }
-
+    // console.log("cookie: ", response.data.token)
+    document.cookie = `token=${response.data.token}; max-age=1800; SameSite = Strict;`
   }
   catch (error) {
     console.log("error", error)

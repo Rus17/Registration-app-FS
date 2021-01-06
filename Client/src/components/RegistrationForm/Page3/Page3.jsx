@@ -8,8 +8,8 @@ const Page3 = ({ registrationData, currentPageForm, serverCheckError, prevPageHa
       <>
         <div className={s.titleForm}>Error</div>
         <div className={s.lastMessage}>
-          {serverCheckError.fName && <div className={s.error}>{serverCheckError.fName}</div>}
-          {serverCheckError.lName && <div className={s.error}>{serverCheckError.lName}</div>}
+          {serverCheckError.first_name && <div className={s.error}>{serverCheckError.first_name}</div>}
+          {serverCheckError.last_name && <div className={s.error}>{serverCheckError.last_name}</div>}
           {serverCheckError.arrivalDate && <div className={s.error}>{serverCheckError.arrivalDate}</div>}
           {serverCheckError.departureDate && <div className={s.error}>{serverCheckError.departureDate}</div>}
           {serverCheckError.company && <div className={s.error}>{serverCheckError.company}</div>}
@@ -30,7 +30,7 @@ const Page3 = ({ registrationData, currentPageForm, serverCheckError, prevPageHa
       <>
         <div className={s.titleForm}>Step {currentPageForm}</div>
         <div className={s.lastMessage}>
-          {registrationData.fName} {registrationData.lName}, your registration has been completed successfully. A confirmation email was sent to {registrationData.email}. We will notify you by email when your registration is confirmed.
+          {registrationData.first_name} {registrationData.last_name}, your registration has been completed successfully. A confirmation email was sent to {registrationData.email}. We will notify you by email when your registration is confirmed.
         </div>
       </>
     )

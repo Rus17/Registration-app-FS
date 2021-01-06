@@ -13,6 +13,9 @@ const SidebarContainer = (props) => {
   const logoutHandler = () => {
     dispatch(logoutAC())
     dispatch(clearUserPageAC())
+
+    // document.cookie = "lang=JavaScript; max-age=0"
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT;"
   }
 
 

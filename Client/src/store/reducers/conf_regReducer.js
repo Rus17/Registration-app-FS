@@ -1,12 +1,13 @@
 import {
-  SET_CURRENT_PAGE, GET_LIST_OF_COUNTRUES, SERVER_CHECK_ERROR
+  SET_CURRENT_PAGE, GET_LIST_OF_COUNTRUES, SERVER_CHECK_ERROR, PRELOADER
 } from "../actionTypes/conf_regTypes"
 
 
 let initialState = {
   listOfCountries: [],
   currentPageForm: 1,
-  serverCheckError: {}
+  serverCheckError: {},
+  preloader: false
 }
 
 const conf_regReducer = (state = initialState, action) => {
@@ -31,6 +32,13 @@ const conf_regReducer = (state = initialState, action) => {
       return {
         ...state,
         serverCheckError: action.payload
+      }
+    }
+
+    case PRELOADER: {
+      return {
+        ...state,
+        preloader: action.payload
       }
     }
 

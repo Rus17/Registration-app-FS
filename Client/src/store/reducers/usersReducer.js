@@ -41,7 +41,7 @@ const usersReducer = (state = initialState, action) => {
       return {
         ...state,
         userList: state.userList.filter((user) => {
-          return user.UserID !== action.payload
+          return user.userID !== action.payload
         })
       }
     }
@@ -50,7 +50,7 @@ const usersReducer = (state = initialState, action) => {
       return {
         ...state,
         userList: state.userList.map((user) => {
-          if (user.UserID === action.payload.UserID) {
+          if (user.userID === action.payload.userID) {
             user = { ...action.payload }
           }
           return user
@@ -62,8 +62,8 @@ const usersReducer = (state = initialState, action) => {
       return {
         ...state,
         userList: state.userList.map((user) => {
-          if (user.UserID === action.payload.id) {
-            user.Status = action.payload.newStatus
+          if (user.userID === action.payload.id) {
+            user.status = action.payload.newStatus
           }
           return user
         })

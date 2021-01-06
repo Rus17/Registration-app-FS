@@ -1,6 +1,6 @@
 import React from "react"
 import { reduxForm, Field } from 'redux-form'
-import { required, minInput, email } from '../../../validators/validators'
+import { required, minInput, email } from '../../../utils/validators'
 import { Input, Email } from '../../formsControl/formsControl'
 import s from "./AdminLoginForm.module.scss"
 
@@ -8,7 +8,7 @@ const AdminLoginForm = ({ handleSubmit, authError }) => {
   return (<>
     <form action="" onSubmit={handleSubmit} className={s.adminLoginForm}>
       <div className={s.titleForm}>Login to admin panel</div>
-      {authError && <div className="error"> {authError}</div>}
+      {authError && <div className={s.authError}> {authError}</div>}
 
       <div className={s.label}>
         <label>Email</label>

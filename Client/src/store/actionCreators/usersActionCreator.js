@@ -7,6 +7,7 @@ import {
 } from "../actionTypes/typesUsers"
 import { logoutAC } from "./authActionCreator"
 import { clearParticipantPageAC } from "./participantsActionCreator"
+// import { getCookie } from "../../utils/getCookies"
 //======================= AC =======================
 //======================= Get user list ==============
 const getUsersAC = (payload) => {
@@ -144,12 +145,14 @@ export function* watchGetUsersSaga() {
 //======================= Modification User =======================
 function* modificationUserSaga(dataAction) {
   try {
+    yield put(preloaderAC(true))
     const response = yield call(() => {
       return users.modificationUserAPI({
         modUser: dataAction.payload
       })
     })
     if (response.data === "OK") {
+      yield put(preloaderAC(false))
       // console.log("dataAction.auth dataAction.Email", dataAction.payload.auth, dataAction.payload.Email)
       if (dataAction.payload.Role === "super_admin" && dataAction.payload.auth !== dataAction.payload.Email) {
         yield put(logoutAC())
@@ -163,6 +166,7 @@ function* modificationUserSaga(dataAction) {
     }
   }
   catch (error) {
+    yield put(preloaderAC(false))
     yield put(userErrorAC(error.response.data))
   }
 }
@@ -226,14 +230,14 @@ function* addUserSaga(dataAction) {
     })
 
     if (response.data.insertId) {
-      dataAction = { ...dataAction.payload, UserID: response.data.insertId }
+      dataAction = { ...dataAction.payload, userID: response.data.insertId }
       yield put(preloaderAC(false))
       yield put(addUsersAC(dataAction))
       yield put(userErrorAC({}))
       yield put(setComponentModeAC("showUsers"))
 
       console.log("success: ", dataAction)
-      if (dataAction.Role === "super_admin") {
+      if (dataAction.admin_role === "super_admin") {
         yield put(logoutAC())
       }
     }

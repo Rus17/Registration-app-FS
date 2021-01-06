@@ -4,51 +4,72 @@ import SidebarContainer from "../Sidebar/SidebarContainer"
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from "react-router-dom"
 import { getUsers_SC, updateUser_SC, delUser_SC, setComponentModeAC } from "../../../store/actionCreators/usersActionCreator"
+import { forbiddenAC } from '../../../store/actionCreators/authActionCreator'
 import UserAddFormContainer from '../UserAddForm/UserAddFormContainer'
 
 const UsersPageContainer = () => {
 
-  const auth = useSelector(state => state.authPage.auth)
+  const name = useSelector(state => state.authPage.auth.name)
+  const role = useSelector(state => state.authPage.auth.role)
   const userList = useSelector(state => state.usersPage.userList)
   const componentMode = useSelector(state => state.usersPage.componentMode)
+  const forbidden = useSelector(state => state.authPage.forbidden)
   const dispatch = useDispatch()
   const [editableUser, setEditableUser] = useState({})
 
 
   const setEditUserHandler = (user) => {
-    setEditableUser(user)
-    dispatch(setComponentModeAC("editUser"))
+    if (role === 'admin') {
+      dispatch(forbiddenAC(true))
+    } else {
+      setEditableUser(user)
+      dispatch(setComponentModeAC("editUser"))
+    }
   }
 
   const statusUserHandler = (id, newStatus) => {
-    dispatch(updateUser_SC({ id, newStatus }))
+    if (role === 'admin') {
+      dispatch(forbiddenAC(true))
+    } else {
+      dispatch(updateUser_SC({ id, newStatus }))
+    }
   }
 
-  const delUserHandler = (id) => { dispatch(delUser_SC(id)) }
+  const delUserHandler = (id) => {
+    if (role === 'admin') {
+      dispatch(forbiddenAC(true))
+    } else {
+      dispatch(delUser_SC(id))
+    }
+  }
 
   const componentModeHandler = (payload) => {
-    dispatch(setComponentModeAC(payload))
+    if (role === 'admin') {
+      dispatch(forbiddenAC(true))
+    } else {
+      dispatch(setComponentModeAC(payload))
+    }
   }
 
   useEffect(() => {
-    if (!userList.length && auth.role === "super_admin") {
-      dispatch(getUsers_SC())
-    }
+    if (!userList.length) { dispatch(getUsers_SC()) }
   }, [])
+
+  if (!name) { return <Redirect to={"/admin"} /> }
 
   return (<>
 
     <SidebarContainer />
-
-    {(componentMode === 'showUsers' && auth.role === "super_admin")
-      && <UsersPage
+    {componentMode === 'showUsers'
+      ? <UsersPage
         userList={userList}
         statusUserHandler={statusUserHandler}
         delUserHandler={delUserHandler}
         setEditUserHandler={setEditUserHandler}
-        componentModeHandler={componentModeHandler} />
+        componentModeHandler={componentModeHandler}
+        forbidden={forbidden} />
+      : null
     }
-    {(!auth.name || auth.role !== "super_admin") && <Redirect to={"/admin"} />}
 
     {componentMode === 'editUser' ? <UserAddFormContainer
       editableUser={editableUser}

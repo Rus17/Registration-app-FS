@@ -31,6 +31,7 @@ const RegistrationFormContainer = () => {
         nextPageHandler={nextPageHandler}
         prevPageHandler={prevPageHandler}
         currentPageForm={currentPageForm}
+        initialValues={{ formName: 'conf' }}
       />
     </>
   )

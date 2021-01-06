@@ -9,8 +9,8 @@ const Page1Container = ({ nextPageHandler }) => {
 
   const firstPageHandler = (e) => {
     if (currentValueFirstPage.values
-      && currentValueFirstPage.values.fName
-      && currentValueFirstPage.values.lName
+      && currentValueFirstPage.values.first_name
+      && currentValueFirstPage.values.last_name
       && currentValueFirstPage.values.email
     ) {
       e.preventDefault()
@@ -19,7 +19,7 @@ const Page1Container = ({ nextPageHandler }) => {
   }
 
   return <>
-    <Page1 nextPageHandler={nextPageHandler}
+    <Page1
       currentPageForm={currentPageForm}
       firstPageHandler={firstPageHandler}
     />

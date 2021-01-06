@@ -28,24 +28,24 @@ module.exports.getParticipants = (req, res, next) => {
   }
 
   // Если указан только поиск, то пересоставляем условие.
-  if (req.params.search !== "undefined" && req.params.filter === "All" && req.params.fieldName !== 'First_Name') {
+  if (req.params.search !== "undefined" && req.params.filter === "All" && req.params.fieldName !== 'first_name') {
     condition = `WHERE ${req.params.fieldName} LIKE "%${req.params.search}%"`
   }
 
   // Если указан только поиск по полю First_Name, то пересоставляем условие.
-  if (req.params.search !== "undefined" && req.params.fieldName === 'First_Name' && req.params.filter === "All") {
+  if (req.params.search !== "undefined" && req.params.fieldName === 'first_name' && req.params.filter === "All") {
     condition = `WHERE ${req.params.fieldName} LIKE "%${req.params.search}%" 
     OR Last_Name LIKE "%${req.params.search}%"`
   }
 
   // Если указан и фильтр, и поиск, то пересоставляем условие.
-  if (req.params.filter !== "All" && req.params.search !== "undefined" && req.params.fieldName !== 'First_Name') {
+  if (req.params.filter !== "All" && req.params.search !== "undefined" && req.params.fieldName !== 'first_name') {
     condition = `WHERE ${req.params.fieldName} LIKE "%${req.params.search}%" 
     AND Status="${req.params.filter}"`
   }
 
   // Если указан и фильтр по полю First_Name, и поиск, то пересоставляем условие.
-  if (req.params.search !== "undefined" && req.params.fieldName === 'First_Name' && req.params.filter !== "All") {
+  if (req.params.search !== "undefined" && req.params.fieldName === 'first_name' && req.params.filter !== "All") {
     condition = `WHERE ${req.params.fieldName} LIKE "%${req.params.search}%" AND Status="${req.params.filter}"
     OR Last_Name LIKE "%${req.params.search}%" AND Status="${req.params.filter}"`
   }
@@ -93,7 +93,7 @@ module.exports.setParticipantStatus = (req, res, next) => {
     return
   }
 
-  const sql = "UPDATE Participants SET Status=? WHERE UserID=?"
+  const sql = "UPDATE Participants SET status=? WHERE userID=?"
   const userData = [req.body.status, req.params.id]
 
   db.connection.query(sql, userData, (err, results, fields) => {

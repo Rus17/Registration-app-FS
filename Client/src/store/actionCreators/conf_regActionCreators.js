@@ -2,7 +2,7 @@ import { takeEvery, put, call } from "redux-saga/effects"
 import { conference } from "../../api/api"
 import {
   SET_CURRENT_PAGE, GET_LIST_OF_COUNTRUES, GET_LIST_OF_COUNTRUES_SAGA,
-  SET_PARTICIPANT_SAGA, SERVER_CHECK_ERROR
+  SET_PARTICIPANT_SAGA, SERVER_CHECK_ERROR, PRELOADER
 } from "../actionTypes/conf_regTypes"
 
 
@@ -27,6 +27,15 @@ const serverCheckErrorAC = (payload) => {
     payload
   })
 }
+
+const preloaderAC = (payload) => {
+  return ({
+    type: PRELOADER,
+    payload
+  })
+}
+
+
 
 //======================= SC =======================
 export const getListOfCountries_SC = () => {
@@ -57,13 +66,16 @@ export function* watchGetListOfCountriesSaga() {
 //======================= Set Participant =======================
 function* setParticipantSaga(dataAction) {
   try {
+    yield put(preloaderAC(true))
     yield put(serverCheckErrorAC({}))
     const response = yield call(() => { return conference.setParticipantAPI(dataAction.payload) })
     if (response.statusText === "OK") {
+      yield put(preloaderAC(false))
       yield put(setCurrentPageFormAC(3))
     }
   }
   catch (error) {
+    yield put(preloaderAC(false))
     yield put(serverCheckErrorAC(error.response.data))
     yield put(setCurrentPageFormAC(3))
   }

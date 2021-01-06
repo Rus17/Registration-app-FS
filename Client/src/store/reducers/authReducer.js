@@ -1,5 +1,5 @@
 import {
-  AUTHORIZATION_ADMIN, LOGOUT, AUTH_ERROR, PRELOADER,
+  AUTHORIZATION_ADMIN, LOGOUT, AUTH_ERROR, PRELOADER, FORBIDDEN,
   REDIRECT
 } from "../actionTypes/authTypes"
 
@@ -12,7 +12,8 @@ let initialState = {
   },
   authError: "",
   preloader: false,
-  redirect: false
+  // redirect: false,
+  forbidden: false
 }
 
 const authReducer = (state = initialState, action) => {
@@ -46,10 +47,18 @@ const authReducer = (state = initialState, action) => {
         preloader: action.payload
       }
     }
-    case REDIRECT: {
+
+    // case REDIRECT: {
+    //   return {
+    //     ...state,
+    //     redirect: action.payload
+    //   }
+    // }
+
+    case FORBIDDEN: {
       return {
         ...state,
-        redirect: action.payload
+        forbidden: action.payload
       }
     }
 

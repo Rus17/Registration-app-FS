@@ -1,9 +1,15 @@
 import * as axios from "axios"
+import { getCookie } from "../utils/getCookies"
 
 const instance = axios.create({
   baseURL: 'http://localhost:4000/admin',
-  headers: { 'Content-Type': 'application/json' }
+  headers: {
+    'Content-Type': 'application/json',
+    // 'Authorization': `${getCookie("token")}`
+  }
 })
+
+console.log("api token", getCookie("token"))
 
 
 export const conference = {
@@ -27,25 +33,45 @@ export const auth = {
 
 export const users = {
   getUsersAPI() {
-    return instance.get('/users')
+    return instance.get('/users', {
+      headers: {
+        'Authorization': `${getCookie("token")}`
+      }
+    })
   },
 
   modificationUserAPI(payload) {
-    return instance.put(`/users/${payload.modUser.UserID}`, JSON.stringify(payload.modUser))
+    return instance.put(`/users/${payload.modUser.userID}`, JSON.stringify(payload.modUser), {
+      headers: {
+        'Authorization': `${getCookie("token")}`
+      }
+    })
   },
 
   updateUserAPI(payload) {
     // console.log("api", payload)
-    return instance.patch(`/users/${payload.id}`, JSON.stringify({ status: payload.status }))
+    return instance.patch(`/users/${payload.id}`, JSON.stringify({ status: payload.status }), {
+      headers: {
+        'Authorization': `${getCookie("token")}`
+      }
+    })
   },
 
   delUserAPI(payload) {
     // console.log("api", payload)
-    return instance.delete(`/users/${payload}`)
+    return instance.delete(`/users/${payload}`, {
+      headers: {
+        'Authorization': `${getCookie("token")}`
+      }
+    })
   },
 
   addUserAPI(payload) {
-    return instance.post('/users', JSON.stringify(payload))
+    return instance.post('/users', JSON.stringify(payload), {
+      headers: {
+        'Authorization': `${getCookie("token")}`
+      }
+    })
   }
 }
 

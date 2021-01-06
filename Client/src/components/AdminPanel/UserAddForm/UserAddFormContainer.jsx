@@ -15,15 +15,16 @@ const UserAddFormContainer = ({ componentModeHandler, mod, editableUser }) => {
   let msg = 0
   if (roleField.addUser
     && roleField.addUser.values
-    && roleField.addUser.values.Role
-    && roleField.addUser.values.Role === "super_admin") {
+    && roleField.addUser.values.admin_role
+    && roleField.addUser.values.admin_role === "super_admin") {
     msg = 1
-    if (editableUser && currentUser === editableUser.Email) {
+    if (editableUser && currentUser === editableUser.email) {
       msg = 0
     }
   }
 
   const onSubmit = (user) => {
+    console.log("user", user)
     if (mod === 'add') dispatch(addUser_SC(user))
     if (mod === 'edit') {
       user.auth = currentUser
@@ -37,7 +38,7 @@ const UserAddFormContainer = ({ componentModeHandler, mod, editableUser }) => {
     userError={userError}
     msg={msg}
     mod={mod}
-    initialValues={editableUser}
+    initialValues={{ ...editableUser, formName: 'adm' }}
     componentModeHandler={componentModeHandler}
   />
 

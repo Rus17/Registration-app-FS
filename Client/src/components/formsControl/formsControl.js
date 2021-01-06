@@ -37,12 +37,15 @@ export const Email = ({ input, meta, ...props }) => {
   )
 }
 
-export const Radio = ({ input, type, meta, ...props }) => {
+export const Radio = ({ input, type, meta, label, ...props }) => {
+  // console.log("meta", meta)
+  // console.log("props", props)
   return (
-    <label className={meta.touched && meta.error ? s.inputErrorRadio : ' '}>
-      <input {...input} type={type} />
+    <span className={meta.touched && meta.error ? s.inputErrorRadio : ' '}>
+      <input {...input} type={type} />{' '}
+      {label}{'  '}
       <span className={meta.touched && meta.error ? s.visible : s.hidden}>{meta.error}</span>
-    </label>
+    </span>
   )
 }
 

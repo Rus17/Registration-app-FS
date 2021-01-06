@@ -9,16 +9,12 @@ const RegistrationForm = ({ handleSubmit, onSubmit, nextPageHandler, prevPageHan
   return (
     <>
       <form action="" onSubmit={handleSubmit} className={s.registrationForm}>
-        <div className={s.titleForm}>Registration for IT conference</div>
 
         {currentPageForm === 1 &&
           <Page1Container nextPageHandler={nextPageHandler} />}
 
         {currentPageForm === 2 &&
           <Page2Container prevPageHandler={prevPageHandler} />}
-
-        {currentPageForm === 2 &&
-          <button type="submit" className={s.buttonForm}>Finish</button>}
 
         {currentPageForm === 3 && <Page3Container prevPageHandler={prevPageHandler} />}
 

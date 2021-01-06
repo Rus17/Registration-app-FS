@@ -58,6 +58,10 @@ const ParticipantsPageContainer = () => {
     dispatch(getParticipantsSC({ sort, pageSize, currentPage, filter, search }))
   }, [sort, currentPage, filter, search])
 
+  if (!name) {
+    return <Redirect to={"/admin"} />
+  }
+
   if (editMode) {
     return (<>
       <SidebarContainer />
@@ -72,9 +76,7 @@ const ParticipantsPageContainer = () => {
         participantList={participantList} editParticipantHandler={editParticipantHandler} currentPage={currentPage}
         sortHandler={sortHandler} numberOfPages={numberOfPages} pageClickHandler={pageClickHandler} filterHandler={filterHandler}
         sort={sort} filter={filter} search={search} searchReset={searchReset} preloader={preloader}
-      />
-      : <Redirect to={"/admin"} />
-    }
+      /> : null}
   </>)
 }
 

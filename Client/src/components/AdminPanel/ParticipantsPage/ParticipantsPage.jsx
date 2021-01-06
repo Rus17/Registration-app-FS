@@ -8,14 +8,14 @@ const ParticipantsPage = ({ participantList, editParticipantHandler, sortHandler
 
   const participantsTable = participantList.map((participant, i, arr) => {
     return (
-      <tr key={participant.UserID} onClick={editParticipantHandler.bind(null, participant)}>
-        <td>{participant.First_Name} {participant.Last_Name}</td>
-        <td>{participant.Email}</td>
-        <td>{participant.Company}</td>
-        <td>{participant.Country}</td>
-        <td>{participant.Position}</td>
-        <td>{participant.Registration_date}</td>
-        <td>{participant.Status}</td>
+      <tr key={participant.userID} onClick={editParticipantHandler.bind(null, participant)}>
+        <td>{participant.first_name} {participant.last_name}</td>
+        <td>{participant.email}</td>
+        <td>{participant.company}</td>
+        <td>{participant.country}</td>
+        <td>{participant.position}</td>
+        <td>{participant.registration_date}</td>
+        <td>{participant.status}</td>
       </tr>
     )
   })
@@ -77,13 +77,13 @@ const ParticipantsPage = ({ participantList, editParticipantHandler, sortHandler
 
             <tr>
               <td>
-                <SearchFormContainer name='First_Name' />
+                <SearchFormContainer name='first_name' />
               </td>
               <td>
-                <SearchFormContainer name='Email' />
+                <SearchFormContainer name='email' />
               </td>
               <td>
-                <SearchFormContainer name='Company' />
+                <SearchFormContainer name='company' />
               </td>
               <td></td>
               <td></td>
