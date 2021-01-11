@@ -13,6 +13,7 @@ const UsersPageContainer = () => {
   const role = useSelector(state => state.authPage.auth.role)
   const userList = useSelector(state => state.usersPage.userList)
   const componentMode = useSelector(state => state.usersPage.componentMode)
+  const preloader = useSelector(state => state.usersPage.preloader)
   const forbidden = useSelector(state => state.authPage.forbidden)
   const dispatch = useDispatch()
   const [editableUser, setEditableUser] = useState({})
@@ -67,7 +68,8 @@ const UsersPageContainer = () => {
         delUserHandler={delUserHandler}
         setEditUserHandler={setEditUserHandler}
         componentModeHandler={componentModeHandler}
-        forbidden={forbidden} />
+        forbidden={forbidden}
+        preloader={preloader} />
       : null
     }
 

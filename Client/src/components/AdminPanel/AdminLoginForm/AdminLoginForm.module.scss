@@ -4,33 +4,63 @@
   background-color: $bgColor;
   padding: 20px;
   width: 250px;
-}
 
-.titleForm{
-  font-size: $fontSizeMain + 2;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.adminLoginForm{ 
+  .titleForm{
+    font-size: $fontSizeMain + 2;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+    
   .label{
     margin-top: 10px;
   }
-}
-
-.adminLoginForm{
+    
   .field{
     width: 93%;
   }
+  
+  
+  .buttonAdmForm{
+    margin-top: 10px;
+    width: 100px;
+    margin-left: 150px;
+  }
+
+  .spinner{
+    margin-left: 160px;
+  }
+  
+  .authError{
+    color: red;
+  }
+
 }
 
-.buttonAdmForm{
-  margin-top: 10px;
-  width: 100px;
-  margin-left: 150px;
-}
+// .titleForm{
+//   font-size: $fontSizeMain + 2;
+//   text-align: center;
+//   margin-bottom: 20px;
+// }
 
-.authError{
-  color: red;
-}
+// .adminLoginForm{ 
+//   .label{
+//     margin-top: 10px;
+//   }
+// }
+
+// .adminLoginForm{
+//   .field{
+//     width: 93%;
+//   }
+// }
+
+// .buttonAdmForm{
+//   margin-top: 10px;
+//   width: 100px;
+//   margin-left: 150px;
+// }
+
+// .authError{
+//   color: red;
+// }
 

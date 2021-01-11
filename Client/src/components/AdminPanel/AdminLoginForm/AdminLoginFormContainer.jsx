@@ -10,6 +10,7 @@ const AdminLoginFormContainer = () => {
   const name = useSelector(state => state.authPage.auth.name)
   const role = useSelector(state => state.authPage.auth.role)
   const authError = useSelector(state => state.authPage.authError)
+  const preloader = useSelector(state => state.authPage.preloader)
   const dispatch = useDispatch()
 
   const onSubmit = (formData) => {
@@ -19,7 +20,7 @@ const AdminLoginFormContainer = () => {
   return (<>
     {(name && role === 'super_admin') && <Redirect to={"/admin/users"} />}
     {(name && role === 'admin') && <Redirect to={"/admin/participants"} />}
-    <AdminLoginForm onSubmit={onSubmit} authError={authError} />
+    <AdminLoginForm onSubmit={onSubmit} authError={authError} preloader={preloader} />
   </>)
 
 }

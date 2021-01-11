@@ -1,9 +1,9 @@
 import {
   USER_MODIFICATION, CLEAR_USER_PAGE,
   GET_USERS, UPDATE_USER_STATUS,
-  ADD_USER, USER_ERROR, PRELOADER,
-  DEL_USER, SET_COMPONENT_MODE
-} from "../actionTypes/typesUsers"
+  ADD_USER, USER_ERROR, USER_PAGE_PRELOADER,
+  DEL_USER, SET_COMPONENT_MODE, USER_PERSONAL_PRELOADER
+} from "../actionTypes/usersTypes"
 
 let initialState = {
   userList: [],
@@ -77,7 +77,7 @@ const usersReducer = (state = initialState, action) => {
       }
     }
 
-    case PRELOADER: {
+    case USER_PAGE_PRELOADER: {
       return {
         ...state,
         preloader: action.payload
@@ -88,6 +88,21 @@ const usersReducer = (state = initialState, action) => {
       return {
         ...state,
         componentMode: action.payload
+      }
+    }
+
+    case USER_PERSONAL_PRELOADER: {
+      console.log("reducer", action)
+      return {
+        ...state,
+        userList: state.userList.map((user) => {
+          console.log("user.userID: ", user.userID)
+          console.log("action.userId: ", action.userId)
+          if (user.userID === action.userId) {
+            user.userPersonalPreloader = action.preloader
+          }
+          return user
+        })
       }
     }
 

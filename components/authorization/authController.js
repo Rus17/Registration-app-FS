@@ -35,7 +35,7 @@ module.exports.authUser = (req, res, next) => {
     }
 
 
-    bcrypt.compare(req.body.passwd, results[0].passwd, function (err, result) {
+    bcrypt.compare(req.body.passwd, results[0].passwd, (err, result) => {
       if (!result) {
         console.log("error passwd")
         res.status(403).send('Invalid password')
@@ -55,3 +55,4 @@ module.exports.authUser = (req, res, next) => {
     })
   })
 }
+

@@ -1,8 +1,9 @@
 import React from "react"
 import ModalErrorContainer from "./ModalError/ModalErrorContainer"
+import spinner from "../../../Img/spinner3.svg"
 import s from "./UsersPage.module.scss"
 
-const UsersPage = ({ userList, statusUserHandler, delUserHandler, setEditUserHandler, componentModeHandler, forbidden }) => {
+const UsersPage = ({ userList, statusUserHandler, delUserHandler, setEditUserHandler, componentModeHandler, forbidden, preloader }) => {
 
   console.log("forbidden2", forbidden)
 
@@ -17,19 +18,28 @@ const UsersPage = ({ userList, statusUserHandler, delUserHandler, setEditUserHan
         {user.status === "active"
           &&
           <td>
-            <button onClick={statusUserHandler.bind(null, user.userID, "blocked")}>
-              Block
-          </button>
+            {user.userPersonalPreloader
+              ? <img className={s.spinner} src={spinner} height="10" alt="" />
+              : <button onClick={statusUserHandler.bind(null, user.userID, "blocked")}>
+                Block
+                </button>
+            }
           </td>
         }
 
         {user.status === "blocked"
           &&
           <td>
-            <button onClick={statusUserHandler.bind(null, user.userID, "active")}>
-              Activate
-            </button>
-            <button onClick={delUserHandler.bind(null, user.userID)}>Delete</button>
+            {user.userPersonalPreloader
+              ? <img className={s.spinner} src={spinner} height="10" alt="" />
+              : <button onClick={statusUserHandler.bind(null, user.userID, "active")}>
+                Activate
+                </button>
+            }
+            {user.userPersonalPreloader
+              ? <img className={s.spinner} src={spinner} height="10" alt="" />
+              : <button onClick={delUserHandler.bind(null, user.userID)}>Delete</button>
+            }
           </td>
         }
       </tr>

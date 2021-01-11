@@ -160,30 +160,67 @@ module.exports.addUser = (req, res, next) => {
     }
 
     // Hash the password and add a new user to the database
-    const hash = bcrypt.hashSync(req.body.passwd, 10)
 
-    const sql = `INSERT INTO Users (
-        email, passwd, admin_role, first_name, last_name, status) 
-        VALUES (?, ?, ?, ?, ?, ?)`
+    //============== Sync version ==============
+    // const hash = bcrypt.hashSync(req.body.passwd, 10)
 
-    const userData = [
-      req.body.email,
-      hash,
-      req.body.admin_role,
-      req.body.first_name,
-      req.body.last_name,
-      req.body.status
-    ]
+    // const sql = `INSERT INTO Users (
+    //     email, passwd, admin_role, first_name, last_name, status) 
+    //     VALUES (?, ?, ?, ?, ?, ?)`
 
-    db.connection.query(sql, userData, (err, results, fields) => {
+    // const userData = [
+    //   req.body.email,
+    //   hash,
+    //   req.body.admin_role,
+    //   req.body.first_name,
+    //   req.body.last_name,
+    //   req.body.status
+    // ]
+
+    // db.connection.query(sql, userData, (err, results, fields) => {
+    //   if (err) {
+    //     console.log("error1 :", err)
+    //     res.status(403).send('DB error')
+    //     return
+    //   }
+
+    //   console.log("4444444444_addUser successfully")
+    //   res.status(200).send({ insertId: results.insertId })
+    // })
+
+    //============== Async version ==============
+    bcrypt.hash(req.body.passwd, 10, (err, hash) => {
+
       if (err) {
         console.log("error1 :", err)
-        res.status(403).send('DB error')
+        res.status(403).send('hash error')
         return
       }
 
-      console.log("4444444444_addUser successfully")
-      res.status(200).send({ insertId: results.insertId })
+      const sql = `INSERT INTO Users (
+        email, passwd, admin_role, first_name, last_name, status) 
+        VALUES (?, ?, ?, ?, ?, ?)`
+
+      const userData = [
+        req.body.email,
+        hash,
+        req.body.admin_role,
+        req.body.first_name,
+        req.body.last_name,
+        req.body.status
+      ]
+
+      db.connection.query(sql, userData, (err, results, fields) => {
+
+        if (err) {
+          console.log("error1 :", err)
+          res.status(403).send('DB error')
+          return
+        }
+
+        console.log("4444444444_addUser successfully")
+        res.status(200).send({ insertId: results.insertId })
+      })
     })
   })
 }

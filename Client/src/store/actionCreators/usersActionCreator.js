@@ -3,11 +3,14 @@ import { users } from "../../api/api"
 import {
   USER_MODIFICATION, USER_MODIFICATION_SAGA, CLEAR_USER_PAGE,
   GET_USERS_SAGA, GET_USERS, UPDATE_USER_STATUS, UPDATE_USER_SAGA,
-  DEL_USER_SAGA, ADD_USER, ADD_USER_SAGA, USER_ERROR, PRELOADER, DEL_USER, SET_COMPONENT_MODE
-} from "../actionTypes/typesUsers"
+  USER_PERSONAL_PRELOADER, DEL_USER_SAGA, ADD_USER, ADD_USER_SAGA,
+  USER_ERROR, USER_PAGE_PRELOADER, DEL_USER, SET_COMPONENT_MODE
+} from "../actionTypes/usersTypes"
 import { logoutAC } from "./authActionCreator"
 import { clearParticipantPageAC } from "./participantsActionCreator"
 // import { getCookie } from "../../utils/getCookies"
+
+
 //======================= AC =======================
 //======================= Get user list ==============
 const getUsersAC = (payload) => {
@@ -44,7 +47,7 @@ const delUserAC = (payload) => {
 //======================= Set preloader ==============
 const preloaderAC = (payload) => {
   return ({
-    type: PRELOADER,
+    type: USER_PAGE_PRELOADER,
     payload
   })
 }
@@ -80,7 +83,15 @@ export const setComponentModeAC = (payload) => {
   })
 }
 
-
+//================ Set user personel preloader =============== 
+export const userPersonalPreloaderAC = (payload) => {
+  console.log("AC", payload)
+  return ({
+    type: USER_PERSONAL_PRELOADER,
+    userId: payload.userId,
+    preloader: payload.preloader
+  })
+}
 
 
 
@@ -180,17 +191,20 @@ export function* watchModificationUserSaga() {
 function* updateUsersSaga(dataAction) {
 
   try {
+    yield put(userPersonalPreloaderAC({ userId: dataAction.payload.id, preloader: true }))
     const response = yield call(() => {
       return users.updateUserAPI({
         id: dataAction.payload.id,
         status: dataAction.payload.newStatus
       })
     })
+    yield put(userPersonalPreloaderAC({ userId: dataAction.payload.id, preloader: false }))
     if (response.data === "OK") {
       yield put(updateUserStatusAC(dataAction.payload))
     }
   }
   catch (error) {
+    yield put(userPersonalPreloaderAC({ userId: dataAction.payload.id, preloader: false }))
     yield put(userErrorAC(error.response.data))
   }
 }

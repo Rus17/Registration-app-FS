@@ -2,9 +2,10 @@ import React from "react"
 import { reduxForm, Field } from 'redux-form'
 import { required, minInput, email } from '../../../utils/validators'
 import { Input, Email } from '../../formsControl/formsControl'
+import spinner from "../../../Img/spinner3.svg"
 import s from "./AdminLoginForm.module.scss"
 
-const AdminLoginForm = ({ handleSubmit, authError }) => {
+const AdminLoginForm = ({ handleSubmit, authError, preloader }) => {
   return (<>
     <form action="" onSubmit={handleSubmit} className={s.adminLoginForm}>
       <div className={s.titleForm}>Login to admin panel</div>
@@ -37,7 +38,10 @@ const AdminLoginForm = ({ handleSubmit, authError }) => {
         />
       </div>
 
-      <button type="submit" className={s.buttonAdmForm}>Login</button>
+      {preloader
+        ? <img className={s.spinner} src={spinner} height="10" alt="" />
+        : <button type="submit" className={s.buttonAdmForm}>Login</button>
+      }
     </form>
   </>)
 }

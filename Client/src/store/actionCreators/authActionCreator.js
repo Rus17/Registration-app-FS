@@ -1,18 +1,18 @@
 import { takeEvery, put, call } from "redux-saga/effects"
 import { auth } from "../../api/api"
 import {
-  AUTHORIZATION_SAGA, FORBIDDEN,
+  AUTHORIZATION_SAGA, FORBIDDEN, PRELOADER,
   AUTHORIZATION_ADMIN, LOGOUT, AUTH_ERROR
 } from "../actionTypes/authTypes"
 
 //======================= AC =======================
-// //======================= Set preloader ==============
-// const preloaderAC = (payload) => {
-//   return ({
-//     type: PRELOADER,
-//     payload
-//   })
-// }
+//======================= Set preloader ==============
+const preloaderAC = (payload) => {
+  return ({
+    type: PRELOADER,
+    payload
+  })
+}
 
 // //======================= Set redirect ==============
 // export const redirectAC = (payload) => {
@@ -75,12 +75,16 @@ export const authorization_SAGA = (payload) => {
 //======================= Authorization =========================
 function* authorizationSaga(dataAction) {
   try {
+    yield put(preloaderAC(true))
     const response = yield call(() => { return auth.authorizationAPI(dataAction.payload) })
+    yield put(preloaderAC(false))
     yield put(authorizationAC(response.data))
     // console.log("cookie: ", response.data.token)
     document.cookie = `token=${response.data.token}; max-age=1800; SameSite = Strict;`
+    yield put(authErrorAC(""))
   }
   catch (error) {
+    yield put(preloaderAC(false))
     console.log("error", error)
     yield put(authErrorAC(error.response.data))
   }
@@ -89,10 +93,4 @@ function* authorizationSaga(dataAction) {
 export function* watchAuthorizationSaga() {
   yield takeEvery(AUTHORIZATION_SAGA, authorizationSaga)
 }
-
-
-
-
-
-
 
