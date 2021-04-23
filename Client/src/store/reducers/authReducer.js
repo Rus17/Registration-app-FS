@@ -4,16 +4,14 @@ import {
 } from "../actionTypes/authTypes"
 
 let initialState = {
-  // auth: {},
   auth: {
+    userID: "",
     role: "",
     name: "",
     email: ""
   },
   authError: "",
-  preloader: false,
-  // redirect: false,
-  forbidden: false
+  preloader: false
 }
 
 const authReducer = (state = initialState, action) => {
@@ -55,12 +53,7 @@ const authReducer = (state = initialState, action) => {
     //   }
     // }
 
-    case FORBIDDEN: {
-      return {
-        ...state,
-        forbidden: action.payload
-      }
-    }
+
 
     default: return state
   }

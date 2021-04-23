@@ -6,7 +6,9 @@
   background-color:floralwhite;
   height: 100vh;
   align-self: flex-start;
-  flex-basis: 20%;
+  flex: 0 0 20%;
+  // flex-basis: 140px;
+  // width: 150px;
 }
 
 .itemSideBar{

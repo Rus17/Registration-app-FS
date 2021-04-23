@@ -24,12 +24,9 @@ const UserAddFormContainer = ({ componentModeHandler, mod, editableUser }) => {
   }
 
   const onSubmit = (user) => {
-    console.log("user", user)
-    if (mod === 'add') dispatch(addUser_SC(user))
-    if (mod === 'edit') {
-      user.auth = currentUser
-      dispatch(modifyUserSC(user))
-    }
+    user.auth = currentUser
+    if (mod === 'addUser') dispatch(addUser_SC(user))
+    if (mod === 'editUser') dispatch(modifyUserSC(user))
   }
 
   return <UserAddForm

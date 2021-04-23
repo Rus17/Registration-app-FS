@@ -2,110 +2,144 @@
 
 .participantsPage{
   background-color: $bgColor;
-  flex-basis: 80%;  
+  flex: 0 0 80%;  
   height: 100vh;
 
-  .sorter{
-    &:hover{
-    cursor: pointer;
-    text-decoration: underline;
-    }
-  }
-
-  tbody {
-    tr{
-      &:hover {
-        cursor: pointer;
-        color: blue;
-       }
-    }
-  }
-}
-
-.titleTable {
-  font-size: $fontSizeMain + 6;
-  padding: 10px;
-  font-weight: bold;
-  width: 200px;
-  margin: 0 auto;
-}
-
-.paginator{
-  text-align: center;
-  margin: 0 auto;
-  padding-bottom: 10px;
-}
-
-.paginator {
-  span {
-    color:blue;
-    cursor: pointer;
-    &:hover{
-      font-weight: bold;
-    }
-  }
-}
-
-.paginator {
-  .active {
-    color: gray;
+  .titleTable {
+    font-size: $fontSizeMain + 6;
+    padding: 10px;
     font-weight: bold;
-    cursor: default;
+    width: 200px;
+    margin: 0 auto;
   }
-}
 
-.filter{
-  font-size: $fontSizeMain - 4;
-  font-weight: normal;
-  color: blue;
-  width: 100px;
-  margin: 0 auto;
-  span{
-    &:hover{
-      text-decoration: underline;
-      cursor: pointer;
+  .containerTable{
+    .sett{
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      width: 300px;
+      column-gap: 10px;
+      margin: 20px auto 0;
+
+      .settTitle{
+        font-weight: bold;
+      }
+      
+      .settValue{
+        color:rgb(56, 56, 56);
+        font-style: italic;
+        font-size: $fontSizeMain - 2;
+      }
+
+      button{
+        font-size: $fontSizeMain - 2;
+        color: red;
+        cursor: pointer;
+        width: 50px;
+        border: gainsboro 1px solid;
+        border-radius: 5px;
+        }
     }
+
+    .spinner{
+      width: 150px;
+      margin: 0 auto;
+      display: block;
+    }
+    
+    .hidden{
+      width: 150px;
+      margin: 0 auto;
+      display: block;
+      visibility: hidden;
+    }
+
+    .paginator{
+      text-align: center;
+      margin: 0 auto;
+      padding-bottom: 10px;
+
+      span {
+        color:blue;
+        cursor: pointer;
+        &:hover{
+          font-weight: bold;
+        }
+      }
+
+      .active {
+        color: gray;
+        font-weight: bold;
+        cursor: default;
+      }
+    }
+
+    table{
+        border-collapse: collapse;
+        border: 2px solid rgb(200,200,200);
+        letter-spacing: 1px;
+        font-size: 0.8rem;
+        margin: 0 auto;
+        table-layout: auto !important;
+        width: 95%;
+        // width: 700px;
+
+        tr{
+          td, th {
+            border: 1px solid rgb(200,200,200);
+            width: auto !important;
+          }
+      
+          td {
+            padding: 2px 2px;
+            text-align: center;
+
+            .filter{
+              font-size: $fontSizeMain - 4;
+              font-weight: normal;
+              color: blue;
+              width: 100px;
+              margin: 0 auto;
+              span{
+                &:hover{
+                  text-decoration: underline;
+                  cursor: pointer;
+                }
+              }
+            }
+          }
+      
+          th {
+            background-color: rgb(225,225,225);
+            padding: 10px 20px;
+
+            &:hover{
+              cursor: pointer;
+              text-decoration: underline;
+              }
+          }
+      
+          &:nth-child(even) {
+            td {
+              background-color: rgb(235,235,235);
+            }
+          }
+      
+          &:nth-child(odd) {
+            td {
+              background-color: rgb(250,250,250);
+            }
+          }
+        }
+
+      tbody {
+        tr{
+          &:hover {
+            cursor: pointer;
+            color: blue;
+           }
+        }
+      }
+    }    
   }
-}
-
-.sett{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  width: 300px;
-  column-gap: 10px;
-  margin: 20px auto 0;
-}
-
-.sett {  
-  button{
-  font-size: $fontSizeMain - 2;
-  color: red;
-  cursor: pointer;
-  width: 50px;
-  border: gainsboro 1px solid;
-  border-radius: 5px;
-  }
-}
-
-.settTitle{
-  font-weight: bold;
-}
-
-.settValue{
-  color:rgb(56, 56, 56);
-  font-style: italic;
-  font-size: $fontSizeMain - 2;
-}
-
-.spinner{
-  width: 150px;
-  margin: 0 auto;
-  display: block;
-}
-
-.hidden{
-  width: 150px;
-  margin: 0 auto;
-  display: block;
-  visibility: hidden;
 }

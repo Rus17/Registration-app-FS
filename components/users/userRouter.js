@@ -14,7 +14,7 @@ const removeSuperadmin = require('./userController').removeSuperadmin
 
 
 //=============================== Modification user ==============================
-userRouter.put('/:userID', urlJSONParser, verifierSuperAdmin, removeSuperadmin, validator, modUser)
+userRouter.put('/:userID', urlJSONParser, verifierSuperAdmin, validator, modUser, removeSuperadmin)
 
 //=============================== Get users list  ==============================
 userRouter.get('/', urlJSONParser, verifierAdmin, getUsers)
@@ -26,6 +26,6 @@ userRouter.patch('/:id', urlJSONParser, verifierSuperAdmin, updateUser)
 userRouter.delete('/:id', verifierSuperAdmin, delUser)
 
 //=============================== Add user ===================================
-userRouter.post('/', urlJSONParser, verifierSuperAdmin, removeSuperadmin, validator, addUser)
+userRouter.post('/', urlJSONParser, verifierSuperAdmin, validator, addUser, removeSuperadmin)
 
 module.exports = userRouter

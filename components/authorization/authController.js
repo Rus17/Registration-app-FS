@@ -12,11 +12,9 @@ module.exports.authUser = (req, res, next) => {
   }
 
   const userData = [req.body.email]
-  //, req.body.passwd]
   const sql = "SELECT * FROM Users WHERE email=?"
-  // AND Passwd=?"
 
-  db.connection.query(sql, userData, (err, results, fields) => {
+  db.connection.query(sql, userData, (err, results, fields) => {    // 1. Checking the login
 
     if (err) {
       console.log("error1 :", err)
@@ -29,13 +27,12 @@ module.exports.authUser = (req, res, next) => {
       return
     }
 
-    if (results[0].Status === "blocked") { //blocked || active
+    if (results[0].status === "blocked") { //blocked || active
       res.status(403).send('Your account has been deactivated. Contact your super administrator.')
       return
     }
 
-
-    bcrypt.compare(req.body.passwd, results[0].passwd, (err, result) => {
+    bcrypt.compare(req.body.passwd, results[0].passwd, (err, result) => {   // 2. Checking the password
       if (!result) {
         console.log("error passwd")
         res.status(403).send('Invalid password')
@@ -45,6 +42,7 @@ module.exports.authUser = (req, res, next) => {
       let payload = { first_name: results[0].first_name, email: results[0].email }
 
       const dataUser = {
+        userID: results[0].userID,
         role: results[0].admin_role,
         name: results[0].first_name,
         email: results[0].email,

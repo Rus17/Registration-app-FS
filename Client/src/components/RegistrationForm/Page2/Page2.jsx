@@ -1,6 +1,6 @@
 import React from "react"
 import { Field } from 'redux-form'
-import { required, minInput, alphabetic } from '../../../utils/validators'
+import { required, minInput, title } from '../../../utils/validators'
 import { Input, Radio, InputDate } from '../../formsControl/formsControl'
 import s from "../RegistrationForm.module.scss"
 
@@ -43,7 +43,7 @@ const Page2 = ({ prevPageHandler, currentPageForm, listOfCountries }) => {
           name="company"
           placeholder="Company name"
           component={Input}
-          validate={[required, minInput, alphabetic]}
+          validate={[required, minInput, title]}
           className={s.input}
         />
 
@@ -52,7 +52,7 @@ const Page2 = ({ prevPageHandler, currentPageForm, listOfCountries }) => {
           name="position"
           placeholder="Position in company"
           component={Input}
-          validate={[required, minInput, alphabetic]}
+          validate={[required, minInput, title]}
           className={s.input}
         />
 
@@ -114,20 +114,20 @@ const Page2 = ({ prevPageHandler, currentPageForm, listOfCountries }) => {
         />
 
         <label>Country</label>
-        <Field name="country" component="select" className={s.select} >
+        <Field
+          name="country"
+          component="select"
+          className={s.select}
+        >
           <option hidden value="0" >Select</option>
           {countriesPoints}
         </Field>
       </div>
 
-      {/* <input hidden name="formName" value="reg"></input> */}
-
       <div className={s.buttonContainer}>
         <button onClick={prevPageHandler} className={s.buttonBack}>Back</button>
         <button type="submit" className={s.buttonForm}>Finish</button>
       </div>
-
-
     </>
   )
 }

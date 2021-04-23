@@ -19,7 +19,7 @@ const Page3 = ({ registrationData, currentPageForm, serverCheckError, prevPageHa
           {serverCheckError.email && <div className={s.error}>{serverCheckError.email}</div>}
           {serverCheckError.role && <div className={s.error}>{serverCheckError.role}</div>}
           {serverCheckError.country && <div className={s.error}>{serverCheckError.country}</div>}
-
+          {serverCheckError.generalError && <div className={s.error}>{serverCheckError.generalError}</div>}
         </div>
         <button onClick={prevPageHandler} className={s.buttonBack}>Back</button>
       </>

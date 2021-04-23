@@ -11,7 +11,6 @@ let initialState = {
   currentPage: 1,
   sort: "UserID",
   filter: "All",
-  // search: "",
   search: {
     // fieldName: '',
     // searchText: ''
@@ -69,8 +68,9 @@ const participantsReducer = (state = initialState, action) => {
       return {
         ...state,
         participantList: state.participantList.map((part) => {
-          if (part.UserID === action.payload.id) {
-            part.Status = action.payload.status
+
+          if (part.userID === action.payload.id) {
+            part.status = action.payload.status
           }
           return part
         })

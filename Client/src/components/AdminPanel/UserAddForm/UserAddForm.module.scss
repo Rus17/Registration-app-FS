@@ -3,65 +3,67 @@
 .userAddFormPage{
   align-self: center;
   flex-basis: 80%;
-}
 
-.userAddForm{ 
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  grid-row-gap: 5px;
-  grid-column-gap: 10px;
-  background-color:rgb(184, 218, 240);
-  border: 1px rgb(13, 31, 65) solid;
-  width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-}
+  .userAddForm{ 
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-row-gap: 5px;
+    grid-column-gap: 10px;
+    background-color:rgb(184, 218, 240);
+    border: 1px rgb(13, 31, 65) solid;
+    width: 600px;
+    margin: 0 auto;
+    padding: 20px;
 
-.attention{
-  font-weight: bold;
-  color: darkred;
-  font-size: $fontSizeMain - 2;
-}
+    .titleForm{
+      grid-column: 1/3;
+      font-size: $fontSizeMain + 6;
+      text-align: center;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
 
-.titleForm{
-  grid-column: 1/3;
-  font-size: $fontSizeMain + 6;
-  text-align: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
+    label{
+      text-align: end;
+    }
 
-.userAddForm {
-  label{
-    text-align: end;
+    button{
+      width: 120px;
+      justify-self: center;
+      height: 30px;
+    }
+
+    img{
+      justify-self: center;
+    }
+
+    .attention{
+      font-weight: bold;
+      color: darkred;
+      font-size: $fontSizeMain - 2;
+    }
+
+    .sadmin{
+      color: crimson;
+    }
+
+    .userError{
+      color: crimson;
+    }
+    
+    .link{
+      color: blue;
+      cursor: pointer;
+      text-align: end;
+      font-style: italic;
+    }
   }
 }
 
-.userAddForm {
-  button{
-    width: 120px;
-    justify-self: center;
-    height: 30px;
-  }
-}
 
-.userAddForm {
-  img{
-    justify-self: center;
-  }
-}
 
-.userError{
-  color: crimson;
-}
 
-.sa{
-  color: crimson;
-}
 
-.link{
-  color: blue;
-  cursor: pointer;
-  text-align: end;
-  font-style: italic;
-}
+
+
+

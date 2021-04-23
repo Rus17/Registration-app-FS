@@ -17,7 +17,15 @@ const customStyles = {
 
 Modal.setAppElement('#root')
 
-const ModalError = ({ forbidden, closeModal }) => {
+const ModalError = ({ forbidden, closeModal, userErrorMsg }) => {
+
+  let errorMsg = []
+
+  if (Object.keys(userErrorMsg).length) {
+    for (var key in userErrorMsg) {
+      errorMsg.push(<div key={key} className={s.title}>{key}: {userErrorMsg[key]}</div>)
+    }
+  }
 
   return (
     <div>
@@ -28,7 +36,12 @@ const ModalError = ({ forbidden, closeModal }) => {
         contentLabel="Example Modal"
       >
         <div className={s.container}>
-          <div className={s.title}>Sorry! <br />You are not authorized to perform these actions.</div>
+          {
+            errorMsg.length
+              ? errorMsg
+              : <div className={s.title}>Sorry! <br />You are not authorized to perform these actions.</div>
+          }
+
           <button onClick={closeModal} className={s.button}>Close</button>
         </div>
       </Modal>

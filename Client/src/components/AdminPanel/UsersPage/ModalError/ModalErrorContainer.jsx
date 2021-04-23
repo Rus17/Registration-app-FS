@@ -1,16 +1,17 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { forbiddenAC } from '../../../../store/actionCreators/authActionCreator'
 import ModalError from './ModalError'
+import { userErrorAC, forbiddenAC } from '../../../../store/actionCreators/usersActionCreator'
 
-const ModalErrorContainer = ({ forbidden }) => {
+const ModalErrorContainer = ({ forbidden, userErrorMsg }) => {
   const dispatch = useDispatch()
 
   const closeModal = () => {
+    dispatch(userErrorAC({}))
     dispatch(forbiddenAC(false))
   }
 
-  return <ModalError forbidden={forbidden} closeModal={closeModal} />
+  return <ModalError forbidden={forbidden} closeModal={closeModal} userErrorMsg={userErrorMsg} />
 }
 
 export default ModalErrorContainer

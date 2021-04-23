@@ -9,18 +9,12 @@ import {
 //======================= AC =======================
 //======================= Set participants list ==============
 const setParticipantsAC = (payload) => {
-  return ({
-    type: GET_PARTICIPANTS,
-    payload
-  })
+  return ({ type: GET_PARTICIPANTS, payload })
 }
 
 //======================= Set total participants count ==============
 const setTotalParticipantsCountAC = (payload) => {
-  return ({
-    type: SET_TOTAL_PARTICIPANTS_COUNT,
-    payload
-  })
+  return ({ type: SET_TOTAL_PARTICIPANTS_COUNT, payload })
 }
 
 //================= set Status Participant ===================
@@ -50,21 +44,13 @@ export const setSearchParticipantsAC = (payload) => {
 
 //================ Clear ParticipantPage =============== 
 export const clearParticipantPageAC = () => {
-  return ({
-    type: CLEAR_PARTICIPANT_PAGE
-  })
+  return ({ type: CLEAR_PARTICIPANT_PAGE })
 }
 
 //================ Set preloader =============== 
 export const setPreloaderAC = (payload) => {
-  return ({
-    type: SET_PRELOADER,
-    payload
-  })
+  return ({ type: SET_PRELOADER, payload })
 }
-
-
-
 
 
 //======================= SC =======================
@@ -76,8 +62,6 @@ export const getParticipantsSC = (payload) => {
 export const setStatusParticipantSC = (payload) => {
   return ({ type: SET_STATUS_PARTICIPANT_SAGA, payload })
 }
-
-
 
 
 //============================== Sagas ==============================
@@ -119,7 +103,8 @@ function* setStatusParticipantSaga(dataAction) {
     yield put(setPreloaderAC(false))
   }
   catch (error) {
-    console.log("error", error)
+    console.log("error: ", error)
+    yield put(setPreloaderAC(false))
   }
 }
 

@@ -1,40 +1,40 @@
 .participant_outer{  
   align-self:center;
   flex-basis: 80%;
-}
 
-.participant_inner{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-column-gap: 20px;
-  grid-row-gap: 10px;
-  background-color: rgb(253, 233, 236);
-  border: 1px brown solid;
-  padding: 20px;
-  width: 600px;
-  margin: 0 auto;
-}
+  .participant_inner{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 20px;
+    grid-row-gap: 10px;
+    background-color: rgb(253, 233, 236);
+    border: 1px brown solid;
+    padding: 20px;
+    width: 600px;
+    margin: 0 auto;
 
-.participant_inner {
-  & div:nth-child(odd){
-    text-align: end;
-    font-weight: bold;
+    & div:nth-child(odd){
+      text-align: end;
+      font-weight: bold;
+    }
+    
   }
-}
 
-.approveButton {
-  background-color: lightgreen;
-  width: 150px;
-}
+  .approveButton {
+    background-color: lightgreen;
+    width: 150px;
+  }
+  
+  .declineButton {
+    background-color: lightpink;
+    width: 150px;
+  }
+  
+  .link{
+    color: blue;
+    cursor: pointer;
+    text-align: end;
+    font-style: italic;
+  }
 
-.declineButton {
-  background-color: lightpink;
-  width: 150px;
-}
-
-.link{
-  color: blue;
-  cursor: pointer;
-  text-align: end;
-  font-style: italic;
 }

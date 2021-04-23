@@ -12,8 +12,9 @@ const Page2Container = ({ prevPageHandler }) => {
   const preloader = useSelector(state => state.conf_regPage.preloader)
 
   return <>
-    {preloader ? <img className={s.spinner} src={spinner} width="60" height="60" alt="" /> :
-      <Page2
+    {preloader
+      ? <img className={s.spinner} src={spinner} width="60" height="60" alt="" />
+      : <Page2
         prevPageHandler={prevPageHandler}
         currentPageForm={currentPageForm}
         listOfCountries={listOfCountries}

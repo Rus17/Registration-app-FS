@@ -4,7 +4,7 @@ import { required, minInput, email, alphabetic } from '../../../utils/validators
 import { Input, Email } from '../../formsControl/formsControl'
 import s from "../RegistrationForm.module.scss"
 
-const Page1 = ({ currentPageForm, firstPageHandler }) => {
+const Page1 = ({ currentPageForm, firstPageHandler, formIsValid }) => {
   return (
     <>
       <div className={s.titleForm}>
@@ -41,7 +41,7 @@ const Page1 = ({ currentPageForm, firstPageHandler }) => {
 
       <div className={s.buttonContainer}>
         <div></div>
-        <button type="submit" onClick={firstPageHandler} className={s.buttonForm}>Next</button>
+        <button onClick={firstPageHandler.bind(null, formIsValid)} className={s.buttonForm}>Next</button>
       </div>
 
     </>

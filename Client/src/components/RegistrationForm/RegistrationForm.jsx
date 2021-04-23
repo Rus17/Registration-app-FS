@@ -5,13 +5,15 @@ import Page2Container from "./Page2/Page2Container"
 import Page3Container from "./Page3/Page3Container"
 import s from "./RegistrationForm.module.scss"
 
-const RegistrationForm = ({ handleSubmit, onSubmit, nextPageHandler, prevPageHandler, currentPageForm }) => {
+const RegistrationForm = ({
+  handleSubmit, nextPageHandler, prevPageHandler, currentPageForm, valid
+}) => {
   return (
     <>
       <form action="" onSubmit={handleSubmit} className={s.registrationForm}>
 
         {currentPageForm === 1 &&
-          <Page1Container nextPageHandler={nextPageHandler} />}
+          <Page1Container nextPageHandler={nextPageHandler} formIsValid={valid} />}
 
         {currentPageForm === 2 &&
           <Page2Container prevPageHandler={prevPageHandler} />}

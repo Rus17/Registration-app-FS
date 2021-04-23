@@ -8,33 +8,20 @@ import {
 
 //======================= AC =======================
 export const setCurrentPageFormAC = (payload) => {
-  return ({
-    type: SET_CURRENT_PAGE,
-    payload
-  })
+  return ({ type: SET_CURRENT_PAGE, payload })
 }
 
 const getListOfCountriesAC = (payload) => {
-  return ({
-    type: GET_LIST_OF_COUNTRUES,
-    payload
-  })
+  return ({ type: GET_LIST_OF_COUNTRUES, payload })
 }
 
 const serverCheckErrorAC = (payload) => {
-  return ({
-    type: SERVER_CHECK_ERROR,
-    payload
-  })
+  return ({ type: SERVER_CHECK_ERROR, payload })
 }
 
 const preloaderAC = (payload) => {
-  return ({
-    type: PRELOADER,
-    payload
-  })
+  return ({ type: PRELOADER, payload })
 }
-
 
 
 //======================= SC =======================
@@ -43,10 +30,7 @@ export const getListOfCountries_SC = () => {
 }
 
 export const setParticipant_SC = (payload) => {
-  return ({
-    type: SET_PARTICIPANT_SAGA,
-    payload
-  })
+  return ({ type: SET_PARTICIPANT_SAGA, payload })
 }
 
 //============================== Sagas ==============================
@@ -75,6 +59,7 @@ function* setParticipantSaga(dataAction) {
     }
   }
   catch (error) {
+    console.log("error: ", error.response.data)
     yield put(preloaderAC(false))
     yield put(serverCheckErrorAC(error.response.data))
     yield put(setCurrentPageFormAC(3))

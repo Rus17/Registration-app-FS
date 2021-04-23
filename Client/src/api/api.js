@@ -9,8 +9,6 @@ const instance = axios.create({
   }
 })
 
-console.log("api token", getCookie("token"))
-
 
 export const conference = {
   getListOfCountriesAPI() {
@@ -49,7 +47,6 @@ export const users = {
   },
 
   updateUserAPI(payload) {
-    // console.log("api", payload)
     return instance.patch(`/users/${payload.id}`, JSON.stringify({ status: payload.status }), {
       headers: {
         'Authorization': `${getCookie("token")}`
@@ -58,7 +55,6 @@ export const users = {
   },
 
   delUserAPI(payload) {
-    // console.log("api", payload)
     return instance.delete(`/users/${payload}`, {
       headers: {
         'Authorization': `${getCookie("token")}`
@@ -78,17 +74,12 @@ export const users = {
 export const participants = {
 
   getParticipantsAPI(payload) {
-    // console.log("api", payload)
-    // console.log("payload.search.fieldName", payload.search.fieldName)
-    // console.log("payload.search.searchText", payload.search.searchText)
-
     return instance.get(
       `/participants/${payload.sort}/${payload.pageSize}/${payload.currentPage}/${payload.filter}/${payload.search.fieldName}/${payload.search.searchText}`
     )
   },
 
   setStatusParticipantAPI(payload) {
-    // console.log("api", payload)
     return instance.patch(`/participants/${payload.id}`, JSON.stringify({ status: payload.status }))
   }
 }

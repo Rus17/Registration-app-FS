@@ -3,15 +3,15 @@ const db = require('../../app')
 //======================== Get  Participants =========================
 module.exports.getParticipants = (req, res, next) => {
 
-  let order = 'ASC'                   // Указываем прямой порядок сортировка по умолчанию.
+  let order = 'ASC'                   // By default, we set the direct sort order
   let sort = req.params.sort
 
-  if (sort.slice(-4) === '!rev') {    // Проверяем, и указываем обратный порядок сортировки
+  if (sort.slice(-4) === '!rev') {    // Checking and Reversing the Sort Order
     const arrSort = sort.split('!')
     sort = arrSort[0]
     order = 'DESC'
   }
-  // ================== Определяем первую запись на текущей странице для запроса sql ==================
+  // ============== Определяем номер первой запись для текущей страницы для запроса sql ==============
   let primaryParticipant
   if (req.params.currentPage === 1) {
     primaryParticipant = req.params.currentPage--
@@ -64,7 +64,7 @@ module.exports.getParticipants = (req, res, next) => {
     }
 
     let sql2 = `SELECT COUNT(*) FROM Participants ${condition}`
-    // Делаем еще один запрос, чтобы определить, сколько всего записей в таблице по этому фильтру.
+    // Делаем еще один запрос, чтобы определить, сколько всего записей в таблице с указанными условиями (для пагинатора).
     db.connection.query(sql2, (err, resultCount, fields) => {
 
       if (err) {
@@ -83,7 +83,7 @@ module.exports.getParticipants = (req, res, next) => {
 //======================== set Participant Status =========================
 module.exports.setParticipantStatus = (req, res, next) => {
 
-  if (!req.params.id) {
+  if (!req.params.id || req.params.id === 'undefined') {
     res.status(403).send('no data')
     return
   }
@@ -105,7 +105,6 @@ module.exports.setParticipantStatus = (req, res, next) => {
     }
     res.locals.status = req.body.status
     next()
-    // res.sendStatus(200)
   })
 }
 

@@ -8,11 +8,15 @@ const EditingParticipantContainer = ({ participant, setEditMode }) => {
   const dispatch = useDispatch()
   const preloader = useSelector((state => state.participantsPage.preloader))
 
-
   const statusHandler = (payload) => {
     dispatch(setStatusParticipantSC(payload))
   }
-  return <EditingParticipant participant={participant} statusHandler={statusHandler} setEditMode={setEditMode} preloader={preloader} />
+  return (
+    <EditingParticipant
+      participant={participant} statusHandler={statusHandler}
+      setEditMode={setEditMode} preloader={preloader}
+    />
+  )
 }
 
 export default EditingParticipantContainer

@@ -4,42 +4,41 @@ import spinner from "../../../../Img/spinner2.svg"
 import s from "./EditingParticipant.module.scss"
 
 const EditingParticipant = ({ participant, statusHandler, setEditMode, preloader }) => {
-  // console.log("part", participant)
   return (
     <div className={s.participant_outer}>
       <div className={s.participant_inner}>
-        <div>ID: </div><div>{participant.UserID}</div>
-        <div>First Name: </div><div>{participant.First_Name}</div>
-        <div>Last Name: </div><div>{participant.Last_Name}</div>
-        <div>Position: </div><div>{participant.Position}</div>
-        <div>Status: </div><div>{participant.Status}</div>
-        <div>Birthdate: </div><div>{participant.Birthdate}</div>
-        <div>Company: </div><div>{participant.Company}</div>
-        <div>Country: </div><div>{participant.Country}</div>
-        <div>Date of arrival: </div><div>{participant.Date_of_arrival}</div>
-        <div>Date of departure: </div><div>{participant.Date_of_departure}</div>
-        <div>Email: </div><div>{participant.Email}</div>
-        <div>Registration date: </div><div>{participant.Registration_date}</div>
-        <div>Role: </div><div>{participant.Role}</div>
-        <div>Sex: </div><div>{participant.Sex}</div>
+        <div>ID: </div><div>{participant.userID}</div>
+        <div>First Name: </div><div>{participant.first_name}</div>
+        <div>Last Name: </div><div>{participant.last_name}</div>
+        <div>Position: </div><div>{participant.position}</div>
+        <div>Status: </div><div>{participant.status}</div>
+        <div>Birthdate: </div><div>{participant.birthdate}</div>
+        <div>Company: </div><div>{participant.company}</div>
+        <div>Country: </div><div>{participant.country}</div>
+        <div>Date of arrival: </div><div>{participant.date_of_arrival}</div>
+        <div>Date of departure: </div><div>{participant.date_of_departure}</div>
+        <div>Email: </div><div>{participant.email}</div>
+        <div>Registration date: </div><div>{participant.registration_date}</div>
+        <div>Role: </div><div>{participant.role}</div>
+        <div>Sex: </div><div>{participant.sex}</div>
 
         <div className={s.link} onClick={() => setEditMode(false)}>&#8592; Back</div>
         <div>
           {preloader ? <img src={spinner} width="150" alt="" /> : null}
 
 
-          {participant.Status === 'Approve' || preloader
+          {participant.status === 'Approve' || preloader
             ? null
             : <button
-              onClick={statusHandler.bind(null, { status: "Approve", id: participant.UserID })}
+              onClick={statusHandler.bind(null, { status: "Approve", id: participant.userID })}
               className={s.approveButton}>
               Approve
               </button>
           }
-          {participant.Status === 'Decline' || preloader
+          {participant.status === 'Decline' || preloader
             ? null
             : <button
-              onClick={statusHandler.bind(null, { status: "Decline", id: participant.UserID })}
+              onClick={statusHandler.bind(null, { status: "Decline", id: participant.userID })}
               className={s.declineButton}>
               Decline
               </button>

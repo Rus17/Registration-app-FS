@@ -1,19 +1,15 @@
 import { combineReducers, createStore, applyMiddleware, compose } from 'redux'
 import { reducer as formReducer } from 'redux-form'
 import createSagaMiddleware from 'redux-saga'
-
 import authReducer from "./reducers/authReducer"
 import { watchAuthorizationSaga } from "./actionCreators/authActionCreator"
-
 import usersReducer from "./reducers/usersReducer"
 import {
   watchUpdateUsersSaga, watchGetUsersSaga, watchModificationUserSaga,
   watchDelUserSaga, watchAddUserSaga
 } from "./actionCreators/usersActionCreator"
-
 import participantsReducer from "./reducers/participantsReducer"
 import { watchGetParticipantsSaga, watchSetStatusParticipantSaga } from "./actionCreators/participantsActionCreator"
-
 import conf_regReducer from "./reducers/conf_regReducer"
 import { watchGetListOfCountriesSaga, watchSetParticipantSaga } from "./actionCreators/conf_regActionCreators"
 

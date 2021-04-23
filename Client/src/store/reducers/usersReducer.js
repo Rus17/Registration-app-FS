@@ -1,6 +1,6 @@
 import {
   USER_MODIFICATION, CLEAR_USER_PAGE,
-  GET_USERS, UPDATE_USER_STATUS,
+  GET_USERS, UPDATE_USER_STATUS, FORBIDDEN,
   ADD_USER, USER_ERROR, USER_PAGE_PRELOADER,
   DEL_USER, SET_COMPONENT_MODE, USER_PERSONAL_PRELOADER
 } from "../actionTypes/usersTypes"
@@ -9,7 +9,8 @@ let initialState = {
   userList: [],
   userError: {},
   preloader: false,
-  componentMode: 'showUsers'     // showUsers|addUser|editUser
+  componentMode: 'showUsers',     // showUsers|addUser|editUser
+  forbidden: false                //Open/close modal window
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -96,13 +97,18 @@ const usersReducer = (state = initialState, action) => {
       return {
         ...state,
         userList: state.userList.map((user) => {
-          console.log("user.userID: ", user.userID)
-          console.log("action.userId: ", action.userId)
           if (user.userID === action.userId) {
             user.userPersonalPreloader = action.preloader
           }
           return user
         })
+      }
+    }
+
+    case FORBIDDEN: {
+      return {
+        ...state,
+        forbidden: action.payload
       }
     }
 

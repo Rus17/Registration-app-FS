@@ -32,7 +32,7 @@ const ParticipantsPageContainer = () => {
     setParticipant(participant)
   }
 
-  // Меняем значение sort в state => Срабатывает useEffect, потому что sort указан в  зависимостях => срабатывает getParticipantsSC()
+  // Change the value of "sort" in the state => useEffect starts  (because it is specified in the dependencies) - getParticipantsSC() starts
   const sortHandler = (newSort) => {
     if (sort === newSort) {
       newSort = newSort + '!rev'
@@ -71,12 +71,20 @@ const ParticipantsPageContainer = () => {
 
   return (<>
     <SidebarContainer />
-    {name
-      ? <ParticipantsPage
-        participantList={participantList} editParticipantHandler={editParticipantHandler} currentPage={currentPage}
-        sortHandler={sortHandler} numberOfPages={numberOfPages} pageClickHandler={pageClickHandler} filterHandler={filterHandler}
-        sort={sort} filter={filter} search={search} searchReset={searchReset} preloader={preloader}
-      /> : null}
+    <ParticipantsPage
+      participantList={participantList}
+      editParticipantHandler={editParticipantHandler}
+      currentPage={currentPage}
+      sortHandler={sortHandler}
+      numberOfPages={numberOfPages}
+      pageClickHandler={pageClickHandler}
+      filterHandler={filterHandler}
+      sort={sort}
+      filter={filter}
+      search={search}
+      searchReset={searchReset}
+      preloader={preloader}
+    />
   </>)
 }
 

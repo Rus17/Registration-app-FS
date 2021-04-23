@@ -14,7 +14,7 @@ async function mailSender(req, res, next) {
   //   }
   // })
 
-  //Для gmail:
+  //For gmail:
   let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -29,8 +29,8 @@ async function mailSender(req, res, next) {
     text = `You have successfully registered for the conference.
             You have provided the following data:
 
-            First Name: ${req.body.fName},
-            Last Name:  ${req.body.lName},
+            First Name: ${req.body.first_name},
+            Last Name:  ${req.body.last_name},
             Date of arrival:  ${req.body.arrivalDate},
             Date of departure:  ${req.body.departureDate},
             Company:  ${req.body.company},

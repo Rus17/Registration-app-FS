@@ -10,11 +10,11 @@ const UserAddForm = ({ handleSubmit, preloader, userError, msg, mod, initialValu
     <div className={s.userAddFormPage}>
       <form onSubmit={handleSubmit} className={s.userAddForm}>
         <div className={s.titleForm}>
-          {mod === "add" && 'Adding a new user to the database'}
-          {mod === "edit" && `Editing user ${initialValues.email}`}
+          {mod === "addUser" && 'Adding a new user to the database'}
+          {mod === "editUser" && `Editing user ${initialValues.email}`}
         </div>
-        {mod === "add" && <label> Email</label>}
-        {mod === "add" && < Field
+        {mod === "addUser" && <label> Email</label>}
+        {mod === "addUser" && < Field
           name="email"
           component={Email}
           type="email"
@@ -23,7 +23,7 @@ const UserAddForm = ({ handleSubmit, preloader, userError, msg, mod, initialValu
         />}
 
         <label>Password</label>
-        {mod === "add"
+        {mod === "addUser"
           ? <Field
             name="passwd"
             component={Input}
@@ -36,7 +36,9 @@ const UserAddForm = ({ handleSubmit, preloader, userError, msg, mod, initialValu
             component={Input}
             type="password"
             placeholder="Password"
-          />}
+            autoComplete="new-password"
+          />
+        }
 
         <label>First Name</label>
         <Field
@@ -59,7 +61,7 @@ const UserAddForm = ({ handleSubmit, preloader, userError, msg, mod, initialValu
 
         <label>Role</label>
         <div>
-          <div className={s.sa}>
+          <div className={s.sadmin}>
             <Field
               name="admin_role"
               component={Radio}
@@ -107,6 +109,7 @@ const UserAddForm = ({ handleSubmit, preloader, userError, msg, mod, initialValu
             />
           </div>
         </div>
+
         {userError && <>
           <div></div><div className={s.userError}>
             {userError.first_name} <br />
@@ -121,7 +124,7 @@ const UserAddForm = ({ handleSubmit, preloader, userError, msg, mod, initialValu
         <div className={s.link} onClick={componentModeHandler.bind(null, 'showUsers')}>&#8592; Back</div>
         {preloader
           ? <img src={spinner} height="10" alt="" />
-          : mod === "add"
+          : mod === "addUser"
             ? <button type="submit">Add user</button>
             : <button type="submit">Save</button>
         }
