@@ -1,7 +1,7 @@
 import { takeEvery, put, call } from "redux-saga/effects"
 import { auth } from "../../api/api"
 import {
-  AUTHORIZATION_SAGA, FORBIDDEN, PRELOADER,
+  AUTHORIZATION_SAGA, PRELOADER,
   AUTHORIZATION_ADMIN, LOGOUT, AUTH_ERROR
 } from "../actionTypes/authTypes"
 
