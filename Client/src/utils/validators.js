@@ -21,7 +21,6 @@ export const email = value => {
 }
 
 export const alphabetic = value => {
-  // console.log("alphabetic", value && /[^a-z]/i.test(value))
   if (value && /[^a-z]/i.test(value)) {
     return 'Alphabetic characters only'
   }
