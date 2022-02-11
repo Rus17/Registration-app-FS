@@ -20,7 +20,7 @@
     "validator": "^13.0.0"
   },
   "devDependencies": {
-    "node-sass": "^5.0.0",
+    "node-sass": "^7.0.0",
     "nodemon": "^2.0.6"
   }
 }
